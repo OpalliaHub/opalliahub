@@ -1,0 +1,114 @@
+{
+  "python": "3.8.10",
+  "platform": "Darwin",
+  "snapshot_sha256": "1a76486ce729b888b89339dce03c4a35d7e7ee1727cb95db59fdde2565391922",
+  "resume": "Bundled fictional demo_resume.txt",
+  "jobs": 6910,
+  "unique_urls": 6910,
+  "missing_salary": 5465,
+  "missing_location": 0,
+  "no_dictionary_skills": 1249,
+  "expired_at_snapshot": 2,
+  "top_locations": [
+    [
+      "Hong Kong SAR",
+      1612
+    ],
+    [
+      "Hong Kong Island",
+      366
+    ],
+    [
+      "Kowloon Bay, Kwun Tong District",
+      280
+    ],
+    [
+      "Central and Western District",
+      276
+    ],
+    [
+      "Kwun Tong, Kwun Tong District",
+      237
+    ],
+    [
+      "Kowloon",
+      162
+    ],
+    [
+      "Tsim Sha Tsui, Yau Tsim Mong District",
+      159
+    ],
+    [
+      "Sha Tin District",
+      154
+    ],
+    [
+      "Central, Central and Western District",
+      152
+    ],
+    [
+      "Kwun Tong District",
+      146
+    ]
+  ],
+  "runtime_seconds": [
+    4.0517,
+    4.0059,
+    4.0634
+  ],
+  "median_runtime_seconds": 4.0517,
+  "top_10": [
+    {
+      "id": "jobsdb-94307414",
+      "title": "Business Intelligence Intern",
+      "score": 51.8
+    },
+    {
+      "id": "jobsdb-93763536",
+      "title": "Analyst Programmer / Programmer",
+      "score": 50.7
+    },
+    {
+      "id": "jobsdb-94835134",
+      "title": "Associate QA Engineer",
+      "score": 47.8
+    },
+    {
+      "id": "jobsdb-94837965",
+      "title": "Associate QA Engineer",
+      "score": 47.8
+    },
+    {
+      "id": "jobsdb-94864581",
+      "title": "Industrial Software R&D Engineer",
+      "score": 45.4
+    },
+    {
+      "id": "jobsdb-94828872",
+      "title": "電氣工程師（Fresh Graduates Only）",
+      "score": 45.2
+    },
+    {
+      "id": "jobsdb-94421451",
+      "title": "AI Investment‑Research System Develop (full time/intern)",
+      "score": 45.0
+    },
+    {
+      "id": "jobsdb-94734133",
+      "title": "Technical System Analyst",
+      "score": 44.8
+    },
+    {
+      "id": "jobsdb-74049217",
+      "title": "Senior / IC Design Engineer - Analog Design",
+      "score": 44.4
+    },
+    {
+      "id": "jobsdb-94364516",
+      "title": "Game Developer/Designer",
+      "score": 44.4
+    }
+  ],
+  "relevance_metrics": null,
+  "limitations": "No human resume-job relevance labels; precision, recall, NDCG and hiring probability are not measured. One snapshot, one fictional resume, no fairness or geographic representativeness claim. Timing depends on hardware; historical jobs may be closed."
+}
