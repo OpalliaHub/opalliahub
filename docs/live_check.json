@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-09-30T08:05:35+00:00",
+  "results": {
+    "Remotive": {
+      "status": "ok",
+      "result": {
+        "source": "Remotive",
+        "count": 16,
+        "message": "采集完成，16 条岗位已新增或更新。"
+      }
+    },
+    "Arbeitnow": {
+      "status": "ok",
+      "result": {
+        "source": "Arbeitnow",
+        "count": 325,
+        "message": "采集完成，325 条岗位已新增或更新。"
+      }
+    },
+    "DeepSeek": {
+      "status": "ok",
+      "model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 374,
+        "completion_tokens": 1023,
+        "total_tokens": 1397,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 125
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 374
+      }
+    }
+  }
+}

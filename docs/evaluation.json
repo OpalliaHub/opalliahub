@@ -1,0 +1,32 @@
+{
+  "python": "3.8.10",
+  "fixture": "12 author-labelled synthetic jobs; not a real hiring evaluation",
+  "precision_at_4": 1.0,
+  "relevant_labels": [
+    "Junior Data Analyst",
+    "Python 开发实习生",
+    "QA Automation Intern",
+    "数据分析实习生"
+  ],
+  "top_4": [
+    {
+      "title": "数据分析实习生",
+      "score": 66.5
+    },
+    {
+      "title": "Python 开发实习生",
+      "score": 65.7
+    },
+    {
+      "title": "Junior Data Analyst",
+      "score": 58.0
+    },
+    {
+      "title": "QA Automation Intern",
+      "score": 57.5
+    }
+  ],
+  "benchmark_jobs": 1200,
+  "benchmark_seconds": 0.0548,
+  "limitations": "Synthetic labels and handcrafted cases only. No evidence of calibrated probability or real-world fairness/accuracy."
+}

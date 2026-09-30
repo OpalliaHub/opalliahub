@@ -1,0 +1,225 @@
+[
+  {
+    "title": "Python 开发实习生",
+    "company": "星屿科技（示例）",
+    "location": "深圳",
+    "salary": "¥150–250 / 天",
+    "description": "使用 Python 和 Flask 开发数据管理接口，编写 SQL 查询与单元测试。本科在读，接受应届生。\n技能要求：Python Flask SQL Git Testing",
+    "skills": [
+      "Python",
+      "SQL",
+      "Flask",
+      "Git",
+      "Testing"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "Junior Data Analyst",
+    "company": "Harbour Analytics（示例）",
+    "location": "Hong Kong 香港",
+    "salary": "HK$18,000–25,000 / 月",
+    "description": "Analyze business datasets using Python, Pandas and SQL. Build Excel reports. Bachelor degree. Entry level, English communication.\n技能要求：Python SQL Pandas Excel English",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "Excel",
+      "English"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "数据分析实习生",
+    "company": "云帆数据（示例）",
+    "location": "深圳",
+    "salary": "¥180–220 / 天",
+    "description": "使用 Python Pandas NumPy 完成数据清洗与统计分析，通过 SQL 查询业务数据并制作 Excel 报表。本科，应届生。\n技能要求：Python Pandas NumPy SQL Excel",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "NumPy",
+      "Excel"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "后端开发工程师",
+    "company": "松塔软件（示例）",
+    "location": "上海",
+    "salary": "¥15,000–25,000 / 月",
+    "description": "负责 Python FastAPI 服务开发，使用 Redis 缓存、SQL 数据库与 Docker 部署，要求本科与 3 年工作经验。\n技能要求：Python FastAPI Docker Redis SQL",
+    "skills": [
+      "Python",
+      "SQL",
+      "FastAPI",
+      "Docker",
+      "Redis"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "Machine Learning Engineer",
+    "company": "Orbit AI（示例）",
+    "location": "Singapore",
+    "salary": "薪资面议",
+    "description": "Build machine learning pipelines with Python and PyTorch. Deploy on AWS using Docker. Master degree and 3 years experience required.\n技能要求：Python PyTorch Machine Learning Docker AWS",
+    "skills": [
+      "Python",
+      "Machine Learning",
+      "PyTorch",
+      "Docker",
+      "AWS"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "前端开发实习生",
+    "company": "薄荷互动（示例）",
+    "location": "广州",
+    "salary": "¥150–200 / 天",
+    "description": "使用 React TypeScript JavaScript 编写前端页面，掌握 HTML CSS 与 Git，本科在读应届生。\n技能要求：JavaScript TypeScript React HTML/CSS Git",
+    "skills": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "HTML/CSS",
+      "Git"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "数据工程师",
+    "company": "青石科技（示例）",
+    "location": "北京",
+    "salary": "¥20,000–35,000 / 月",
+    "description": "构建 Python SQL Spark 数据管道，使用 Docker 和 Linux 部署，本科，3–5年工作经验。\n技能要求：Python SQL Spark Docker Linux",
+    "skills": [
+      "Python",
+      "SQL",
+      "Docker",
+      "Linux",
+      "Spark"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "QA Automation Intern",
+    "company": "Pearl Software（示例）",
+    "location": "Hong Kong 香港",
+    "salary": "HK$12,000–16,000 / 月",
+    "description": "Write Python unittest and pytest suites, use SQL to validate data and Git to review changes. Bachelor degree, internship. English required.\n技能要求：Python Testing Git SQL English",
+    "skills": [
+      "Python",
+      "SQL",
+      "Git",
+      "Testing",
+      "English"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "AI 应用开发实习生",
+    "company": "知序智能（示例）",
+    "location": "深圳",
+    "salary": "¥200–300 / 天",
+    "description": "使用 Python FastAPI 与大模型 LLM 构建 RAG 应用，使用 Git 管理代码。本科应届生。\n技能要求：Python LLM FastAPI Git",
+    "skills": [
+      "Python",
+      "LLM",
+      "FastAPI",
+      "Git"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  },
+  {
+    "title": "Business Intelligence Analyst",
+    "company": "Northwind Demo（示例）",
+    "location": "Worldwide",
+    "salary": "$45,000–60,000 / 年",
+    "description": "Use SQL, Power BI and Excel to deliver business reporting and statistics. Bachelor degree, 1 year experience.\n技能要求：SQL Power BI Excel Statistics",
+    "skills": [
+      "SQL",
+      "Excel",
+      "Power BI",
+      "Statistics"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": true
+  },
+  {
+    "title": "Senior Python Engineer",
+    "company": "Atlas Demo（示例）",
+    "location": "United States",
+    "salary": "$140,000–180,000 / 年",
+    "description": "Develop Python Django services with SQL and AWS Kubernetes. 6 years experience required. Remote within United States only.\n技能要求：Python Django AWS Kubernetes SQL",
+    "skills": [
+      "Python",
+      "SQL",
+      "Django",
+      "Kubernetes",
+      "AWS"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": true
+  },
+  {
+    "title": "产品设计实习生",
+    "company": "纸飞机设计（示例）",
+    "location": "杭州",
+    "salary": "¥160–220 / 天",
+    "description": "使用 Figma 设计产品原型，进行用户访谈和沟通。本科在读，欢迎应届生。\n技能要求：Figma Communication",
+    "skills": [
+      "Communication",
+      "Figma"
+    ],
+    "source": "课程示例",
+    "url": "",
+    "published_at": "",
+    "is_demo": true,
+    "remote": false
+  }
+]

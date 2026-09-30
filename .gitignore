@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.venv/
+.idea/
+__pycache__/
+*.pyc
+data/*.db*
+data/live_*
+output/
+dist/
+data/raw/
+data/private/
+.DS_Store
+*.zip
+
+.chart-data-*/

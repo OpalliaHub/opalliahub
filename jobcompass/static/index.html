@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JobCompass · 智能求职工作台</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<aside class="sidebar">
+<a class="brand" href="/" aria-label="JobCompass 首页">
+<span class="logo">✳</span>
+<span>JobCompass<small>让下一步，更有方向</small>
+</span>
+</a>
+<div class="nav-caption">你的求职空间</div>
+<nav aria-label="主导航">
+<button class="nav active" data-page="discover">
+<span>◈</span> 岗位发现 <i>01</i>
+</button>
+<button class="nav" data-page="resume">
+<span>▤</span> 我的简历 <i>02</i>
+</button>
+<button class="nav" data-page="sources">
+<span>◎</span> 数据工作台 <i>03</i>
+</button>
+<button class="nav" data-page="tracker">
+<span>▦</span> 投递看板 <i>04</i>
+</button>
+</nav>
+<div class="sidebar-bottom">
+<div class="status-dot">
+</div>本地工作空间<small>简历与记录保存在这台电脑</small>
+<div class="course-label">INT6181 · PYTHON PROJECT</div>
+</div>
+</aside>
+<main>
+<header class="topbar">
+<span id="breadcrumb">工作空间 / 岗位发现</span>
+<span class="local-badge">LOCAL FIRST <span>●</span>
+</span>
+</header>
+<section id="discover" class="page active">
+<div class="page-heading">
+<div>
+<div class="eyebrow">FIND YOUR NEXT CHAPTER</div>
+<h1>好机会，从了解你开始<span>。</span>
+</h1>
+<p>把经历变成优势，找到值得迈出的下一步。</p>
+</div>
+<button class="button primary" data-go="resume">完善我的简历 <span>↗</span>
+</button>
+</div>
+<div id="welcome" class="welcome">
+<div>
+<b>从一份简历，开始探索</b>
+<p>上传你的简历，或用虚构示例体验可解释的岗位匹配。</p>
+</div>
+<button class="button dark" id="demo-start">体验示例匹配 ↗</button>
+</div>
+<div class="stats" id="stats">
+</div>
+<div class="workspace-grid">
+<div>
+<div class="section-title">
+<h2>为你发现的机会 <span id="job-count">
+</span>
+</h2>
+<a href="/api/export" download="JobCompass岗位.csv" class="text-link">导出岗位 ↗</a>
+</div>
+<div class="filters">
+<input id="search" type="search" placeholder="搜索岗位、公司或技能" aria-label="搜索岗位">
+<select id="source-filter" aria-label="筛选来源">
+<option value="">所有来源</option>
+</select>
+<select id="location-filter" aria-label="筛选地区">
+<option value="">所有地区</option>
+</select>
+<select id="sort" aria-label="排序">
+<option value="score">匹配度优先</option>
+<option value="recent">最近采集</option>
+</select>
+</div>
+<div class="filter-line">
+<label>
+<input type="checkbox" id="real-only"> 仅看真实来源</label>
+<span id="ranking-hint">保存简历后可查看匹配度</span>
+</div>
+<div id="job-list" class="job-list">
+</div>
+<button class="button secondary load-more" id="load-more" hidden>加载更多岗位</button>
+</div>
+<aside class="insights">
+<div class="panel profile-panel">
+<div class="panel-heading">你的竞争力画像 <span>✧</span>
+</div>
+<div class="avatar">YOU</div>
+<h3 id="profile-title">等待认识你</h3>
+<p id="profile-subtitle">添加简历，提取你已有的技能与经历。</p>
+<div id="profile-skills" class="tags">
+</div>
+<button class="button secondary full" data-go="resume">管理简历 →</button>
+</div>
+<div class="panel">
+<div class="panel-heading">分数如何计算？</div>
+<p class="muted">技能契合 45% · 文本相关 25%<br>经验 15% · 地区 10% · 学历 5%</p>
+<p class="small muted">技能采用加权 F1，通用能力降低权重。缺失条件不计分，其余权重归一化。匹配分用于排序，不代表录用概率。</p>
+<div class="mini-divider">
+</div>
+<span class="source-note">公开数据有地区与时效限制，请在原站核实应聘条件。</span>
+</div>
+</aside>
+</div>
+</section>
+<section id="resume" class="page">
+<div class="page-heading">
+<div>
+<div class="eyebrow">YOUR STORY, CLEARER</div>
+<h1>让每段经历，都有分量<span>。</span>
+</h1>
+<p>先提取事实，再用 AI 打磨表达。原始简历始终由你掌握。</p>
+</div>
+<button class="button secondary" id="demo-resume">填入示例简历</button>
+</div>
+<div class="two-col">
+<div class="panel">
+<div class="section-title">
+<h2>简历编辑器</h2>
+<label class="button secondary file-label">导入文件<input id="resume-file" type="file" accept=".pdf,.docx,.txt,.md" hidden>
+</label>
+</div>
+<p class="muted small">支持 TXT、DOCX、文字型 PDF，最大 5 MB。扫描 PDF 请先转为文字。</p>
+<textarea id="resume-text" placeholder="粘贴你的教育背景、技能、项目与工作经历……" rows="19" aria-label="简历正文">
+</textarea>
+<div class="action-row">
+<button class="button primary" id="save-resume">保存并分析</button>
+<button class="button subtle" id="clear-resume">清除简历数据</button>
+<span id="char-count" class="muted small">0 字符</span>
+</div>
+</div>
+<div>
+<div class="panel">
+<h2>求职偏好</h2>
+<label class="field">希望工作的地区<input id="pref-location" placeholder="例如：香港, Hong Kong, 深圳">
+</label>
+<label class="field">实际工作经验（年）<input id="pref-years" type="number" min="0" max="50" step="0.5" placeholder="留空则从简历识别">
+</label>
+<button class="button secondary" id="save-prefs">更新匹配条件</button>
+<p class="small muted">远程岗位仍可能有地域要求。地区词按文本匹配，建议同时填写中英文地名。</p>
+</div>
+<div class="panel">
+<h2>本地分析结果</h2>
+<div id="resume-analysis" class="muted">保存简历后，这里会展示技能证据与改进建议。</div>
+</div>
+</div>
+</div>
+<div class="panel ai-panel">
+<div class="section-title">
+<div>
+<div class="eyebrow">POWERED BY DEEPSEEK</div>
+<h2>AI 简历顾问</h2>
+</div>
+<span id="ai-status" class="pill">检查配置中</span>
+</div>
+<p class="muted">提炼优势、改进表达，保留真实经历。润色结果作为独立草稿，不会覆盖你的简历。</p>
+<label class="consent">
+<input id="ai-consent" type="checkbox"> 我同意将简历内容发送至 DeepSeek 进行本次分析（常见邮箱、内地手机号与证件号会先遮盖；姓名及其他信息仍可能保留）。</label>
+<div class="action-row">
+<button class="button dark" id="ai-analyze">✧ 提炼我的优势</button>
+<button class="button secondary" id="ai-polish">润色简历</button>
+</div>
+<div id="ai-result" class="ai-result">
+</div>
+</div>
+</section>
+<section id="sources" class="page">
+<div class="page-heading">
+<div>
+<div class="eyebrow">MORE SOURCES, MORE POSSIBILITIES</div>
+<h1>机会，汇集到一处<span>。</span>
+</h1>
+<p>公开招聘源、网页结构化采集与手动导入，共享同一套匹配流程。</p>
+</div>
+</div>
+<div class="source-grid">
+<article class="panel source-card">
+<div class="source-icon coral">R</div>
+<h2>Remotive</h2>
+<p>全球远程岗位。部分职位限制国家或地区，公开列表有 24 小时延迟。</p>
+<div class="source-bottom">
+<a href="https://remotive.com" target="_blank" rel="noopener noreferrer">访问来源 ↗</a>
+<button class="button primary collect" data-source="Remotive">同步岗位</button>
+</div>
+</article>
+<article class="panel source-card">
+<div class="source-icon blue">A</div>
+<h2>Arbeitnow</h2>
+<p>以欧洲地区为主的公开岗位，涵盖工程、数据与业务职位。</p>
+<div class="source-bottom">
+<a href="https://www.arbeitnow.com" target="_blank" rel="noopener noreferrer">访问来源 ↗</a>
+<button class="button primary collect" data-source="Arbeitnow">同步岗位</button>
+</div>
+</article>
+</div>
+<p class="small muted">每个公开 API 的采集尝试间隔为 6 小时。已保存的岗位可随时离线检索，采集不会上传简历。</p>
+<div class="two-col">
+<div class="panel">
+<h2>公开网页采集</h2>
+<p class="muted">粘贴单个岗位页面，提取 JobPosting JSON-LD。遵守 robots.txt，不支持需要登录或验证码的页面。</p>
+<label class="field">岗位页面 HTTPS 地址<input id="page-url" type="url" placeholder="https://example.com/careers/job">
+</label>
+<button id="collect-page" class="button secondary">采集网页</button>
+<div class="mini-divider">
+</div>
+<h3>导入已有岗位文件</h3>
+<p class="small muted">CSV／JSON 字段：title、company、description，其他字段可选。也支持包含结构化岗位的 HTML。</p>
+<label class="button secondary file-label">选择 CSV / JSON / HTML<input id="jobs-file" type="file" accept=".csv,.json,.html,.htm" hidden>
+</label>
+</div>
+<div class="panel">
+<h2>手动添加岗位</h2>
+<div class="form-grid">
+<label class="field">岗位名称<input id="manual-title" placeholder="Python 开发实习生">
+</label>
+<label class="field">公司<input id="manual-company" placeholder="公司名称">
+</label>
+<label class="field">地区<input id="manual-location" placeholder="香港 / 深圳">
+</label>
+<label class="field">薪资原文<input id="manual-salary" placeholder="例如 HK$20,000 / 月">
+</label>
+</div>
+<label class="field">原始岗位链接<input id="manual-url" placeholder="https://...">
+</label>
+<label class="field">岗位描述<textarea id="manual-description" rows="4" placeholder="粘贴职责、技能和任职要求，至少 15 字符">
+</textarea>
+</label>
+<button id="manual-save" class="button primary">加入岗位库</button>
+</div>
+</div>
+<div class="panel">
+<h2>采集记录</h2>
+<div id="collection-logs">
+</div>
+</div>
+</section>
+<section id="tracker" class="page">
+<div class="page-heading">
+<div>
+<div class="eyebrow">ONE STEP AT A TIME</div>
+<h1>每次尝试，都有迹可循<span>。</span>
+</h1>
+<p>记录收藏、投递与面试进展。点击岗位卡片更新状态和备注。</p>
+</div>
+</div>
+<div id="board" class="board">
+</div>
+</section>
+<footer>JobCompass <span>·</span> 用 Python 构建的智能求职工作空间 <span>·</span> 课程示例岗位均为虚构</footer>
+</main>
+<dialog id="job-dialog">
+<button id="close-dialog" class="close" aria-label="关闭详情">×</button>
+<div id="job-detail">
+</div>
+</dialog>
+<div id="toast" role="status" aria-live="polite">
+</div>
+<div id="task-tray" aria-live="polite">
+</div>
+<script src="/app.js">
+</script>
+</body>
+</html>

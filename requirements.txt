@@ -1,0 +1,4 @@
+# Core GUI, API collection, matching, SQLite and DOCX/TXT work on the standard library.
+# Optional PDF extraction and a maintained HTTPS CA bundle:
+pypdf>=5.0,<6.0; python_version >= '3.8'
+certifi>=2025.1.31
