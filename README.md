@@ -4,6 +4,8 @@ INT6181 Applied Programming with Python course project.
 
 **Team:** OU JUNHANG, ZHANG XIQIAN, JIANG YIFAN, CAI SHANGHENG, GUO ZHENGKUN.
 
+Revised **30 September 2026**. Classroom documents, screenshots and speaker notes now reflect the JobsDB benchmark and corrected launch procedure.
+
 ## Download and run
 
 [Download the complete project ZIP](group11_project.zip?raw=true) and extract it. All source code, tests, documentation and the normalized research dataset are inside `group11_project/`. This repository currently distributes a complete source archive; the Python modules are inside the ZIP.
@@ -17,7 +19,7 @@ cp .env.example .env
 python main.py
 ```
 
-Open http://127.0.0.1:8765. On Windows use `.venv\Scripts\python` instead of activating with the Unix command. The offline core works without a DeepSeek key. To enable AI assistance, put your own key in the local `.env` file. No API key or personal resume database is distributed.
+Start the Python service first, then open http://127.0.0.1:8765/. Opening `static/index.html` directly only provides launch guidance; GitHub is a download location, not the running application. On Windows use `.venv\Scripts\python` instead of activating with the Unix command. The offline core works without a DeepSeek key. To enable AI assistance, put your own key in the local `.env` file. No API key or personal resume database is distributed.
 
 ## Features
 
@@ -45,7 +47,12 @@ Only the selected normalized snapshot is bundled. Raw OneDrive archives, other w
 ## Course materials
 
 - [English Project Proposal](Group11_Project_Proposal.docx)
-- [Five-slide presentation](group11_presentation.pptx)
+- [Complete classroom material bundle](group11_course_submission.zip?raw=true)
+- [Five-slide presentation with English speaker notes](group11_presentation.pptx)
+- [English Project Report](Group11_Project_Report.docx)
+- [Five-minute script and fifteen-minute video guide](Group11_Demo_Guide.docx)
+- [Individual report draft (Word)](Group11_Individual_Report_Draft.docx) / [PDF](Group11_Individual_Report_Draft.pdf)
+- [Submission checklist](COURSE_CHECKLIST.md)
 - Source archive: specifications, code review, references, demo guide, individual-report draft and tests.
 
 The implementation was generated and tested with AI assistance. Members must verify the work, record their own actual contributions and complete their own presentation/individual-report requirements. The package includes a GitHub Actions workflow for a source-tree checkout; it does not run while stored only inside the ZIP. No cloud CI pass is claimed.
