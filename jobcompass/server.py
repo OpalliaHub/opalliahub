@@ -18,6 +18,7 @@ from .matching import rank_jobs
 from .resume import parse_resume, extract_file
 from .sources import collect_api, collect_page, import_jobs, normalize
 from .storage import Store
+from .benchmark import import_snapshot
 
 
 class Tasks:
@@ -127,6 +128,8 @@ class Application:
         if path == '/api/collect':
             source = str(body.get('source', ''))
             return self.tasks.submit('采集 ' + source, lambda: collect_api(source, self.store))
+        if path == '/api/benchmark/import':
+            return self.tasks.submit('导入 JobsDB 研究快照', lambda: import_snapshot(self.store))
         if path == '/api/collect/page':
             url = str(body.get('url', ''))
             return self.tasks.submit('网页采集', lambda: collect_page(url, self.store))

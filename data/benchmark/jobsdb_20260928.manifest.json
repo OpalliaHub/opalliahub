@@ -1,0 +1,24 @@
+{
+  "source_archive": "20260928112455_6939.zip",
+  "archive_sha256": "5a4301f40648f195edcbc97e6de3022f4f162f7c8ff0565a9b093979d9948c69",
+  "normalized_sha256": "46413022bbff459f7a7af2e5272feaa9d2c341c1875a5c238d3f3aeb422a1b7b",
+  "source": "JobsDB research snapshot 2026-09-28",
+  "counts": {
+    "input_records": 6939,
+    "rejected_records": 29,
+    "accepted_unique_records": 6910
+  },
+  "rejection_reasons": {
+    "invalid_schema_or_required_fields": 29
+  },
+  "labels_available": false,
+  "transformations": [
+    "HTML converted to plain text",
+    "tracking URL parameters removed",
+    "only job fields retained; no phoneNumber/contactMatches/tracking/questionnaire objects",
+    "email addresses and Hong Kong phone-like numbers masked (heuristic, can overmask)",
+    "deduplicated by numeric JobsDB ID",
+    "no inferred relevance labels"
+  ],
+  "scope": "One user-provided research snapshot. No live JobsDB API request."
+}

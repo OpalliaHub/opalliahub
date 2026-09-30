@@ -7,6 +7,7 @@ from pathlib import Path
 from jobcompass.config import DB_PATH
 from jobcompass.server import Application, make_server
 from jobcompass.sources import collect_api
+from jobcompass.benchmark import import_snapshot
 
 
 def main():
@@ -14,6 +15,7 @@ def main():
     parser.add_argument('--port', type=int, default=8765, help='本机网页端口，默认 8765')
     parser.add_argument('--db', type=Path, default=DB_PATH, help='SQLite 数据库路径')
     parser.add_argument('--collect', choices=['Remotive', 'Arbeitnow'], help='采集公开岗位后退出')
+    parser.add_argument('--import-benchmark', action='store_true', help='导入随附 JobsDB 研究快照后退出')
     parser.add_argument('--match', type=Path, help='用 TXT 简历执行 CLI 匹配后退出')
     parser.add_argument('--no-browser', action='store_true', help='不自动打开浏览器')
     args = parser.parse_args()
@@ -21,6 +23,9 @@ def main():
         parser.error('端口必须在 1 至 65535 之间。')
     app = Application(args.db)
     try:
+        if args.import_benchmark:
+            print(json.dumps(import_snapshot(app.store), ensure_ascii=False, indent=2))
+            return 0
         if args.collect:
             print(json.dumps(collect_api(args.collect, app.store), ensure_ascii=False, indent=2))
             return 0

@@ -59,7 +59,13 @@ Windows：`py -m venv .venv`，然后 `.venv\Scripts\python -m pip install -r re
 
 没有实现 BOSS直聘、猎聘、智联等平台的登录态抓包、验证码处理或受限接口采集。它们的岗位可通过授权导出或手动录入使用。网页若不含 JobPosting 或 robots.txt 不可读取，会明确失败。使用 Fake-IP 代理的本机，通用网页安全检查可能拒绝其保留网段地址；固定官方 API 适配器支持本机代理路由，HTTPS 证书校验始终开启。
 
-历史岗位保留在本机；同步执行新增／更新，不自动删除已下线岗位。是否仍招聘、时区、居住地、签证和薪资必须在原站核实。不同币种与月薪／年薪只显示原文，不直接换算或比较。Remotive 的公开职位有约 24 小时延迟。公开数据不会随课程源码包分发。
+历史岗位保留在本机；同步执行新增／更新，不自动删除已下线岗位。是否仍招聘、时区、居住地、签证和薪资必须在原站核实。不同币种与月薪／年薪只显示原文，不直接换算或比较。Remotive 的公开职位有约 24 小时延迟。在线采集到的完整岗位库不会随源码包分发；本项目另附一批用户提供、经过清洗的 JobsDB 研究快照，详见下文。
+
+## JobsDB 研究数据与 benchmark
+
+随附 2026-09-28 快照：6,939 条输入记录中 6,910 条通过校验。数据工作台点击「导入本地研究快照」，或运行 `python main.py --import-benchmark`，将其中 6,908 条未在快照时标记过期的岗位导入本机。所有岗位均为历史研究数据，需在原站核实招聘状态。
+
+运行 `python scripts/benchmark_jobsdb.py` 可复现数据质量与完整排序耗时评估。当前没有人工相关性标签，因此不报告真实数据的匹配准确率。数据来源、清洗规则、校验和、范围与限制见 [benchmark 说明](docs/BENCHMARK.md) 和 [实测结果](docs/benchmark_jobsdb.json)。原始 OneDrive 压缩包和其他课程文件不随项目打包。
 
 ## 匹配方法
 
@@ -83,7 +89,7 @@ python -m compileall -q main.py jobcompass
 
 手动网络冒烟测试：`python scripts/check_live.py`。它会采集真实岗位，并向 DeepSeek 发送虚构示例简历，产生一次真实 API 调用。结果写入 `docs/live_check.json`。不要把这项有外部副作用的测试放入 CI。
 
-GitHub Actions 配置在 `.github/workflows/tests.yml`，准备对 Python 3.8、3.11、3.13 运行离线检查。当前只验证了本机 Python 3.8.10，尚未发布到 GitHub 或声称云端 CI 已通过。
+GitHub Actions 配置在 `.github/workflows/tests.yml`，准备对 Python 3.8、3.11、3.13 运行离线检查。当前只验证了本机 Python 3.8.10，云端 CI 状态以仓库 Actions 实际记录为准。
 
 ## CLI 与目录
 

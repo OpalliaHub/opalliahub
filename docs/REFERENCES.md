@@ -16,3 +16,7 @@
 TF-IDF、余弦相似度与 F1 为通用信息检索／评估方法，本项目使用标准库自行实现，没有训练自定义大模型。各权重为课程项目设计选择，尚未基于真实招聘结果校准。
 
 AI 使用披露：Codex 协助规格设计、业务代码、测试、UI、代码审查与文档；DeepSeek 作为程序运行时的可选简历顾问。实测只发送虚构简历。生成内容需要小组成员理解、复核并据实说明贡献。
+
+## User-provided research data
+
+JobsDB snapshot `20260928112455_6939.zip`, supplied by Group 11 through its OneDrive collection; original postings linked individually at https://hk.jobsdb.com/. Normalization and limitations: `docs/BENCHMARK.md`. No cloud access link, credentials or unrelated teaching material is included.

@@ -12,6 +12,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--group',default='11');args=parser.parse_args()
     if not args.group.isalnum():parser.error('组号只接受字母或数字')
     files=[ROOT/name for name in ALLOWED_FILES]+[ROOT/'data'/name for name in DEMO_FILES]
+    files.extend(ROOT/'data'/'benchmark'/name for name in ['jobsdb_20260928.json.gz','jobsdb_20260928.manifest.json'])
     for folder in ALLOWED_DIRS:
         files.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.zip') and not p.name.startswith('.'))
     output=ROOT/'dist';output.mkdir(exist_ok=True)
