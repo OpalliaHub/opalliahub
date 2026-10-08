@@ -1,0 +1,175 @@
+{
+  "version": "1.2.0",
+  "verified_date_hong_kong": "2026-10-08",
+  "offline_tests": 120,
+  "source_mode": "read-only longitudinal SQLite",
+  "indexed_first_ads": 251042,
+  "valid_observations": 896503,
+  "dated_snapshots": 67,
+  "probes": 36,
+  "reference_comparison": [
+    {
+      "n": 19109,
+      "mentions": 1423,
+      "period": "A",
+      "start": "2025-03-01",
+      "end": "2025-04-30",
+      "share_pct": 7.4468
+    },
+    {
+      "n": 15069,
+      "mentions": 1523,
+      "period": "B",
+      "start": "2026-03-01",
+      "end": "2026-04-30",
+      "share_pct": 10.1068
+    }
+  ],
+  "difference_pp": 2.66,
+  "operations": {
+    "overview": {
+      "population_n": 132459,
+      "returned_rows": 3,
+      "elapsed_seconds": 1.0
+    },
+    "skills": {
+      "population_n": 132459,
+      "returned_rows": 36,
+      "elapsed_seconds": 0.244
+    },
+    "trend": {
+      "population_n": 132459,
+      "returned_rows": 20,
+      "elapsed_seconds": 0.202
+    },
+    "compare": {
+      "population_n": 132459,
+      "returned_rows": 2,
+      "elapsed_seconds": 0.185
+    },
+    "pairs": {
+      "population_n": 132459,
+      "returned_rows": 10,
+      "elapsed_seconds": 0.949
+    },
+    "sample": {
+      "population_n": 132459,
+      "returned_rows": 10,
+      "elapsed_seconds": 0.126
+    },
+    "forecast": {
+      "population_n": 132459,
+      "returned_rows": 5,
+      "elapsed_seconds": 1.291
+    },
+    "dataset": {
+      "population_n": 1030,
+      "returned_rows": 10,
+      "elapsed_seconds": 0.096
+    }
+  },
+  "forecast": [
+    {
+      "month": "2026-02",
+      "n": 5747,
+      "actual_pct": 10.1966,
+      "last_mature_month": "2025-11",
+      "last_pct": 9.8775,
+      "mean3_pct": 9.7241,
+      "last_abs_error_pp": 0.3191,
+      "mean3_abs_error_pp": 0.4725
+    },
+    {
+      "month": "2026-03",
+      "n": 7813,
+      "actual_pct": 10.2649,
+      "last_mature_month": "2025-12",
+      "last_pct": 10.6746,
+      "mean3_pct": 10.0933,
+      "last_abs_error_pp": 0.4096,
+      "mean3_abs_error_pp": 0.1716
+    },
+    {
+      "month": "2026-04",
+      "n": 7256,
+      "actual_pct": 9.9366,
+      "last_mature_month": "2026-01",
+      "last_pct": 10.1343,
+      "mean3_pct": 10.2288,
+      "last_abs_error_pp": 0.1977,
+      "mean3_abs_error_pp": 0.2922
+    },
+    {
+      "month": "2026-05",
+      "n": 6672,
+      "actual_pct": 10.7914,
+      "last_mature_month": "2026-02",
+      "last_pct": 10.1966,
+      "mean3_pct": 10.3352,
+      "last_abs_error_pp": 0.5947,
+      "mean3_abs_error_pp": 0.4562
+    },
+    {
+      "month": "2026-06",
+      "n": 7297,
+      "actual_pct": 10.0178,
+      "last_mature_month": "2026-03",
+      "last_pct": 10.2649,
+      "mean3_pct": 10.1986,
+      "last_abs_error_pp": 0.2471,
+      "mean3_abs_error_pp": 0.1808
+    }
+  ],
+  "deepseek": {
+    "command_to_plan": "success",
+    "plan": {
+      "dataset": "research",
+      "action": "compare",
+      "concept": "python",
+      "dedup": "id",
+      "limit": 30,
+      "filters": {
+        "common_only": true,
+        "fresh_only": true
+      },
+      "period_a": [
+        "2025-03-01",
+        "2025-04-30"
+      ],
+      "period_b": [
+        "2026-03-01",
+        "2026-04-30"
+      ]
+    },
+    "model": "deepseek-flash",
+    "plan_usage": {
+      "prompt_tokens": 822,
+      "completion_tokens": 165,
+      "total_tokens": 987,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 822
+    },
+    "aggregate_explanation": "success",
+    "explanation_usage": {
+      "prompt_tokens": 348,
+      "completion_tokens": 395,
+      "total_tokens": 743,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 348
+    },
+    "source_text_sent": false,
+    "personal_resume_sent": false
+  },
+  "limits": [
+    "Not a human-gold benchmark",
+    "Mention frequency is not market demand",
+    "Original full database remains local",
+    "Source fingerprint is metadata-based, not a full content digest"
+  ]
+}
