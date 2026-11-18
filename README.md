@@ -137,3 +137,7 @@ v1.3 的课程增强工作继续保留：[课程映射](docs/COURSE_COVERAGE.md)
 原有 Word/PDF/PPT 保留为 **2026-09-30 课堂材料**，本轮没有重新生成：[英文 Proposal](docs/submission/Group11_Project_Proposal.docx)、[项目报告](docs/submission/Group11_Project_Report.docx)、[Presentation](docs/submission/group11_presentation.pptx)、[演示说明](docs/submission/Group11_Demo_Guide.docx)、[个人报告参考](docs/submission/Group11_Individual_Report_Draft.pdf)。原大作业 DOCX 在此前指定路径缺失，历史页数/时长要求尚未重新核对原件，见 [提交清单](docs/COURSE_CHECKLIST.md)。
 
 项目由 AI 根据用户需求生成、调试与测试。成员报告应如实补充本人实际阅读、修改、验证、评审与演示经历，不虚构人工贡献、课堂操作或提交记录。
+
+## GitHub 历史资料
+
+根目录的早期 Word/PDF/PPT、`group11_course_submission.zip`、`group11_project.zip` 及其 `SHA256SUMS.txt` 保留为 v1.x 历史发布，未覆盖为新版本。当前 v2.1 可直接克隆仓库运行；需要新源码包时运行 `python scripts/package_project.py --group 11`。远端既有提交与本地开发提交通过合并保留，不改写历史。
