@@ -64,7 +64,7 @@ Keep the application listener private to the proxy. If another load balancer/CDN
 
 ## Native Python 3.12 and systemd alternative
 
-`deploy/jobcompass.service.example` provides a Linux deployment without Docker. It is also suitable as a starting point when an Aliyun Linux 3 host already serves another application through Nginx. This is a deployment template, not evidence that the service has been installed or reached through HTTPS. Use a distinct JobCompass hostname and a separate Nginx server block; preserve the existing site's files, default server and upstream process. Check that loopback port 8765 is unused before selecting it.
+`deploy/jobcompass.service.example` provides a Linux deployment without Docker. It is also suitable as a starting point when an Aliyun Linux 3 host already serves another application through Nginx. This is a deployment template, not evidence that the service has been installed or reached through HTTPS. Use a distinct JobCompass hostname and a separate Nginx server block, or the IP-certificate alternative below when no domain is available; preserve the existing site's files, default server and upstream process. Check that loopback port 8765 is unused before selecting it.
 
 Use a dedicated Python 3.12 installation and virtual environment. Do not replace the operating system's `python3`, install into its site-packages, or reuse the other application's environment. If the configured distribution repositories supply Python 3.12, install that supported package. Otherwise obtain a chosen 3.12 patch release from the [official Python source releases](https://www.python.org/downloads/source/), verify the release's published provenance/checksum, and install the distribution's C compiler, make, OpenSSL, zlib, libffi, bzip2, xz, readline and SQLite development packages. Package names depend on the configured repository. From the verified extracted source directory:
 
@@ -108,6 +108,73 @@ For Nginx, adapt `deploy/nginx.conf.example` into a new site file included by th
 Run the acceptance checks below through the real hostname before calling this deployed. Source updates should use a new reviewed release directory while retaining the old one. Restart only `jobcompass.service` after changing the release pointer; do not use Gunicorn reload or overlap workers because the anonymous registry allows one owner. A restart invalidates temporary visitor sessions. Roll back by stopping JobCompass, restoring the previous release pointer, then starting it with the same data directory; do not delete data volumes/directories or reset shared databases as part of a rollback. Database format changes require a separately planned consistent backup and migration.
 
 The optional longitudinal source remains separate from source control. For a native installation set `JOBCOMPASS_RESEARCH_DB` to a provisioned read-only source readable by the service account and build its index using `deploy/build_research_index.py` under that same account and production paths. Do not substitute an operator's personal application database for a shared research source. The Docker-only `JOBCOMPASS_RESEARCH_SOURCE` variable is not the native runtime source setting.
+
+### HTTPS with a public IP when no domain is available
+
+A domain is not a prerequisite for this alternative. Let's Encrypt supports publicly trusted IPv4/IPv6 certificates with the `shortlived` profile, valid for **160 hours**; automated renewal is essential. See its [IP-certificate availability notice](https://letsencrypt.org/2026/01/15/6day-and-ip-general-availability). The following example uses a stable, publicly reachable IPv4 address; every `PUBLIC_IPV4` is a placeholder to replace privately on the server, not a real infrastructure address to commit. Keep the HTTPS origin and exact Host checks enabled.
+
+Use Certbot **5.4 or newer** with `certonly`, `--webroot`, `--ip-address` and `--preferred-profile shortlived`. Webroot can validate through an already running Nginx; standalone would compete for port 80. Configure the certificate in Nginx separately, and reload it after renewal, following the [official Certbot IP-certificate instructions](https://letsencrypt.org/2026/03/11/shorter-certs-certbot/).
+
+For a host whose existing HTTP site already owns port 80, retain that site and its upstream. Back up its configuration and add only this location inside the server block that currently handles requests addressed to the public IP:
+
+```nginx
+location ^~ /.well-known/acme-challenge/ {
+    root /var/lib/jobcompass-acme;
+    default_type text/plain;
+    try_files $uri =404;
+}
+```
+
+Create the challenge directory with permissions allowing Nginx to read challenge files. Validate with `nginx -t`, reload gracefully and check a temporary non-sensitive test file from outside the server. Check the existing HTTP page still reaches its original application. Do not replace its `location /`, add a competing default server, redirect the whole HTTP site to JobCompass, or stop Nginx/its upstream. If an existing server-level redirect or rewrite intercepts challenges, resolve that narrow routing conflict before requesting a certificate. Only the challenge prefix changes ownership.
+
+```sh
+sudo install -d -m 0755 /var/lib/jobcompass-acme/.well-known/acme-challenge
+sudo certbot --version
+sudo certbot certonly --staging --preferred-profile shortlived \
+  --webroot --webroot-path /var/lib/jobcompass-acme \
+  --ip-address PUBLIC_IPV4 --cert-name jobcompass-ip-staging \
+  --config-dir /var/lib/jobcompass-acme-staging/config \
+  --work-dir /var/lib/jobcompass-acme-staging/work \
+  --logs-dir /var/log/jobcompass-acme-staging
+```
+
+Use a separate staging configuration as shown; staging certificates are not browser-trusted and must not be installed as the live certificate. Certificate-account registration can ask the operator to accept subscriber terms. These examples deliberately omit `--agree-tos`: inspect the actual terms and obtain the operator's acceptance at that step before continuing; do not infer acceptance from a general deployment request. Account contact details, private keys and ACME account files remain outside the repository.
+
+After successful staging validation and the required account acceptance, request a production certificate using the same reviewed IP/webroot parameters without staging:
+
+```sh
+sudo certbot certonly --preferred-profile shortlived \
+  --webroot --webroot-path /var/lib/jobcompass-acme \
+  --ip-address PUBLIC_IPV4 --cert-name jobcompass-ip
+```
+
+Add only a new TLS server block, with the actual IP and the actual certificate lineage returned by Certbot. Inspect any existing 443 listeners first; this example must not overwrite another TLS site:
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name PUBLIC_IPV4;
+    ssl_certificate /etc/letsencrypt/live/jobcompass-ip/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/jobcompass-ip/privkey.pem;
+    client_max_body_size 8m;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy same-origin always;
+    location / {
+        proxy_pass http://127.0.0.1:8765;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 125s;
+    }
+}
+```
+
+Set `JOBCOMPASS_PUBLIC_ORIGIN=https://PUBLIC_IPV4`, `JOBCOMPASS_ALLOWED_HOSTS=PUBLIC_IPV4` and, for this host-local native proxy, `JOBCOMPASS_TRUSTED_PROXIES=127.0.0.1` in the private runtime configuration. Restart only JobCompass, run `nginx -t`, and gracefully reload Nginx. Permit public TLS traffic to 443 through the actual cloud and host firewall policy, keeping 8765 private. Verify trusted HTTPS without disabling certificate checks, the IP certificate SAN and expiry, cookie flags, origin rejection and both sites: the original application at HTTP port 80 and JobCompass at HTTPS port 443. Do not bypass a browser certificate warning to claim success.
+
+Configure a persistent automatic renewal schedule using the installed Certbot integration, or a dedicated systemd timer if that installation provides none. Run renewal checks at least twice daily; inspect the actual next-run time and recent outcomes, rather than assuming package installation enabled a timer. Persist a deployment hook that runs `nginx -t` and then `systemctl reload nginx` only on successful validation. Check the actual executable paths on the server. Use Certbot's supported renewal/reconfiguration mechanism rather than editing a lineage file by hand, and exercise `certbot renew --cert-name jobcompass-ip --dry-run` plus the deployment hook before opening the site. The [Certbot renewal documentation](https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates) distinguishes successful renewal hooks from ordinary renewal checks. Monitor renewal failures and the served certificate's expiry; a scheduled job alone does not prove renewal works. An IP change requires revalidation and corresponding origin, Host and certificate changes.
+
+This procedure is a configuration option, not a record of certificate issuance, accepted terms, opened firewall rules or successful deployment. Record those outcomes only after observing them on the target server.
 
 ## Outbound webpage collection
 

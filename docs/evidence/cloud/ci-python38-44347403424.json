@@ -1,0 +1,53 @@
+{
+  "record_date": "2026-11-19",
+  "run": {
+    "databaseId": 44347403424,
+    "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424",
+    "headSha": "cb1d5b3a59efbf2a8fd3912c057b3b0f23286bcf",
+    "event": "push",
+    "conclusion": "failure"
+  },
+  "jobs": [
+    {
+      "name": "test (ubuntu-latest, 3.11)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424/job/134953425525"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.13)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424/job/134953425921"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.8)",
+      "conclusion": "failure",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424/job/134953426159"
+    },
+    {
+      "name": "test (macos-latest, 3.11)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424/job/134953426243"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.12)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424/job/134953426539"
+    },
+    {
+      "name": "deliver",
+      "conclusion": "skipped",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44347403424/job/134954129475"
+    }
+  ],
+  "failure_stage": "actions/setup-python@v7; project tests did not start for Python 3.8",
+  "cause": "ubuntu-latest resolved to Ubuntu 26.04, for which the official manifest had no Python 3.8 x64 build",
+  "official_manifest": "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
+  "verified_build": {
+    "filename": "python-3.8.18-linux-24.04-x64.tar.gz",
+    "arch": "x64",
+    "platform": "linux",
+    "platform_version": "24.04"
+  },
+  "change": "Only the Python 3.8 matrix leg now uses ubuntu-24.04; modern Python legs retain ubuntu-latest",
+  "validation": "Local diff and manifest check only; corrected remote run is pending publication and observation"
+}

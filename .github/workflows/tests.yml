@@ -16,8 +16,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.8', '3.11', '3.12', '3.13']
+        python-version: ['3.11', '3.12', '3.13']
         include:
+          # Python 3.8 builds exist for Ubuntu 24.04, but not Ubuntu 26.04/latest.
+          - os: ubuntu-24.04
+            python-version: '3.8'
           - os: macos-latest
             python-version: '3.11'
     steps:

@@ -1,0 +1,5 @@
+Actual failed-step log excerpt; unrelated setup options (including masked token field) omitted.
+
+test (ubuntu-latest, 3.8)	Run actions/setup-python@v7	2026-11-18T16:27:24.3655076Z Version 3.8 was not found in the local cache
+test (ubuntu-latest, 3.8)	Run actions/setup-python@v7	2026-11-18T16:27:25.1166382Z ##[error]The version '3.8' with architecture 'x64' was not found for Ubuntu 26.04.
+test (ubuntu-latest, 3.8)	Run actions/setup-python@v7	The list of all available versions can be found here: https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
