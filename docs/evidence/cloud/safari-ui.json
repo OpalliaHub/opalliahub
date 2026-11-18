@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-19",
+  "browser": "Safari",
+  "trusted_https_observed": true,
+  "default_research_scope_ads": 136380,
+  "command": "按月份统计研究库全部广告数，清除所有筛选，按广告ID去重，显示最多100组，用折线图。",
+  "logical_ai_command_submissions": 1,
+  "result": {
+    "ads": 251042,
+    "employer_labels": 20764,
+    "python_mentions": 14419,
+    "displayed_share_pct": 5.74,
+    "month_groups": 33
+  },
+  "observations": {
+    "automatic_query_and_chart_update": true,
+    "monthly_line_chart_rendered": true,
+    "sector_bar_chart_rendered": true,
+    "quarter_sector_heatmap_rendered": true,
+    "heatmap_truncation_shown": "100 / 189",
+    "conversation_preserved_on_learning_page": true,
+    "return_to_analytics_preserved_result": true,
+    "source_scope_and_sample_cautions_visible": true
+  },
+  "scope": "Native Safari visual observation, separate from automated public API smoke. Mobile and exports retain earlier local evidence; not newly exercised in this cloud check."
+}

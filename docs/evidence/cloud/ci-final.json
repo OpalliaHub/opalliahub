@@ -1,0 +1,152 @@
+{
+  "record_date": "2026-11-19",
+  "run": {
+    "databaseId": 44348224085,
+    "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085",
+    "headSha": "e21d11fc7b755c5ac5bed635871e1369e3812dba",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "jobs": [
+    {
+      "name": "test (macos-latest, 3.11)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085/job/134956360960",
+      "started_at": "2026-11-18T16:36:33Z",
+      "completed_at": "2026-11-18T16:37:39Z"
+    },
+    {
+      "name": "test (ubuntu-24.04, 3.8)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085/job/134956361561",
+      "started_at": "2026-11-18T16:31:32Z",
+      "completed_at": "2026-11-18T16:32:06Z"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.12)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085/job/134956361642",
+      "started_at": "2026-11-18T16:31:31Z",
+      "completed_at": "2026-11-18T16:31:49Z"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.11)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085/job/134956361693",
+      "started_at": "2026-11-18T16:31:31Z",
+      "completed_at": "2026-11-18T16:31:48Z"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.13)",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085/job/134956362028",
+      "started_at": "2026-11-18T16:31:32Z",
+      "completed_at": "2026-11-18T16:32:00Z"
+    },
+    {
+      "name": "deliver",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44348224085/job/134960564353",
+      "started_at": "2026-11-18T16:37:42Z",
+      "completed_at": "2026-11-18T16:37:51Z"
+    }
+  ],
+  "quality_artifacts": [
+    {
+      "artifact": "quality-macos-latest-py3.11",
+      "python": "3.11.9",
+      "quality_status": "passed",
+      "unit_tests": 342,
+      "unit_elapsed": "39.863s",
+      "unit_result": "OK",
+      "unit_log_sha256": "cb1b30486eb84733ebdca4dc3195c730b4854c379d9bce37af7240c8a02317d4",
+      "source_findings": 0,
+      "syntax_errors": 0,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "package_errors": 0
+    },
+    {
+      "artifact": "quality-ubuntu-24.04-py3.8",
+      "python": "3.8.18",
+      "quality_status": "passed",
+      "unit_tests": 342,
+      "unit_elapsed": "2.368s",
+      "unit_result": "OK",
+      "unit_log_sha256": "695462cbf2d51d22a8eac2aace8e616c07f84e345fe17a3a43b2e4afea2888c1",
+      "source_findings": 0,
+      "syntax_errors": 0,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "package_errors": 0
+    },
+    {
+      "artifact": "quality-ubuntu-latest-py3.11",
+      "python": "3.11.18",
+      "quality_status": "passed",
+      "unit_tests": 342,
+      "unit_elapsed": "3.720s",
+      "unit_result": "OK",
+      "unit_log_sha256": "da29eac0fccd6836ebb70caea23ba93ef88be9cf412088322bb393c08064920a",
+      "source_findings": 0,
+      "syntax_errors": 0,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "package_errors": 0
+    },
+    {
+      "artifact": "quality-ubuntu-latest-py3.12",
+      "python": "3.12.16",
+      "quality_status": "passed",
+      "unit_tests": 342,
+      "unit_elapsed": "5.039s",
+      "unit_result": "OK",
+      "unit_log_sha256": "0e83019ee63f4c1d34bae38e277ca73359a7bb1bd739a7c81a037b9056d10113",
+      "source_findings": 0,
+      "syntax_errors": 0,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "package_errors": 0
+    },
+    {
+      "artifact": "quality-ubuntu-latest-py3.13",
+      "python": "3.13.18",
+      "quality_status": "passed",
+      "unit_tests": 342,
+      "unit_elapsed": "9.278s",
+      "unit_result": "OK",
+      "unit_log_sha256": "9ea5fc1754584d234afc2aee8a9ed49831355494a733bb80fec7f149ef39062b",
+      "source_findings": 0,
+      "syntax_errors": 0,
+      "command_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "package_errors": 0
+    }
+  ],
+  "scope": "Actual GitHub Actions run and downloaded quality artifacts for the recorded commit. The same test suite runs in five environments; counts are not added together. Successful deliver job confirms CI packaging, not server deployment, Docker build, TLS or provider behavior."
+}

@@ -1,6 +1,6 @@
-# Public deployment preparation
+# Public deployment guide
 
-This release adds an anonymous public deployment mode. Visitors can use the product without registering or signing in. The service gives each browser a private temporary workspace while sharing the operator's job catalogue and read-only research index. The repository contains deployment configuration; a cloud host, real domain, TLS certificate and deployment verification are still pending.
+This release adds an anonymous public deployment mode. Visitors can use the product without registering or signing in. The service gives each browser a private temporary workspace while sharing the operator's job catalogue and read-only research index. A native Python/systemd/Nginx instance has passed trusted-IP-HTTPS health checks and 342 offline tests on the supplied server. The complete research source has been privately transferred, integrity-checked and indexed. Public HTTPS smoke checks verified visitor isolation, offline recommendations, research OLAP and one real DeepSeek command against an independent query. A separate Safari command and chart/navigation checks also passed. Temporary deployment access and transfer copies were cleaned up; external health remained successful afterward. Actual evidence is recorded in [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md), with later documentation commits tracked in repository history. The instructions below are reusable templates, not evidence that every alternative was deployed. Docker image construction remains unverified.
 
 ## Runtime and process model
 
@@ -199,12 +199,12 @@ Build the index inside the same container paths used by the running application;
 
 ## Acceptance before opening the real site
 
-1. Check `/api/health` through the proxy and inspect the container health state. Health probing must not allocate a visitor workspace.
+1. Check `/api/health` through the proxy and inspect the native service or container health state. Health probing must not allocate a visitor workspace.
 2. Open two separate browser profiles. Store distinct resumes/notes/results and verify neither profile can access the other profile's state, task ID or result ID.
 3. Verify write requests from another origin and requests with an unlisted Host are rejected. Check cookie flags over real HTTPS.
 4. Verify anonymous AI works with the configured provider and that per-IP/global admission limits remain effective after clearing cookies. Verify queued task slots release on success, error and cancellation.
 5. Confirm shared research paths are absent from public status/error responses; repeat a read-only analysis and compare the source database checksum before/after.
 6. Restart the worker and confirm old visitor cookies do not recover private data. Verify exports are usable before temporary data expires.
-7. Record the real server's build logs, domain, TLS test, resource measurements and deployment version. Revert to the previous image if the smoke tests fail, retaining the operator data volume.
+7. Record the real server's build logs, hostname or IP-certificate endpoint, TLS test, resource measurements and deployment version privately; keep infrastructure identifiers out of public evidence. Revert to the previous image or native release if the smoke tests fail, retaining the operator data directory/volume.
 
-Local tests cover store isolation, legacy job IDs, private history/imports, shared cooldown, cookie rotation, expiry, active-work retention, capacity, creation/AI/work admission, cross-process locking, exact origins/proxies, path sanitization, allowed-host redirects and robots handling. The current computer did not expose Docker, Caddy or Nginx executables during this task, so no Docker image build, proxy syntax check, certificate issuance or cloud load test is claimed here. Local Gunicorn smoke-test results are recorded separately by the release verification process.
+Local tests cover store isolation, legacy job IDs, private history/imports, shared cooldown, cookie rotation, expiry, active-work retention, capacity, creation/AI/work admission, cross-process locking, exact origins/proxies, path sanitization, allowed-host redirects and robots handling. Actual native-server tests, public TLS checks, renewal rehearsal, public API smoke and Safari operations are recorded separately in [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md). Those results do not establish Docker image construction, Caddy deployment, sustained cloud load capacity or new cloud mobile/export verification.

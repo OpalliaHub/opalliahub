@@ -2,7 +2,7 @@
 
 JobCompass 以 JobsDB 招聘广告样本为基础，提供多维统计、职业与技能趋势、自然语言数据查询，以及简历匹配、投递管理和学习路线。**默认首页是「研究总览」**：左侧使用平台与图表，右侧常驻 DeepSeek 对话；输入问题后，模型生成受限统计指令，服务器验证并自动执行，再更新真实图表，无需复制或手动批准 JSON。
 
-当前代码版本为 **2.1.0**。本地运行与匿名公开模式均已写入代码；正式云服务器、域名和 TLS 部署仍待提供环境并验收。本仓库页面不是已上线的平台。Python 3.8.10 与 3.12 各通过 342 项离线测试；新增推荐的浏览器、隔离和性能记录见 [v2.1 验证](docs/RESUME_VERIFICATION.md)。此前 OLAP、导出与本机 Gunicorn smoke 保留在 [v2.0 验证记录](docs/V2_VERIFICATION.md)。
+当前代码版本为 **2.1.0**。原生云服务已通过受信 HTTPS、完整研究库迁移与索引、公网访客隔离/推荐/OLAP/真实 DeepSeek 命令检查、Safari 对话与图表操作，以及云端 342 项离线测试；GitHub 五个环境的 CI 与源码打包通过。临时部署密钥和传输副本已清理，清理后的外部健康检查正常，实际范围见 [云部署与 GitHub 验证](docs/CLOUD_VERIFICATION.md)。仓库页面用于托管源码，不能代替运行中的平台。新增推荐的本地浏览器、隔离和性能记录见 [v2.1 验证](docs/RESUME_VERIFICATION.md)；此前 OLAP、导出与本机 Gunicorn smoke 保留在 [v2.0 验证记录](docs/V2_VERIFICATION.md)。
 
 **Group 11** · OU JUNHANG · ZHANG XIQIAN · JIANG YIFAN · CAI SHANGHENG · GUO ZHENGKUN
 INT6181 Applied Programming with Python 课程项目。
@@ -72,7 +72,7 @@ Windows 可使用 `py -m venv .venv`，随后运行 `.venv\Scripts\python -m pip
 
 公开入口必须配置明确的 **HTTPS origin、Host 白名单和受信代理**；TLS 由反向代理提供，后端监听保留在代理后面。访问者不能通过 HTTP 连接任意服务器数据库路径或重建共享索引。任意网页采集在公开模式默认关闭，仅可由管理员用 `JOBCOMPASS_PAGE_HOSTS` 配置精确主机白名单开放；初始地址、robots 与每次重定向均校验。固定 JobsDB/API 接入与文件导入继续可用。免登录不等于无限量：访客创建、请求和 AI 任务有容量/速率限制。
 
-生产入口是 `jobcompass.wsgi:application`，另有 `requirements-server.txt`、Docker/Compose、Caddy/Nginx 模板及研究索引维护脚本。当前设计只允许 **一个 Gunicorn worker**，默认八个 HTTP 线程，后台任务共享有界线程池；不能直接扩成多个副本。部署步骤与环境变量见 [公开部署准备](docs/DEPLOYMENT.md)。本机没有 Docker，因此没有把镜像配置写成“已经构建成功”，也没有声称云站点已上线。
+生产入口是 `jobcompass.wsgi:application`，另有 `requirements-server.txt`、Docker/Compose、原生 systemd、Caddy/Nginx 模板及研究索引维护脚本。当前设计只允许 **一个 Gunicorn worker**，默认八个 HTTP 线程，后台任务共享有界线程池；不能直接扩成多个副本。部署步骤与环境变量见 [公开部署指南](docs/DEPLOYMENT.md)。本轮实际使用 Python 3.12/systemd/Nginx 和受信 IP 地址证书，未进行 Docker 镜像构建；公网和业务检查的范围分别记录在 [云端验收](docs/CLOUD_VERIFICATION.md)。
 
 ## DeepSeek 与隐私
 
@@ -99,9 +99,9 @@ python scripts/coverage_report.py
 python scripts/package_project.py --group 11
 ```
 
-离线测试不访问招聘网站、不调用付费 AI。真实联网验证单独记录，不放入 CI。当前单条 DeepSeek 命令自动执行的实测在 [analytics_live_check.json](docs/analytics_live_check.json)，只证明该次调用与本机查询成功，不代表所有问题的理解准确率。
+离线测试不访问招聘网站、不调用付费 AI。真实联网验证单独记录，不放入 CI。云端实际命令、独立查询比对与公开会话检查见 [public-smoke.json](docs/evidence/cloud/public-smoke.json)；此前本机单条命令记录保留在 [analytics_live_check.json](docs/analytics_live_check.json)。这些检查证明所测流程，不代表所有问题的理解准确率。
 
-已观察到 Python 3.8.10 和 3.12 各 306 项测试通过、8 个 doctest 通过、5 个指定变异被测试检出，以及真实单 worker/八线程 Gunicorn smoke 通过。日志、双栏/窄屏/导出交互和最终交付包状态统一见 [V2_VERIFICATION.md](docs/V2_VERIFICATION.md)。旧版 223 项或中间轮次 283 项不能替代这些 v2 证据。配置好的 GitHub Actions 不等于远端已运行；本文不声称本轮 GitHub 已更新、Docker 已构建或云服务已部署。
+当前 v2.1 本地完整质量门禁通过，含 **342 项测试、8 个 doctest 与 5 个指定变异**，见 [推荐版本验证](docs/RESUME_VERIFICATION.md)。GitHub 实际运行的五个环境各通过同一套 342 项测试，交付任务成功；云服务器也通过 342 项测试（13.321 秒）。公网冒烟的 123 次检查含重复轮询和逐岗位断言，不计为额外单元测试，见 [云部署与 GitHub 验证](docs/CLOUD_VERIFICATION.md)。历史 v2.0 的 306 项、v1.3 的 223 项及中间轮次 283 项只对应各自版本，不作为本版计数。Docker、压力测试及本轮未复测的云端窄屏/导出不纳入新的通过声明。
 
 可用的 CLI 示例：
 
@@ -126,9 +126,10 @@ python main.py --demo --db /tmp/jobcompass-only-demo.db --port 8766 --no-browser
 | `jobcompass/resume.py` / `matching.py` / `learning.py` | 简历、排名和技能路线 |
 | `jobcompass/static/` | 平台界面、常驻对话、本地图表资源 |
 | `tests/` / `scripts/` | 自动化验证、质量门禁、评估及打包 |
-| `deploy/` / `Dockerfile` / `compose.yaml` | 生产配置与维护模板，尚需目标环境验收 |
+| `deploy/` / `Dockerfile` / `compose.yaml` | 原生与容器部署模板、维护命令；实际运行范围见云端记录 |
 | `docs/SPECIFICATION.md` | 当前 v2 功能需求与边界 |
-| `docs/V2_VERIFICATION.md` | 当前证据、未完成的外部验证及版本状态 |
+| `docs/CLOUD_VERIFICATION.md` | 当前云部署、GitHub、远端 CI 与剩余验收 |
+| `docs/RESUME_VERIFICATION.md` / `docs/V2_VERIFICATION.md` | v2.1 简历验证及保留的 v2.0 原始证据 |
 
 ## 历史版本与课程材料
 

@@ -1,6 +1,6 @@
 # JobCompass 软件需求与设计规格
 
-版本：**2.1.0**；修订：2026-11-19。本文描述当前代码与验收条件，不等同于已完成全部运行环境验收。新增推荐证据见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)，既有研究功能证据见 [V2_VERIFICATION.md](V2_VERIFICATION.md)。v1.3 的课程映射、验证报告及 2026-09-30 Word/PDF/PPT 保留为历史材料；此前缺失的原始大作业 DOCX 尚未重新核对，不能据此宣称全部课堂提交已完成。
+版本：**2.1.0**；修订：2026-11-19。本文描述当前代码与验收条件，不等同于已完成全部运行环境验收。新增推荐证据见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)，本轮云服务与 GitHub 的实际结果见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)，既有研究功能证据见 [V2_VERIFICATION.md](V2_VERIFICATION.md)。v1.3 的课程映射、验证报告及 2026-09-30 Word/PDF/PPT 保留为历史材料；此前缺失的原始大作业 DOCX 尚未重新核对，不能据此宣称全部课堂提交已完成。
 
 ## 目标、运行模式与非目标
 
@@ -8,7 +8,7 @@
 
 本地模式仍通过 `main.py` 在回环地址运行，保存个人持久数据。公开模式使用同一业务应用与受控 HTTP 边界，访客无需注册或登录，通过随机 cookie 获得私有临时工作空间。共享岗位目录与只读研究索引可供访客分析；简历、备注、导入、AI 输出、结果文件和任务状态不得跨会话泄漏。
 
-范围不包含已上线的云站点、用户账户/跨设备同步、自动投递、登录站点反爬绕过、OCR、招聘决策、真实技能认证、薪资标准化、因果推断或本地 LLM 训练。Docker、WSGI 与 TLS 代理配置是部署准备；云服务器、域名和证书仍需提供并验收。单进程匿名状态设计不支持直接多 worker 或横向扩容。
+范围包含本地与匿名公开部署，不包含用户账户/跨设备同步、自动投递、登录站点反爬绕过、OCR、招聘决策、真实技能认证、薪资标准化、因果推断或本地 LLM 训练。本轮原生 Python/systemd/Nginx 云服务已通过受信 IP 地址 HTTPS 健康检查；使用域名或受信 IP 证书都必须保留精确 HTTPS origin/Host 约束。Docker 镜像未构建，研究库迁移与云端业务验收的状态单独记录。单进程匿名状态设计不支持直接多 worker 或横向扩容。
 
 ## 保留需求 FR01–FR20
 
@@ -94,7 +94,7 @@ FR16 的预览/确认仅属于保留的单计划深度研究入口。**它不是
 | NFR08 | 排名只缓存最后完整输入，失效与深复制正确 | `ranking_cache.py`、缓存测试 |
 | NFR09 | 仅 HTTP 429/502/503/504 有界重试，最多三次；不自动修复无效模型输出 | `retry.py`、重试测试 |
 | NFR10 | 公共会话私有隔离、忙任务保留、闲置清理、重启旧凭据失效 | `SessionManager`、跨会话与生命周期测试 |
-| NFR11 | 公开配置强制 HTTPS origin、明确 Host 和受信代理；cookie 为 Secure/HttpOnly/SameSite=Strict | `PublicConfig`、代理配置、公共 HTTP 测试；真实 TLS 待部署验收 |
+| NFR11 | 公开配置强制 HTTPS origin、明确 Host 和受信代理；cookie 为 Secure/HttpOnly/SameSite=Strict | `PublicConfig`、代理配置、公共 HTTP 测试；真实 TLS 与续期演练见 `CLOUD_VERIFICATION.md`，最终业务检查单列 |
 | NFR12 | 请求/会话创建/AI 任务有容量及速率边界；任务完成/失败释放并发位 | 限额器、任务队列、公共集成测试 |
 | NFR13 | 公共状态/错误不暴露服务器路径，结果和任务 ID 不跨会话访问 | sanitize、私有 registry/result_root、公共测试 |
 | NFR14 | 生产采用一个进程、共享后台池；禁止直接增加 worker 破坏会话/配额一致性 | WSGI、文件锁、部署配置和测试 |
@@ -159,4 +159,4 @@ FR16 的预览/确认仅属于保留的单计划深度研究入口。**它不是
 7. 会话在活跃任务期间不删除；闲置到期可清理；重启后旧凭据不能恢复私有数据。单进程文件锁阻止另一个 worker 共享 registry。
 8. Python 3.12 的 HTMLParser 在末尾裸 `R&D` 文本上必须完成解析收尾；该部署兼容回归由实际 red/green 记录验证，不误报快照输入错误。
 
-上述是验收条件，不能把有测试文件等同于全部人工验收。已观察到 Python 3.8.10 与 3.12 各 306 项离线测试通过；Python 3.8.10 完整质量门禁（含 8 个 doctest、5 个指定变异）通过；Python 3.12 + Gunicorn 27.0.1 的本机生产适配 smoke 通过。历史 v1.3 的 223 项和中间轮次 283 项仅对应当时版本。Docker 当前机器不可用，未构建镜像；最新双栏/窄屏/导出、最终包、GitHub与云端状态以 V2_VERIFICATION.md 的独立证据为准。
+上述是验收条件，不能把有测试文件等同于全部人工验收。当前 v2.1 本地 Python 3.8/3.12 各通过 342 项测试，质量门禁含 8 个 doctest 和 5 个指定变异；GitHub 五个环境各通过同一套 342 项，云端 Python 3.12.16 也通过 342 项（13.321 秒）。实际运行和证据边界见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md) 与 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)。历史 v2.0 的 306 项、v1.3 的 223 项和中间轮次 283 项保持原始记录。Docker 镜像未构建；公网健康、续期演练、源码打包、研究库迁移和业务验收分别记录，不相互代替。

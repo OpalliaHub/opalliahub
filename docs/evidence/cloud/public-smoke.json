@@ -1,0 +1,587 @@
+{
+  "started_at_utc": "2026-11-18T17:15:29.306313+00:00",
+  "expected_version": "2.1.0",
+  "transport": "HTTPS with certificate and hostname verification; no redirects",
+  "checks": [
+    {
+      "name": "GET /api/health returns 200",
+      "passed": true
+    },
+    {
+      "name": "health and version",
+      "passed": true
+    },
+    {
+      "name": "health does not allocate visitor",
+      "passed": true
+    },
+    {
+      "name": "GET / returns 200",
+      "passed": true
+    },
+    {
+      "name": "A homepage content",
+      "passed": true
+    },
+    {
+      "name": "A secure private cookie flags",
+      "passed": true
+    },
+    {
+      "name": "GET / returns 200",
+      "passed": true
+    },
+    {
+      "name": "B homepage content",
+      "passed": true
+    },
+    {
+      "name": "B secure private cookie flags",
+      "passed": true
+    },
+    {
+      "name": "two distinct anonymous capabilities",
+      "passed": true
+    },
+    {
+      "name": "GET /style.css returns 200",
+      "passed": true
+    },
+    {
+      "name": "asset type and nonempty /style.css",
+      "passed": true
+    },
+    {
+      "name": "GET /app.js returns 200",
+      "passed": true
+    },
+    {
+      "name": "asset type and nonempty /app.js",
+      "passed": true
+    },
+    {
+      "name": "GET /analytics.js returns 200",
+      "passed": true
+    },
+    {
+      "name": "asset type and nonempty /analytics.js",
+      "passed": true
+    },
+    {
+      "name": "GET /vendor/echarts.min.js returns 200",
+      "passed": true
+    },
+    {
+      "name": "asset type and nonempty /vendor/echarts.min.js",
+      "passed": true
+    },
+    {
+      "name": "GET /api/status returns 200",
+      "passed": true
+    },
+    {
+      "name": "anonymous public deployment",
+      "passed": true
+    },
+    {
+      "name": "GET /api/analytics/catalog?dataset=research returns 200",
+      "passed": true
+    },
+    {
+      "name": "research dataset ready and populated",
+      "passed": true
+    },
+    {
+      "name": "POST /api/analytics/query returns 200",
+      "passed": true
+    },
+    {
+      "name": "POST /api/analytics/query returns 200",
+      "passed": true
+    },
+    {
+      "name": "OLAP independent totals survive group limit",
+      "passed": true
+    },
+    {
+      "name": "OLAP exact catalog denominator",
+      "passed": true
+    },
+    {
+      "name": "OLAP finite mention ratio",
+      "passed": true
+    },
+    {
+      "name": "OLAP group counts match metadata",
+      "passed": true
+    },
+    {
+      "name": "complete partition sums to total ads",
+      "passed": true
+    },
+    {
+      "name": "GET /api/state returns 200",
+      "passed": true
+    },
+    {
+      "name": "GET /api/state returns 200",
+      "passed": true
+    },
+    {
+      "name": "fresh visitors have no inherited resume",
+      "passed": true
+    },
+    {
+      "name": "POST /api/resume returns 200",
+      "passed": true
+    },
+    {
+      "name": "GET /api/state returns 200",
+      "passed": true
+    },
+    {
+      "name": "GET /api/state returns 200",
+      "passed": true
+    },
+    {
+      "name": "resume stays private to visitor A",
+      "passed": true
+    },
+    {
+      "name": "POST /api/recommendations returns 200",
+      "passed": true
+    },
+    {
+      "name": "task id format",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task stays in known state",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task stays in known state",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task stays in known state",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task stays in known state",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task completes successfully",
+      "passed": true
+    },
+    {
+      "name": "recommendation result structure",
+      "passed": true
+    },
+    {
+      "name": "recommendations use default options",
+      "passed": true
+    },
+    {
+      "name": "recommendation counts are consistent",
+      "passed": true
+    },
+    {
+      "name": "recommendations retain source snapshot token",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendation ranking indicators are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation explanation structure",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions are finite and bounded",
+      "passed": true
+    },
+    {
+      "name": "recommendation contributions reconcile",
+      "passed": true
+    },
+    {
+      "name": "recommendations ordered by score",
+      "passed": true
+    },
+    {
+      "name": "POST /api/resume/clear returns 200",
+      "passed": true
+    },
+    {
+      "name": "wrong origin rejected",
+      "passed": true
+    },
+    {
+      "name": "missing origin rejected",
+      "passed": true
+    },
+    {
+      "name": "missing write marker rejected",
+      "passed": true
+    },
+    {
+      "name": "cross-site request rejected",
+      "passed": true
+    },
+    {
+      "name": "public admin connect rejected",
+      "passed": true
+    },
+    {
+      "name": "public admin build rejected",
+      "passed": true
+    },
+    {
+      "name": "GET /api/research/status returns 200",
+      "passed": true
+    },
+    {
+      "name": "research status excludes source path",
+      "passed": true
+    },
+    {
+      "name": "POST /api/research/run returns 200",
+      "passed": true
+    },
+    {
+      "name": "visitor B cannot read A task",
+      "passed": true
+    },
+    {
+      "name": "task id format",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task stays in known state",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task completes successfully",
+      "passed": true
+    },
+    {
+      "name": "saved result id format",
+      "passed": true
+    },
+    {
+      "name": "GET /api/research/result/<private-id> returns 200",
+      "passed": true
+    },
+    {
+      "name": "visitor B cannot read A result",
+      "passed": true
+    },
+    {
+      "name": "AI is configured before command",
+      "passed": true
+    },
+    {
+      "name": "POST /api/analytics/command returns 200",
+      "passed": true
+    },
+    {
+      "name": "task id format",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task stays in known state",
+      "passed": true
+    },
+    {
+      "name": "task status readable by owner",
+      "passed": true
+    },
+    {
+      "name": "task completes successfully",
+      "passed": true
+    },
+    {
+      "name": "AI interpreted requested analysis",
+      "passed": true
+    },
+    {
+      "name": "POST /api/analytics/query returns 200",
+      "passed": true
+    },
+    {
+      "name": "AI chart data matches independent manual query",
+      "passed": true
+    },
+    {
+      "name": "AI ads denominator matches initial manual query",
+      "passed": true
+    }
+  ],
+  "measurements": {
+    "resources": {
+      "/style.css": {
+        "bytes": 53795,
+        "sha256": "372235d91da2cff4deab546c1631dd8912b31e1604ebb886e99565620844b0b6",
+        "seconds": 0.267
+      },
+      "/app.js": {
+        "bytes": 40156,
+        "sha256": "07f2b46529e4ddb869191a7994803b607a3f00c6fefc5789b476a3a1ee0aaecb",
+        "seconds": 0.298
+      },
+      "/analytics.js": {
+        "bytes": 42618,
+        "sha256": "f285ebc205a73cbe5f10f2fcfbaa833247ddde9312d3a4d6a0d83fc2ec152606",
+        "seconds": 0.561
+      },
+      "/vendor/echarts.min.js": {
+        "bytes": 1117939,
+        "sha256": "baa8dfe7e1d9336b98e8986ba7e20ea15e7cdbea1ef42a59d59478632fa45a1d",
+        "seconds": 1.272
+      }
+    },
+    "ai_configured": true,
+    "research_catalog": {
+      "ads": 251042,
+      "employers": 20764,
+      "date_range": [
+        "2024-02-19",
+        "2026-10-05"
+      ],
+      "fingerprint": "b946a49c3b46f02b89d87e4b137ef5c60e13aa4f89de04b0100ae34cd153feca",
+      "seconds": 2.818
+    },
+    "manual_olap": {
+      "totals": {
+        "ads": 251042,
+        "employers": 20764,
+        "mentions": 14419,
+        "share_pct": 5.7437
+      },
+      "total_groups": 33,
+      "returned_groups": 33,
+      "seconds": 1.725
+    },
+    "shared_current_jobs": 6908,
+    "offline_recommendation_count": 10,
+    "ai_command": {
+      "command": "按月份统计研究库里的广告数，按月份排序，最多显示100组，用折线图。不添加筛选，按广告ID去重。",
+      "query": {
+        "dataset": "research",
+        "dimensions": [
+          "month"
+        ],
+        "measure": "ads",
+        "concept": "python",
+        "filters": {},
+        "exact_filters": {},
+        "dedup": "id",
+        "limit": 100,
+        "sort": "label"
+      },
+      "chart_type": "line",
+      "totals": {
+        "ads": 251042,
+        "employers": 20764,
+        "mentions": 14419,
+        "share_pct": 5.7437
+      },
+      "returned_groups": 33,
+      "model": "deepseek-flash",
+      "reported_usage": {
+        "prompt_tokens": 976,
+        "completion_tokens": 135,
+        "total_tokens": 1111
+      },
+      "seconds": 6.227
+    }
+  },
+  "ai_requested": true,
+  "ai_command_submissions": 1,
+  "scope": "Two fresh anonymous workspaces and read-only shared research",
+  "limitations": [
+    "A smoke run is not a load test or comprehensive model-quality evaluation.",
+    "One logical AI command may cause provider HTTP retries and associated billing."
+  ],
+  "completed_at_utc": "2026-11-18T17:17:29.267977+00:00",
+  "passed": true
+}

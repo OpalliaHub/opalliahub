@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-19",
+  "version": "2.1.0",
+  "runtime": {
+    "python": "3.12.16",
+    "gunicorn": "27.0.1",
+    "workers": 1,
+    "threads": 8,
+    "service_active": true,
+    "restart_count": 0,
+    "service_enabled": true,
+    "final_health_status": 200
+  },
+  "offline_tests": {
+    "command": "python -m unittest discover -v",
+    "tests": 342,
+    "seconds": 13.321,
+    "passed": true
+  },
+  "tls": {
+    "trusted_public_ip_certificate": true,
+    "issuer": "Let's Encrypt YE2",
+    "not_before_utc": "2026-11-18T15:49:29Z",
+    "not_after_utc": "2026-11-25T07:49:28Z",
+    "external_health_status": 200,
+    "renewal_timer_checks_per_day": 2,
+    "renewal_dry_run_with_deploy_hook_passed": true,
+    "renewal_timer_enabled": true
+  },
+  "existing_sites": {
+    "main_http_status": 200,
+    "secondary_http_status": 200,
+    "final_post_analysis_checks": {
+      "main": 200,
+      "secondary": 200
+    }
+  },
+  "network": {
+    "new_public_port": 443,
+    "backend_loopback_only": true
+  },
+  "collaborator": {
+    "login": "colourfulStar",
+    "permission": "write",
+    "accepted": true
+  },
+  "research_migration": {
+    "status": "complete",
+    "explicit_destination_approval_received": true,
+    "sqlite_bytes": 2000760832,
+    "sqlite_sha256": "e2a6e532173643894b5cf12a6fb2b5f17c5358fb703a4209e51e55cf8fc8e61e",
+    "xz_bytes": 265835632,
+    "xz_sha256": "e9f835894b38dac1a98a711a5828c10992ccab437a71a30de6d97aa17f70b8ba",
+    "raw_jobs": 255496,
+    "raw_snapshots": 68,
+    "transfer_seconds": 405.0,
+    "encrypted_chunks": 32,
+    "sqlite_quick_check": "ok",
+    "source_hash_before_and_after_index_unchanged": true,
+    "index_rows": 251042,
+    "valid_observations": 896503,
+    "nonconsolidated_snapshots": 67,
+    "index_build_seconds": 480.371,
+    "source_hash_unchanged_after_public_analysis": true,
+    "source_mode": "0440"
+  },
+  "public_smoke": {
+    "passed": true,
+    "checks": 123,
+    "automated_ai_command_submissions": 1,
+    "evidence": "public-smoke.json"
+  },
+  "temporary_ssh_cleanup": {
+    "server_temporary_keys_removed": 1,
+    "new_login_with_removed_key_denied": true,
+    "local_private_key_and_runtime_copy_removed": true,
+    "remote_transfer_chunks_and_duplicate_runtime_copy_removed": true
+  },
+  "source_release": {
+    "application_commit": "cb1d5b3a59efbf2a8fd3912c057b3b0f23286bcf",
+    "archive_sha256": "ce8b65e8bd5cc8822a18ab7567400f3c91e3fbfb2c41de5c2440c5086754e407",
+    "archive_members": 212,
+    "later_changes": "CI and deployment documentation only",
+    "extracted_members_verified": 212,
+    "all_extracted_files_match_archive": true
+  },
+  "compression": {
+    "enabled_for_jobcompass_only": true,
+    "asset": "app.js",
+    "source_bytes": 40156,
+    "wire_bytes": 14133,
+    "seconds": 0.56563,
+    "gzip_and_vary_headers_verified": true
+  },
+  "browser_check": {
+    "passed": true,
+    "evidence": "safari-ui.json",
+    "additional_logical_ai_submissions": 1
+  }
+}
