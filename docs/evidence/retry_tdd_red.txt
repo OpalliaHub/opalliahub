@@ -1,0 +1,227 @@
+test_malformed_model_output_is_not_retried (tests.test_retry.AdapterRetryTests) ... ok
+test_research_adapter_recovers_transient_response (tests.test_retry.AdapterRetryTests) ... ERROR
+test_resume_adapter_recovers_transient_response (tests.test_retry.AdapterRetryTests) ... ERROR
+test_ambiguous_timeout_connection_or_message_never_retry (tests.test_retry.RetryTests) ... ok
+test_attempt_cap_and_fixed_exponential_wait (tests.test_retry.RetryTests) ... FAIL
+test_auth_balance_permission_and_bad_requests_never_retry (tests.test_retry.RetryTests) ... ok
+test_budget_exhaustion_does_not_schedule_retry (tests.test_retry.RetryTests) ... ok
+test_direct_http_error_also_supported (tests.test_retry.RetryTests) ... ERROR
+test_first_success_has_no_sleep (tests.test_retry.RetryTests) ... ok
+test_next_attempt_timeout_uses_remaining_budget (tests.test_retry.RetryTests) ... ERROR
+test_scheduler_delay_does_not_start_late_retry (tests.test_retry.RetryTests) ... ok
+test_transient_statuses_retry_with_same_payload (tests.test_retry.RetryTests) ... 
+======================================================================
+ERROR: test_research_adapter_recovers_transient_response (tests.test_retry.AdapterRetryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 429: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 112, in test_research_adapter_recovers_transient_response
+    self.assertEqual(_call('system', {})[0]['plan']['action'], 'skills')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/research_ai.py", line 13, in _call
+    raw=fetch(API_URL,json.dumps(request).encode(),{'Authorization':'Bearer '+key,'Content-Type':'application/json'},timeout=90,trusted_service=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+ERROR: test_resume_adapter_recovers_transient_response (tests.test_retry.AdapterRetryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 503: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 106, in test_resume_adapter_recovers_transient_response
+    self.assertEqual(call_ai('analyze', 'Python SQL resume')['summary'], 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/ai.py", line 31, in call_ai
+    raw = fetch(API_URL, json.dumps(payload).encode(), {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, timeout=90, trusted_service=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+ERROR: test_direct_http_error_also_supported (tests.test_retry.RetryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 58, in test_direct_http_error_also_supported
+    self.assertEqual(self.request(Mock(side_effect=[http_error(503), 'ok'])), 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 28, in request
+    return request_with_retry(transport, 'https://api.deepseek.com/chat/completions',
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/retry.py", line 6, in request_with_retry
+    return transport(url, data, headers, timeout=timeout, trusted_service=trusted_service)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+urllib.error.HTTPError: HTTP Error 503: fixture
+
+======================================================================
+ERROR: test_next_attempt_timeout_uses_remaining_budget (tests.test_retry.RetryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 503: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 89, in test_next_attempt_timeout_uses_remaining_budget
+    self.assertEqual(self.request(transport), 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 28, in request
+    return request_with_retry(transport, 'https://api.deepseek.com/chat/completions',
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/retry.py", line 6, in request_with_retry
+    return transport(url, data, headers, timeout=timeout, trusted_service=trusted_service)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+ERROR: test_transient_statuses_retry_with_same_payload (tests.test_retry.RetryTests) (code=429)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 429: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 42, in test_transient_statuses_retry_with_same_payload
+    self.assertEqual(self.request(transport), 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 28, in request
+    return request_with_retry(transport, 'https://api.deepseek.com/chat/completions',
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/retry.py", line 6, in request_with_retry
+    return transport(url, data, headers, timeout=timeout, trusted_service=trusted_service)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+ERROR: test_transient_statuses_retry_with_same_payload (tests.test_retry.RetryTests) (code=502)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 502: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 42, in test_transient_statuses_retry_with_same_payload
+    self.assertEqual(self.request(transport), 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 28, in request
+    return request_with_retry(transport, 'https://api.deepseek.com/chat/completions',
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/retry.py", line 6, in request_with_retry
+    return transport(url, data, headers, timeout=timeout, trusted_service=trusted_service)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+ERROR: test_transient_statuses_retry_with_same_payload (tests.test_retry.RetryTests) (code=503)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 503: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 42, in test_transient_statuses_retry_with_same_payload
+    self.assertEqual(self.request(transport), 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 28, in request
+    return request_with_retry(transport, 'https://api.deepseek.com/chat/completions',
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/retry.py", line 6, in request_with_retry
+    return transport(url, data, headers, timeout=timeout, trusted_service=trusted_service)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+ERROR: test_transient_statuses_retry_with_same_payload (tests.test_retry.RetryTests) (code=504)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 18, in wrapped_error
+    raise http_error(code)
+urllib.error.HTTPError: HTTP Error 504: fixture
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 42, in test_transient_statuses_retry_with_same_payload
+    self.assertEqual(self.request(transport), 'ok')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 28, in request
+    return request_with_retry(transport, 'https://api.deepseek.com/chat/completions',
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/retry.py", line 6, in request_with_retry
+    return transport(url, data, headers, timeout=timeout, trusted_service=trusted_service)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1144, in _execute_mock_call
+    raise result
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 21, in wrapped_error
+    raise ValueError('safe transport error')
+ValueError: safe transport error
+
+======================================================================
+FAIL: test_attempt_cap_and_fixed_exponential_wait (tests.test_retry.RetryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_retry.py", line 52, in test_attempt_cap_and_fixed_exponential_wait
+    self.assertIs(raised.exception, last)
+AssertionError: ValueError('safe transport error') is not ValueError('safe transport error')
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.013s
+
+FAILED (failures=1, errors=8)

@@ -1,0 +1,49 @@
+[
+  {
+    "stage": "after",
+    "selected_dataset": "research",
+    "elapsed_seconds": 1.0379,
+    "datasets": [
+      {
+        "id": "research",
+        "available": true,
+        "ads": 251042
+      },
+      {
+        "id": "current",
+        "available": true
+      }
+    ],
+    "facet_rows": {
+      "month": 33,
+      "quarter": 12,
+      "year": 3,
+      "sector": 30,
+      "location": 50
+    }
+  },
+  {
+    "stage": "after",
+    "selected_dataset": "current",
+    "elapsed_seconds": 0.5087,
+    "datasets": [
+      {
+        "id": "research",
+        "available": true,
+        "ads": 251042
+      },
+      {
+        "id": "current",
+        "available": true,
+        "ads": 7277
+      }
+    ],
+    "facet_rows": {
+      "month": 19,
+      "quarter": 8,
+      "year": 2,
+      "sector": 1,
+      "location": 50
+    }
+  }
+]

@@ -1,0 +1,18 @@
+test_research_agent (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_research_agent (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_research_agent
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_research_agent.py", line 11, in <module>
+    from jobcompass.research_agent import run_agent
+ModuleNotFoundError: No module named 'jobcompass.research_agent'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

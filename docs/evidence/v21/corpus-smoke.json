@@ -1,0 +1,55 @@
+{
+  "version": "2.1.0",
+  "date": "2026-11-19",
+  "resume": "bundled fictional demo, no personal resume read",
+  "database_access": "read-only job table; no application notes/settings queried",
+  "elapsed_seconds": 22.939,
+  "summary": {
+    "total": 7289,
+    "eligible": 7253,
+    "returned": 12,
+    "excluded_expired": 24,
+    "excluded_demo": 12,
+    "excluded_duplicates": 0,
+    "excluded_location": 0,
+    "excluded_min_score": 0,
+    "available_after_score_filter": 7253,
+    "data_mode": "observed",
+    "demo_fallback": false,
+    "weak_matches": 0,
+    "empty_reason": ""
+  },
+  "weights": {
+    "baseline": 0.75,
+    "project_evidence": 0.2,
+    "target_role": 0.05
+  },
+  "top_results": [
+    {
+      "title": "Analyst Programmer / Programmer",
+      "score": 62.0,
+      "weak_signal": false
+    },
+    {
+      "title": "Project Manager-OMD",
+      "score": 58.5,
+      "weak_signal": false
+    },
+    {
+      "title": "Quality Engineer / QA Tester - Multiple Head Counts",
+      "score": 58.5,
+      "weak_signal": false
+    },
+    {
+      "title": "Python Risk Engineer",
+      "score": 57.7,
+      "weak_signal": false
+    },
+    {
+      "title": "Python Risk Developer",
+      "score": 57.1,
+      "weak_signal": false
+    }
+  ],
+  "evaluation_limit": "Performance/functional smoke only; no human relevance labels or recommendation accuracy claim."
+}

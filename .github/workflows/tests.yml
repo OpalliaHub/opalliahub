@@ -1,17 +1,64 @@
-name: Python quality checks
-on: [push, pull_request]
+name: Course quality and delivery
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ['3.8', '3.11', '3.13']
+        os: [ubuntu-latest]
+        python-version: ['3.8', '3.11', '3.12', '3.13']
+        include:
+          - os: macos-latest
+            python-version: '3.11'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
+          cache: pip
       - run: python -m pip install -r requirements.txt
-      - run: python -m compileall -q main.py jobcompass
-      - run: python -m unittest discover -v
-      - run: python scripts/evaluate.py
+      - name: Offline source, tests, mutants and package gate
+        run: python scripts/quality_gate.py --mutations
+      - name: Preserve evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: quality-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: output/quality/
+          if-no-files-found: warn
+          retention-days: 14
+  deliver:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - name: Build the tested revision
+        run: python scripts/package_project.py
+      - name: Check the exact delivery archive
+        run: python scripts/quality_gate.py --quick --package dist/group11_project.zip
+      - uses: actions/upload-artifact@v7
+        with:
+          name: group11-course-project-${{ github.sha }}
+          path: |
+            dist/group11_project.zip
+            output/quality/report.json
+          if-no-files-found: error
+          retention-days: 14

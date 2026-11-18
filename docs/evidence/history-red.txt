@@ -1,0 +1,77 @@
+test_bounded_history (tests.test_history.HistoryTests) ... ERROR
+test_concurrent_updates_are_serializable (tests.test_history.HistoryTests) ... ERROR
+test_empty_and_invalid_actions (tests.test_history.HistoryTests) ... ERROR
+test_existing_schema_migrates_without_losing_records (tests.test_history.HistoryTests) ... ERROR
+test_new_change_discards_redo_branch (tests.test_history.HistoryTests) ... ERROR
+test_noop_preserves_redo (tests.test_history.HistoryTests) ... ERROR
+test_restart_and_private_notes (tests.test_history.HistoryTests) ... ERROR
+test_round_trip_create_update_delete (tests.test_history.HistoryTests) ... ERROR
+
+======================================================================
+ERROR: test_bounded_history (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 77, in test_bounded_history
+    self.assertEqual(self.store.history_status()['undo'], 50)
+AttributeError: 'Store' object has no attribute 'history_status'
+
+======================================================================
+ERROR: test_concurrent_updates_are_serializable (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 85, in test_concurrent_updates_are_serializable
+    self.assertEqual(self.store.history_status()['undo'], 12)
+AttributeError: 'Store' object has no attribute 'history_status'
+
+======================================================================
+ERROR: test_empty_and_invalid_actions (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 67, in test_empty_and_invalid_actions
+    self.store.application_history(action)
+AttributeError: 'Store' object has no attribute 'application_history'
+
+======================================================================
+ERROR: test_existing_schema_migrates_without_losing_records (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 93, in test_existing_schema_migrates_without_losing_records
+    con.execute('DROP TABLE application_history')
+sqlite3.OperationalError: no such table: application_history
+
+======================================================================
+ERROR: test_new_change_discards_redo_branch (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 44, in test_new_change_discards_redo_branch
+    self.store.application_history('undo')
+AttributeError: 'Store' object has no attribute 'application_history'
+
+======================================================================
+ERROR: test_noop_preserves_redo (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 52, in test_noop_preserves_redo
+    self.store.application_history('undo')
+AttributeError: 'Store' object has no attribute 'application_history'
+
+======================================================================
+ERROR: test_restart_and_private_notes (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 59, in test_restart_and_private_notes
+    self.assertEqual(self.store.history_status(), {'undo': 1, 'redo': 0})
+AttributeError: 'Store' object has no attribute 'history_status'
+
+======================================================================
+ERROR: test_round_trip_create_update_delete (tests.test_history.HistoryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_history.py", line 30, in test_round_trip_create_update_delete
+    self.store.application_history('undo')
+AttributeError: 'Store' object has no attribute 'application_history'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.118s
+
+FAILED (errors=8)

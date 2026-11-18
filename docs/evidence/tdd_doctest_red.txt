@@ -1,0 +1,89 @@
+Trying:
+    archive_relative('group11_project/main.py')
+Expecting:
+    'main.py'
+**********************************************************************
+File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/scripts/quality_gate.py", line 131, in quality_gate.archive_relative
+Failed example:
+    archive_relative('group11_project/main.py')
+Expected:
+    'main.py'
+Got nothing
+Trying:
+    archive_relative('group11_project/.github/workflows/tests.yml')
+Expecting:
+    '.github/workflows/tests.yml'
+**********************************************************************
+File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/scripts/quality_gate.py", line 133, in quality_gate.archive_relative
+Failed example:
+    archive_relative('group11_project/.github/workflows/tests.yml')
+Expected:
+    '.github/workflows/tests.yml'
+Got nothing
+Trying:
+    archive_relative('group11_project/../escape.py')
+Expecting:
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid_member_path
+**********************************************************************
+File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/scripts/quality_gate.py", line 135, in quality_gate.archive_relative
+Failed example:
+    archive_relative('group11_project/../escape.py')
+Expected:
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid_member_path
+Got nothing
+Trying:
+    archive_relative('/group11_project/main.py')
+Expecting:
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid_member_path
+**********************************************************************
+File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/scripts/quality_gate.py", line 139, in quality_gate.archive_relative
+Failed example:
+    archive_relative('/group11_project/main.py')
+Expected:
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid_member_path
+Got nothing
+Trying:
+    private_reason('.env')
+Expecting:
+    'local environment file'
+ok
+Trying:
+    private_reason('.env.example') is None
+Expecting:
+    True
+ok
+Trying:
+    private_reason('data/private/resume.txt')
+Expecting:
+    'private or generated directory'
+ok
+Trying:
+    private_reason('.github/workflows/tests.yml') is None
+Expecting:
+    True
+ok
+8 items had no tests:
+    quality_gate
+    quality_gate.main
+    quality_gate.package_report
+    quality_gate.run_command
+    quality_gate.scan_source
+    quality_gate.source_files
+    quality_gate.syntax_report
+    quality_gate.text_findings
+1 items passed all tests:
+   4 tests in quality_gate.private_reason
+**********************************************************************
+1 items had failures:
+   4 of   4 in quality_gate.archive_relative
+8 tests in 10 items.
+4 passed and 4 failed.
+***Test Failed*** 4 failures.

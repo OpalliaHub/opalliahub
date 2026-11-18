@@ -1,0 +1,37 @@
+test_target_job_lines_are_goals_not_existing_skills (tests.test_recommendations.StrengthTests) ... 
+======================================================================
+FAIL: test_target_job_lines_are_goals_not_existing_skills (tests.test_recommendations.StrengthTests) (heading='求职意向：')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 26, in test_target_job_lines_are_goals_not_existing_skills
+    self.assertNotIn('Python', profile['skills'])
+AssertionError: 'Python' unexpectedly found in ['Python', 'SQL']
+
+======================================================================
+FAIL: test_target_job_lines_are_goals_not_existing_skills (tests.test_recommendations.StrengthTests) (heading='目标岗位：')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 26, in test_target_job_lines_are_goals_not_existing_skills
+    self.assertNotIn('Python', profile['skills'])
+AssertionError: 'Python' unexpectedly found in ['Python', 'SQL']
+
+======================================================================
+FAIL: test_target_job_lines_are_goals_not_existing_skills (tests.test_recommendations.StrengthTests) (heading='Objective: ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 26, in test_target_job_lines_are_goals_not_existing_skills
+    self.assertNotIn('Python', profile['skills'])
+AssertionError: 'Python' unexpectedly found in ['Python', 'SQL']
+
+======================================================================
+FAIL: test_target_job_lines_are_goals_not_existing_skills (tests.test_recommendations.StrengthTests) (heading='Seeking a ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 26, in test_target_job_lines_are_goals_not_existing_skills
+    self.assertNotIn('Python', profile['skills'])
+AssertionError: 'Python' unexpectedly found in ['Python', 'SQL']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=4)

@@ -1,0 +1,13 @@
+# Optional overlay: mount only an operator-provisioned research database, read-only.
+# docker compose --env-file /etc/jobcompass/server.env -f compose.yaml -f deploy/compose.research.yaml up -d --build
+services:
+  jobcompass:
+    environment:
+      JOBCOMPASS_RESEARCH_DB: /research/jobsdb.sqlite
+    volumes:
+      - type: bind
+        source: ${JOBCOMPASS_RESEARCH_SOURCE:?Set the host research database path}
+        target: /research/jobsdb.sqlite
+        read_only: true
+        bind:
+          create_host_path: false

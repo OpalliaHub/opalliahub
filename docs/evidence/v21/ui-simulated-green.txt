@@ -1,0 +1,1 @@
+PASS: initial state preserves independently edited draft fields; snapshot changes; bookmark/notes stability; escaped output; invalidation clears; stale task suppressed; task failure callback; skip full-state refresh; edited draft during save aborts; recommendation detail score preserved without modifying baseline.

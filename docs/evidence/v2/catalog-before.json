@@ -1,0 +1,24 @@
+{
+  "stage": "before",
+  "selected_dataset": "research",
+  "elapsed_seconds": 10.6712,
+  "datasets": [
+    {
+      "id": "research",
+      "available": true,
+      "ads": 251042
+    },
+    {
+      "id": "current",
+      "available": true,
+      "ads": 7277
+    }
+  ],
+  "facet_rows": {
+    "month": 33,
+    "quarter": 12,
+    "year": 3,
+    "sector": 30,
+    "location": 50
+  }
+}

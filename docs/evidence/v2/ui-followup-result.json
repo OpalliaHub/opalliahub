@@ -1,0 +1,488 @@
+{
+  "query": {
+    "dataset": "research",
+    "dimensions": [
+      "quarter",
+      "sector"
+    ],
+    "measure": "share_pct",
+    "concept": "python",
+    "filters": {
+      "common_only": true,
+      "fresh_only": false
+    },
+    "exact_filters": {},
+    "dedup": "id",
+    "limit": 100,
+    "sort": "label"
+  },
+  "rows": [
+    {
+      "quarter": "2024-Q1",
+      "sector": "Education & Training",
+      "ads": 11,
+      "employers": 6,
+      "mentions": 1,
+      "share_pct": 9.0909,
+      "value": 9.0909
+    },
+    {
+      "quarter": "2024-Q1",
+      "sector": "Engineering",
+      "ads": 10,
+      "employers": 4,
+      "mentions": 0,
+      "share_pct": 0,
+      "value": 0
+    },
+    {
+      "quarter": "2024-Q1",
+      "sector": "Information & Communication Technology",
+      "ads": 59,
+      "employers": 23,
+      "mentions": 16,
+      "share_pct": 27.1186,
+      "value": 27.1186
+    },
+    {
+      "quarter": "2024-Q2",
+      "sector": "Education & Training",
+      "ads": 54,
+      "employers": 10,
+      "mentions": 5,
+      "share_pct": 9.2593,
+      "value": 9.2593
+    },
+    {
+      "quarter": "2024-Q2",
+      "sector": "Engineering",
+      "ads": 98,
+      "employers": 33,
+      "mentions": 8,
+      "share_pct": 8.1633,
+      "value": 8.1633
+    },
+    {
+      "quarter": "2024-Q2",
+      "sector": "Information & Communication Technology",
+      "ads": 329,
+      "employers": 68,
+      "mentions": 59,
+      "share_pct": 17.9331,
+      "value": 17.9331
+    },
+    {
+      "quarter": "2024-Q3",
+      "sector": "Education & Training",
+      "ads": 152,
+      "employers": 21,
+      "mentions": 6,
+      "share_pct": 3.9474,
+      "value": 3.9474
+    },
+    {
+      "quarter": "2024-Q3",
+      "sector": "Engineering",
+      "ads": 149,
+      "employers": 67,
+      "mentions": 6,
+      "share_pct": 4.0268,
+      "value": 4.0268
+    },
+    {
+      "quarter": "2024-Q3",
+      "sector": "Information & Communication Technology",
+      "ads": 306,
+      "employers": 95,
+      "mentions": 76,
+      "share_pct": 24.8366,
+      "value": 24.8366
+    },
+    {
+      "quarter": "2024-Q4",
+      "sector": "Education & Training",
+      "ads": 278,
+      "employers": 44,
+      "mentions": 4,
+      "share_pct": 1.4388,
+      "value": 1.4388
+    },
+    {
+      "quarter": "2024-Q4",
+      "sector": "Engineering",
+      "ads": 205,
+      "employers": 122,
+      "mentions": 2,
+      "share_pct": 0.9756,
+      "value": 0.9756
+    },
+    {
+      "quarter": "2024-Q4",
+      "sector": "Information & Communication Technology",
+      "ads": 327,
+      "employers": 155,
+      "mentions": 51,
+      "share_pct": 15.5963,
+      "value": 15.5963
+    },
+    {
+      "quarter": "2025-Q1",
+      "sector": "Education & Training",
+      "ads": 3715,
+      "employers": 918,
+      "mentions": 85,
+      "share_pct": 2.288,
+      "value": 2.288
+    },
+    {
+      "quarter": "2025-Q1",
+      "sector": "Engineering",
+      "ads": 6972,
+      "employers": 1855,
+      "mentions": 76,
+      "share_pct": 1.0901,
+      "value": 1.0901
+    },
+    {
+      "quarter": "2025-Q1",
+      "sector": "Information & Communication Technology",
+      "ads": 10636,
+      "employers": 1892,
+      "mentions": 1517,
+      "share_pct": 14.2629,
+      "value": 14.2629
+    },
+    {
+      "quarter": "2025-Q2",
+      "sector": "Education & Training",
+      "ads": 1818,
+      "employers": 615,
+      "mentions": 41,
+      "share_pct": 2.2552,
+      "value": 2.2552
+    },
+    {
+      "quarter": "2025-Q2",
+      "sector": "Engineering",
+      "ads": 2852,
+      "employers": 1069,
+      "mentions": 43,
+      "share_pct": 1.5077,
+      "value": 1.5077
+    },
+    {
+      "quarter": "2025-Q2",
+      "sector": "Information & Communication Technology",
+      "ads": 4512,
+      "employers": 1201,
+      "mentions": 638,
+      "share_pct": 14.1401,
+      "value": 14.1401
+    },
+    {
+      "quarter": "2025-Q3",
+      "sector": "Education & Training",
+      "ads": 3054,
+      "employers": 866,
+      "mentions": 70,
+      "share_pct": 2.2921,
+      "value": 2.2921
+    },
+    {
+      "quarter": "2025-Q3",
+      "sector": "Engineering",
+      "ads": 4607,
+      "employers": 1364,
+      "mentions": 67,
+      "share_pct": 1.4543,
+      "value": 1.4543
+    },
+    {
+      "quarter": "2025-Q3",
+      "sector": "Information & Communication Technology",
+      "ads": 8759,
+      "employers": 1786,
+      "mentions": 1426,
+      "share_pct": 16.2804,
+      "value": 16.2804
+    },
+    {
+      "quarter": "2025-Q4",
+      "sector": "Education & Training",
+      "ads": 4620,
+      "employers": 1068,
+      "mentions": 112,
+      "share_pct": 2.4242,
+      "value": 2.4242
+    },
+    {
+      "quarter": "2025-Q4",
+      "sector": "Engineering",
+      "ads": 6545,
+      "employers": 1563,
+      "mentions": 96,
+      "share_pct": 1.4668,
+      "value": 1.4668
+    },
+    {
+      "quarter": "2025-Q4",
+      "sector": "Information & Communication Technology",
+      "ads": 12297,
+      "employers": 1938,
+      "mentions": 2165,
+      "share_pct": 17.6059,
+      "value": 17.6059
+    },
+    {
+      "quarter": "2026-Q1",
+      "sector": "Education & Training",
+      "ads": 4196,
+      "employers": 1217,
+      "mentions": 76,
+      "share_pct": 1.8112,
+      "value": 1.8112
+    },
+    {
+      "quarter": "2026-Q1",
+      "sector": "Engineering",
+      "ads": 5772,
+      "employers": 1522,
+      "mentions": 114,
+      "share_pct": 1.9751,
+      "value": 1.9751
+    },
+    {
+      "quarter": "2026-Q1",
+      "sector": "Information & Communication Technology",
+      "ads": 11613,
+      "employers": 2132,
+      "mentions": 2036,
+      "share_pct": 17.5321,
+      "value": 17.5321
+    },
+    {
+      "quarter": "2026-Q2",
+      "sector": "Education & Training",
+      "ads": 4254,
+      "employers": 1284,
+      "mentions": 65,
+      "share_pct": 1.528,
+      "value": 1.528
+    },
+    {
+      "quarter": "2026-Q2",
+      "sector": "Engineering",
+      "ads": 5940,
+      "employers": 1642,
+      "mentions": 117,
+      "share_pct": 1.9697,
+      "value": 1.9697
+    },
+    {
+      "quarter": "2026-Q2",
+      "sector": "Information & Communication Technology",
+      "ads": 11262,
+      "employers": 2141,
+      "mentions": 2039,
+      "share_pct": 18.1051,
+      "value": 18.1051
+    },
+    {
+      "quarter": "2026-Q3",
+      "sector": "Education & Training",
+      "ads": 3712,
+      "employers": 1195,
+      "mentions": 77,
+      "share_pct": 2.0744,
+      "value": 2.0744
+    },
+    {
+      "quarter": "2026-Q3",
+      "sector": "Engineering",
+      "ads": 5871,
+      "employers": 1648,
+      "mentions": 150,
+      "share_pct": 2.5549,
+      "value": 2.5549
+    },
+    {
+      "quarter": "2026-Q3",
+      "sector": "Information & Communication Technology",
+      "ads": 10831,
+      "employers": 2038,
+      "mentions": 2101,
+      "share_pct": 19.398,
+      "value": 19.398
+    },
+    {
+      "quarter": "2026-Q4",
+      "sector": "Education & Training",
+      "ads": 112,
+      "employers": 77,
+      "mentions": 0,
+      "share_pct": 0,
+      "value": 0
+    },
+    {
+      "quarter": "2026-Q4",
+      "sector": "Engineering",
+      "ads": 204,
+      "employers": 135,
+      "mentions": 2,
+      "share_pct": 0.9804,
+      "value": 0.9804
+    },
+    {
+      "quarter": "2026-Q4",
+      "sector": "Information & Communication Technology",
+      "ads": 248,
+      "employers": 151,
+      "mentions": 46,
+      "share_pct": 18.5484,
+      "value": 18.5484
+    }
+  ],
+  "totals": {
+    "ads": 136380,
+    "employers": 11183,
+    "mentions": 13393,
+    "share_pct": 9.8204
+  },
+  "pivot": {
+    "row_dimension": "quarter",
+    "column_dimension": "sector",
+    "row_labels": [
+      "2024-Q1",
+      "2024-Q2",
+      "2024-Q3",
+      "2024-Q4",
+      "2025-Q1",
+      "2025-Q2",
+      "2025-Q3",
+      "2025-Q4",
+      "2026-Q1",
+      "2026-Q2",
+      "2026-Q3",
+      "2026-Q4"
+    ],
+    "column_labels": [
+      "Education & Training",
+      "Engineering",
+      "Information & Communication Technology"
+    ],
+    "values": [
+      [
+        9.0909,
+        0,
+        27.1186
+      ],
+      [
+        9.2593,
+        8.1633,
+        17.9331
+      ],
+      [
+        3.9474,
+        4.0268,
+        24.8366
+      ],
+      [
+        1.4388,
+        0.9756,
+        15.5963
+      ],
+      [
+        2.288,
+        1.0901,
+        14.2629
+      ],
+      [
+        2.2552,
+        1.5077,
+        14.1401
+      ],
+      [
+        2.2921,
+        1.4543,
+        16.2804
+      ],
+      [
+        2.4242,
+        1.4668,
+        17.6059
+      ],
+      [
+        1.8112,
+        1.9751,
+        17.5321
+      ],
+      [
+        1.528,
+        1.9697,
+        18.1051
+      ],
+      [
+        2.0744,
+        2.5549,
+        19.398
+      ],
+      [
+        0,
+        0.9804,
+        18.5484
+      ]
+    ]
+  },
+  "metadata": {
+    "fingerprint": "4a5fa8981f0bdb3695283b6e66b1bf8a4d93cb23a8649e48522426720685a65a",
+    "truncated": false,
+    "total_groups": 36,
+    "returned_groups": 36,
+    "warnings": [
+      "全文提及不等于真实要求、强制要求或新兴技能；本词典为 2026-10-06 回顾性探针。",
+      "JobsDB 便利样本不代表香港整体劳动力市场，广告 ID 不等于招聘人数。",
+      "前期约 30 类、后期主要 3 类；2025 年 5–8 月有长断档，空缺不按零需求处理。",
+      "日期是首次观察版本的来源标示日期；抓取时间来自文件名，时区未核实。",
+      "雇主正文族是显示名与全文哈希的严格去重敏感性口径，不证明是同一空缺。"
+    ],
+    "date_meaning": "研究库按首个有效观察版本的来源标示日期分组；当前库按岗位来源标示日期分组。Unknown 保留缺失或不可解析日期，不把缺月当作零需求。",
+    "employer_definition": "去掉空白及 confidential/unknown 占位值后，对去空格、小写化的雇主显示标签去重；不等于已核实的法人或招聘人数。",
+    "updated_at": "2026-10-08T11:18:12+00:00",
+    "elapsed_seconds": 1.0067,
+    "label_source": "rule_derived",
+    "unknown_bucket": "Unknown",
+    "pivot_scope": "displayed_groups_only"
+  },
+  "chart": {
+    "type": "line",
+    "title": "Python 全文提及率按季度与行业类别趋势（提及广告数/样本广告数）"
+  },
+  "instruction": {
+    "query": {
+      "dataset": "research",
+      "dimensions": [
+        "quarter",
+        "sector"
+      ],
+      "measure": "share_pct",
+      "concept": "python",
+      "filters": {
+        "common_only": true,
+        "fresh_only": false
+      },
+      "exact_filters": {},
+      "dedup": "id",
+      "limit": 100,
+      "sort": "label"
+    },
+    "explanation": "保留前次查询的季度与行业类别维度、Python 探针、common_only 筛选与 id 去重口径，将指标由 ads 改为 share_pct，即以包含 Python 的广告数（mentions）除以样本广告数（ads）的百分比，按来源标示日期归入季度。折线按行业类别分组比较趋势；季度或类别缺失者归入 Unknown，不代表为零。该指标仅为样本广告中的文本提及比例，不是录用概率、总体需求或因果结论，也未做人工核验或显著性检验。",
+    "label_source": "model_prediction",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1099,
+      "completion_tokens": 213,
+      "total_tokens": 1312
+    }
+  },
+  "message": "指令已执行，图表与指标已更新。"
+}

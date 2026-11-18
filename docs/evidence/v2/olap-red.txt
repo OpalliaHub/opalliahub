@@ -1,0 +1,100 @@
+test_olap (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_olap (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_olap
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_olap.py", line 9, in <module>
+    from jobcompass.olap import OLAP, validate_query
+ModuleNotFoundError: No module named 'jobcompass.olap'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+test_catalog_has_labels_availability_and_bounded_facets (tests.test_olap.OLAPTests) ... ok
+test_current_dataset_excludes_demo_and_returns_only_aggregates (tests.test_olap.OLAPTests) ... ok
+test_current_fingerprint_changes_with_source_body_and_uses_same_snapshot (tests.test_olap.OLAPTests) ... ok
+test_employer_labels_are_normalized_without_counting_placeholders (tests.test_olap.OLAPTests) ... ok
+test_empty_cohort_has_zero_counts_and_unknown_rate (tests.test_olap.OLAPTests) ... ok
+test_exact_filters_support_drilldown_and_missing_bucket (tests.test_olap.OLAPTests) ... ok
+test_facets_are_limited_independently_of_dataset_counts (tests.test_olap.OLAPTests) ... ok
+test_filters_are_parameters_and_read_only_source_is_unchanged (tests.test_olap.OLAPTests) ... ok
+test_impossible_dates_are_unknown_instead_of_false_month_groups (tests.test_olap.OLAPTests) ... FAIL
+test_limit_does_not_change_totals_or_total_group_count (tests.test_olap.OLAPTests) ... ok
+test_missing_month_is_explicit_and_kept_in_total_denominator (tests.test_olap.OLAPTests) ... ok
+test_quarter_and_year_grouping (tests.test_olap.OLAPTests) ... ok
+test_quarter_boundaries_cross_years_correctly (tests.test_olap.OLAPTests) ... ok
+test_shared_family_dedup_keeps_first_global_record_before_date_filter (tests.test_olap.OLAPTests) ... ok
+test_total_rate_is_weighted_by_ads_and_distinct_employers_are_not_summed (tests.test_olap.OLAPTests) ... ok
+test_two_dimensions_return_pivot_without_filling_missing_cells_with_zero (tests.test_olap.OLAPTests) ... ok
+test_unavailable_research_has_no_false_zero_count (tests.test_olap.OLAPTests) ... ok
+test_value_sort_uses_selected_measure (tests.test_olap.OLAPTests) ... ok
+test_validation_rejects_instructions_outside_closed_query_language (tests.test_olap.OLAPValidationTests) ... ok
+test_validation_returns_independent_normalized_query (tests.test_olap.OLAPValidationTests) ... ok
+
+======================================================================
+FAIL: test_impossible_dates_are_unknown_instead_of_false_month_groups (tests.test_olap.OLAPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_olap.py", line 84, in test_impossible_dates_are_unknown_instead_of_false_month_groups
+    self.assertEqual(result['totals']['ads'], 3)
+AssertionError: 1 != 3
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.099s
+
+FAILED (failures=1)
+test_catalog_does_not_build_unselected_current_snapshot (tests.test_olap.OLAPTests) ... FAIL
+test_selected_current_catalog_skips_probe_matching_but_query_does_not (tests.test_olap.OLAPTests) ... FAIL
+
+======================================================================
+FAIL: test_catalog_does_not_build_unselected_current_snapshot (tests.test_olap.OLAPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_olap.py", line 192, in test_catalog_does_not_build_unselected_current_snapshot
+    catalog = self.olap.catalog('research')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/olap.py", line 175, in catalog
+    with self._connection(name) as (connection, fingerprint, updated_at):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/olap.py", line 99, in _connection
+    connection = self.research._current()
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1140, in _execute_mock_call
+    raise effect
+AssertionError: Unselected snapshot was built
+
+======================================================================
+FAIL: test_selected_current_catalog_skips_probe_matching_but_query_does_not (tests.test_olap.OLAPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_olap.py", line 200, in test_selected_current_catalog_skips_probe_matching_but_query_does_not
+    catalog = self.olap.catalog('current')
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/olap.py", line 175, in catalog
+    with self._connection(name) as (connection, fingerprint, updated_at):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/olap.py", line 99, in _connection
+    connection = self.research._current()
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/research.py", line 199, in _current
+    c.execute('INSERT INTO ads VALUES ('+','.join('?'*15)+')',(j['id'],j['title'],j['company'],'Unknown',j['location'],j['salary'],pub,obs,obs,canonical(j['company'])+'|'+hashlib.sha256(canonical(text).encode()).hexdigest(),mask_for(text),0,j['id'],j['id'],1))
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/mock.py", line 1140, in _execute_mock_call
+    raise effect
+AssertionError: Catalog scanned probes
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.014s
+
+FAILED (failures=2)

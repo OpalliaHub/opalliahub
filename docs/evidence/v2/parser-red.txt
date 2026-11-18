@@ -1,0 +1,20 @@
+test_plain_description_with_bare_ampersand_roundtrips (tests.test_benchmark.BenchmarkTests.test_plain_description_with_bare_ampersand_roundtrips) ... ERROR
+
+======================================================================
+ERROR: test_plain_description_with_bare_ampersand_roundtrips (tests.test_benchmark.BenchmarkTests.test_plain_description_with_bare_ampersand_roundtrips)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_benchmark.py", line 32, in test_plain_description_with_bare_ampersand_roundtrips
+    self.assertEqual(load_snapshot(path)[0]['description'], job['description'])
+                     ^^^^^^^^^^^^^^^^^^^
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/benchmark.py", line 100, in load_snapshot
+    clean = normalize(job, job.get('source', SOURCE))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/sources.py", line 105, in normalize
+    raise ValueError('岗位需要 title、company 和至少 15 字符的 description。')
+ValueError: 岗位需要 title、company 和至少 15 字符的 description。
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (errors=1)

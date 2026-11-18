@@ -1,0 +1,24 @@
+{
+  "version": "1.1.0",
+  "verification_date": "2026-10-08",
+  "mode": "Actual GUI button -> background collector -> JobsDB search and detail endpoints -> SQLite",
+  "result": {
+    "source": "JobsDB",
+    "count": 20,
+    "expired": 0,
+    "rejected": 0,
+    "unavailable": 0,
+    "requested": 20,
+    "found": 20,
+    "keyword": "Python",
+    "status": "success",
+    "checked_at": "2026-10-08T10:49:43+00:00",
+    "message": "已更新 20 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。"
+  },
+  "checks": {
+    "network_resume_transmitted": false,
+    "external_output_directory_read": false,
+    "test_count": 90,
+    "unit_http_tests_passed": true
+  }
+}

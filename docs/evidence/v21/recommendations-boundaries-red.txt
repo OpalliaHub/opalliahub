@@ -1,0 +1,112 @@
+test_actual_project_evidence_outweighs_an_equal_generic_skill_mention (tests.test_recommendations.RecommendationTests) ... ok
+test_all_scores_bounded_deterministic_and_breakdown_reconciles (tests.test_recommendations.RecommendationTests) ... ok
+test_application_notes_and_status_do_not_affect_ranking_or_evidence (tests.test_recommendations.RecommendationTests) ... ok
+test_changing_only_identity_fields_does_not_change_scores_or_order (tests.test_recommendations.RecommendationTests) ... ok
+test_demo_only_corpus_and_explicit_include_demo_are_labeled (tests.test_recommendations.RecommendationTests) ... ok
+test_evidence_references_only_bounded_visible_strength_cards (tests.test_recommendations.RecommendationTests) ... FAIL
+test_expired_newest_duplicate_does_not_resurrect_older_active_copy (tests.test_recommendations.RecommendationTests) ... ok
+test_expiry_url_dedup_demo_and_missing_status_are_explained (tests.test_recommendations.RecommendationTests) ... ok
+test_inputs_are_unchanged_and_ranker_runs_once (tests.test_recommendations.RecommendationTests) ... ok
+test_invalid_options_and_preferences_fail_without_ranking (tests.test_recommendations.RecommendationTests) ... ok
+test_multiple_real_skills_fit_better_than_a_single_generic_overlap (tests.test_recommendations.RecommendationTests) ... ok
+test_naive_expiry_has_an_explicit_conservative_policy (tests.test_recommendations.RecommendationTests) ... FAIL
+test_nontechnical_recruitment_work_ranks_relevant_work_above_software (tests.test_recommendations.RecommendationTests) ... ok
+test_past_expiry_timestamp_excludes_record_even_if_marked_active (tests.test_recommendations.RecommendationTests) ... ok
+test_soft_location_preference_retains_mismatch_warning (tests.test_recommendations.RecommendationTests) ... FAIL
+test_strict_location_does_not_treat_remote_as_worldwide (tests.test_recommendations.RecommendationTests) ... ok
+test_unknown_evidence_is_weak_not_certified_fit_and_minimum_is_explicit (tests.test_recommendations.RecommendationTests) ... ok
+test_conflicting_skill_does_not_leave_an_empty_practical_strength (tests.test_recommendations.StrengthTests) ... FAIL
+test_english_negation_scope_does_not_erase_an_actual_other_skill (tests.test_recommendations.StrengthTests) ... ok
+test_explicit_personal_identity_lines_do_not_become_strengths (tests.test_recommendations.StrengthTests) ... ok
+test_nontechnical_actual_work_has_evidence_and_role_features (tests.test_recommendations.StrengthTests) ... ok
+test_not_only_is_not_negation_and_bare_negative_lists_propagate (tests.test_recommendations.StrengthTests) ... ok
+test_positive_denied_and_aspirational_skills_have_separate_statuses (tests.test_recommendations.StrengthTests) ... ok
+test_skill_heading_nouns_are_not_practical_actions (tests.test_recommendations.StrengthTests) ... FAIL
+test_strength_evidence_is_a_local_verbatim_excerpt_and_not_mastery_claim (tests.test_recommendations.StrengthTests) ... ok
+
+======================================================================
+FAIL: test_evidence_references_only_bounded_visible_strength_cards (tests.test_recommendations.RecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 172, in test_evidence_references_only_bounded_visible_strength_cards
+    self.assertTrue(set(match['strength_ids']) <= visible)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_naive_expiry_has_an_explicit_conservative_policy (tests.test_recommendations.RecommendationTests) (date='2000-01-01')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 148, in test_naive_expiry_has_an_explicit_conservative_policy
+    self.assertEqual(result['jobs'], [])
+AssertionError: Lists differ: [{'id': 'old', 'title': 'Data Analyst', 'c[1574 chars]lse}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 'old', 'title': 'Data Analyst', 'company': 'Fictional Ltd', 'source': 'test', 'description': 'Data analysis SQL reporting. Bachelor degree. 2 years experience.', 'skills': ['SQL'], 'location': 'Hong Kong', 'url': '', 'is_demo': False, 'availability': 'active', 'expires_at': '2000-01-01', 'score': 64.7, 'baseline_score': 55.3, 'breakdown': [{'key': 'baseline', 'label': '岗位基础匹配', 'value': 55.3, 'weight': 78.95, 'base_weight': 75.0, 'contribution': 43.66}, {'key': 'project_evidence', 'label': '行动与项目证据', 'value': 100.0, 'weight': 21.05, 'base_weight': 20.0, 'contribution': 21.05}, {'key': 'target_role', 'label': '目标职位名称', 'value': None, 'weight': 0, 'base_weight': 5.0, 'contribution': 0}], 'baseline_breakdown': [{'key': 'skills', 'label': '技能契合', 'value': 50.0, 'weight': 50.0}, {'key': 'text', 'label': '文本相关', 'value': 29.1, 'weight': 27.8}, {'key': 'experience', 'label': '经验要求', 'value': 100.0, 'weight': 16.7}, {'key': 'education', 'label': '学历要求', 'value': 100.0, 'weight': 5.6}, {'key': 'location', 'label': '地区偏好', 'value': None, 'weight': 0}], 'matched_skills': ['SQL'], 'missing_skills': [], 'reasons': ['岗位提及与简历相交的技能：SQL', '相关技能或职责在简历的行动/项目句中有原文线索，可逐条核对。'], 'evidence_matches': [{'skill': '报表与报告', 'kind': 'project', 'feature_type': 'domain', 'evidence': ['项目中使用 SQL 完成销售报表并自动化数据清洗'], 'strength_ids': ['2920eefd26fb']}, {'skill': 'SQL', 'kind': 'project', 'feature_type': 'skill', 'evidence': ['项目中使用 SQL 完成销售报表并自动化数据清洗', '技能列表：Python、SQL、Git'], 'strength_ids': ['2920eefd26fb', '60325057cfaf']}], 'warnings': [], 'effective_coverage': 92.1, 'unknown_fields': ['location'], 'weak_signal': False}
+
+Diff is 2860 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_naive_expiry_has_an_explicit_conservative_policy (tests.test_recommendations.RecommendationTests) (date='2000-01-01T00:00:00')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 148, in test_naive_expiry_has_an_explicit_conservative_policy
+    self.assertEqual(result['jobs'], [])
+AssertionError: Lists differ: [{'id': 'old', 'title': 'Data Analyst', 'c[1583 chars]lse}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 'old', 'title': 'Data Analyst', 'company': 'Fictional Ltd', 'source': 'test', 'description': 'Data analysis SQL reporting. Bachelor degree. 2 years experience.', 'skills': ['SQL'], 'location': 'Hong Kong', 'url': '', 'is_demo': False, 'availability': 'active', 'expires_at': '2000-01-01T00:00:00', 'score': 64.7, 'baseline_score': 55.3, 'breakdown': [{'key': 'baseline', 'label': '岗位基础匹配', 'value': 55.3, 'weight': 78.95, 'base_weight': 75.0, 'contribution': 43.66}, {'key': 'project_evidence', 'label': '行动与项目证据', 'value': 100.0, 'weight': 21.05, 'base_weight': 20.0, 'contribution': 21.05}, {'key': 'target_role', 'label': '目标职位名称', 'value': None, 'weight': 0, 'base_weight': 5.0, 'contribution': 0}], 'baseline_breakdown': [{'key': 'skills', 'label': '技能契合', 'value': 50.0, 'weight': 50.0}, {'key': 'text', 'label': '文本相关', 'value': 29.1, 'weight': 27.8}, {'key': 'experience', 'label': '经验要求', 'value': 100.0, 'weight': 16.7}, {'key': 'education', 'label': '学历要求', 'value': 100.0, 'weight': 5.6}, {'key': 'location', 'label': '地区偏好', 'value': None, 'weight': 0}], 'matched_skills': ['SQL'], 'missing_skills': [], 'reasons': ['岗位提及与简历相交的技能：SQL', '相关技能或职责在简历的行动/项目句中有原文线索，可逐条核对。'], 'evidence_matches': [{'skill': '报表与报告', 'kind': 'project', 'feature_type': 'domain', 'evidence': ['项目中使用 SQL 完成销售报表并自动化数据清洗'], 'strength_ids': ['2920eefd26fb']}, {'skill': 'SQL', 'kind': 'project', 'feature_type': 'skill', 'evidence': ['项目中使用 SQL 完成销售报表并自动化数据清洗', '技能列表：Python、SQL、Git'], 'strength_ids': ['2920eefd26fb', '60325057cfaf']}], 'warnings': [], 'effective_coverage': 92.1, 'unknown_fields': ['location'], 'weak_signal': False}
+
+Diff is 2869 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_naive_expiry_has_an_explicit_conservative_policy (tests.test_recommendations.RecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 151, in test_naive_expiry_has_an_explicit_conservative_policy
+    self.assertEqual(future['availability'], 'unknown')
+AssertionError: 'active' != 'unknown'
+- active
++ unknown
+
+
+======================================================================
+FAIL: test_soft_location_preference_retains_mismatch_warning (tests.test_recommendations.RecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 157, in test_soft_location_preference_retains_mismatch_warning
+    self.assertTrue(any('地区' in warning for warning in result['jobs'][0]['warnings']))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_conflicting_skill_does_not_leave_an_empty_practical_strength (tests.test_recommendations.StrengthTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 75, in test_conflicting_skill_does_not_leave_an_empty_practical_strength
+    self.assertEqual(profile['strengths'], [])
+AssertionError: Lists differ: [{'id': 'b681af8f7887', 'title': '项目中出现的实践[78 chars]ct'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': 'b681af8f7887', 'title': '项目中出现的实践线索', 'skills': [], 'evidence': ['I used Python in a project.'], 'kind': 'project'}
+
++ []
+- [{'evidence': ['I used Python in a project.'],
+-   'id': 'b681af8f7887',
+-   'kind': 'project',
+-   'skills': [],
+-   'title': '项目中出现的实践线索'}]
+
+======================================================================
+FAIL: test_skill_heading_nouns_are_not_practical_actions (tests.test_recommendations.StrengthTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 68, in test_skill_heading_nouns_are_not_practical_actions
+    self.assertTrue(all(row['kind'] == 'skill' for row in profile['strengths']))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.035s
+
+FAILED (failures=7)

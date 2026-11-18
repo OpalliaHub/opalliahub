@@ -1,0 +1,18 @@
+test_ranking_cache (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_ranking_cache (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_ranking_cache
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_ranking_cache.py", line 10, in <module>
+    from jobcompass.ranking_cache import RankedJobsCache
+ModuleNotFoundError: No module named 'jobcompass.ranking_cache'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

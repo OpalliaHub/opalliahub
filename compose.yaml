@@ -1,0 +1,41 @@
+services:
+  jobcompass:
+    build: .
+    image: jobcompass:local
+    restart: unless-stopped
+    init: true
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      JOBCOMPASS_PUBLIC: "1"
+      JOBCOMPASS_DB: /app/data/shared.sqlite
+      JOBCOMPASS_PUBLIC_ORIGIN: ${JOBCOMPASS_PUBLIC_ORIGIN:?Set the public HTTPS origin}
+      JOBCOMPASS_ALLOWED_HOSTS: ${JOBCOMPASS_ALLOWED_HOSTS:?Set the exact allowed hostname}
+      JOBCOMPASS_TRUSTED_PROXIES: ${JOBCOMPASS_TRUSTED_PROXIES:-}
+      JOBCOMPASS_SESSION_TTL: ${JOBCOMPASS_SESSION_TTL:-3600}
+      JOBCOMPASS_MAX_SESSIONS: ${JOBCOMPASS_MAX_SESSIONS:-32}
+      JOBCOMPASS_SESSION_PER_IP: ${JOBCOMPASS_SESSION_PER_IP:-12}
+      JOBCOMPASS_SESSION_GLOBAL: ${JOBCOMPASS_SESSION_GLOBAL:-120}
+      JOBCOMPASS_PAGE_HOSTS: ${JOBCOMPASS_PAGE_HOSTS:-}
+      JOBCOMPASS_AI_PER_IP: ${JOBCOMPASS_AI_PER_IP:-10}
+      JOBCOMPASS_AI_GLOBAL: ${JOBCOMPASS_AI_GLOBAL:-100}
+      JOBCOMPASS_AI_ACTIVE: ${JOBCOMPASS_AI_ACTIVE:-3}
+      JOBCOMPASS_RECOMMEND_ACTIVE: ${JOBCOMPASS_RECOMMEND_ACTIVE:-3}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-flash}
+    volumes:
+      - app-data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 2g
+    cpus: 2
+    stop_grace_period: 130s
+
+volumes:
+  app-data:

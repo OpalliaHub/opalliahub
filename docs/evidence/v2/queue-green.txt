@@ -1,0 +1,6 @@
+test_executor_rejection_leaves_no_permanent_queued_task (tests.test_task_queue.TaskQueueTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK

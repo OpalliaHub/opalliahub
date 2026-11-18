@@ -1,0 +1,13 @@
+{
+  "stage": "after",
+  "python": "3.8.10",
+  "jobs": 7289,
+  "resume": "bundled fictional demo_resume.txt",
+  "features_seconds": 6.238,
+  "full_seconds": 8.164,
+  "feature_hash": "c31479c1a6114485fb3374bef19718658ed3da6c5c7331a809d82daf9051e844",
+  "result_hash": "ac1af1cc2b17fba350214f55c04894988726c2d22f75b7c0b493a0d56185bf49",
+  "eligible": 7253,
+  "returned": 10,
+  "scope": "One local read-only database run; no cloud throughput claim."
+}

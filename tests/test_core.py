@@ -169,7 +169,7 @@ class StorageTests(unittest.TestCase):
 
 class AppTests(unittest.TestCase):
     def setUp(self):
-        self.temp=tempfile.TemporaryDirectory();self.app=Application(Path(self.temp.name)/'db.sqlite')
+        self.temp=tempfile.TemporaryDirectory();self.app=Application(Path(self.temp.name)/'db.sqlite', demo=True)
     def tearDown(self): self.app.tasks.pool.shutdown(wait=True);self.temp.cleanup()
     def test_seed_once(self):
         self.assertEqual(len(self.app.store.jobs()),12)

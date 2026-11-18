@@ -1,0 +1,18 @@
+# Replace the example domain; point its DNS to the server before starting Caddy.
+jobs.example.com {
+    encode zstd gzip
+    request_body {
+        max_size 8MB
+    }
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        Strict-Transport-Security "max-age=31536000"
+        -Server
+    }
+    reverse_proxy 127.0.0.1:8765 {
+        # Caddy supplies the direct client's IP, replacing any client-provided value.
+        header_up X-Real-IP {remote_host}
+        header_up Host {host}
+    }
+}

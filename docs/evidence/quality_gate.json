@@ -1,0 +1,77 @@
+{
+  "created_at": "2026-11-18T15:12:38.182843+00:00",
+  "python": "3.8.10",
+  "mode": "full",
+  "cloud_ci_verified": false,
+  "commands": [
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "-m",
+        "doctest",
+        "-v",
+        "scripts/quality_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.066,
+      "log": "doctest.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "scripts/static_checks.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06,
+      "log": "static_checks.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 1.456,
+      "log": "unittest.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "scripts/mutation_check.py",
+        "--output",
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/output/quality/mutations"
+      ],
+      "exit_code": 0,
+      "seconds": 1.608,
+      "log": "mutation.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "scripts/package_project.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.173,
+      "log": "package.log"
+    }
+  ],
+  "source": {
+    "scanned_files": 100,
+    "findings": [],
+    "scope": "Allowlisted source and Office XML; .env, private data, databases and symlinks are not read."
+  },
+  "syntax": {
+    "files": 41,
+    "errors": []
+  },
+  "package": {
+    "members": 116,
+    "sha256": "b619f06d904e4a8e68afde9a6166f2f7c6ad27921d5ed500f1a358508803d570",
+    "errors": []
+  },
+  "status": "passed",
+  "note": "Full code gate before final documentation-only archive rebuild; package digest below identifies that intermediate archive. The final archive is independently checked in dist/package-verification.json."
+}

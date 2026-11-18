@@ -21,6 +21,16 @@ def fixture(jid='12345678', expired=False):
 
 
 class BenchmarkTests(unittest.TestCase):
+    def test_plain_description_with_bare_ampersand_roundtrips(self):
+        # HTMLParser may buffer a non-terminated character reference until EOF.
+        # A previously normalized snapshot is plain text, so R&D must survive.
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'jobs.gz'
+            job = convert_record(fixture())
+            job['description'] = 'Work with Python research and R&D'
+            write_snapshot([job], path)
+            self.assertEqual(load_snapshot(path)[0]['description'], job['description'])
+
     def test_normalization_removes_contacts_and_tracking(self):
         job = convert_record(fixture())
         body = json.dumps(job)

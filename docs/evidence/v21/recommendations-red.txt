@@ -1,0 +1,18 @@
+test_recommendations (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_recommendations (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_recommendations
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 7, in <module>
+    from jobcompass.recommendations import analyze_strengths, build_recommendations, validate_options
+ModuleNotFoundError: No module named 'jobcompass.recommendations'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

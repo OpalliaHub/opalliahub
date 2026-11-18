@@ -1,6 +1,6 @@
 # AI 辅助代码审查记录
 
-审查对象：本项目初始实现。审查由生成代码的同一 AI 进行，不构成独立第三方审计。后续小组成员应结合源码及测试亲自复核。
+审查对象：本项目初始实现及 2026-09-30 研究数据与启动指引修订。审查由生成代码的同一 AI 进行，不构成独立第三方审计。后续小组成员应结合源码及测试亲自复核。
 
 | 问题 | 修改或处理 | 验证 |
 |---|---|---|
@@ -24,3 +24,18 @@
 仍需考虑的限制：通用网页抓取的 DNS 校验不是完整网络隔离；本机数据库未加密；英文技能词典覆盖有限；没有真实标注招聘评估集；相同 URL 的跨来源记录未自动合并；历史下线岗位需要回原站核查；AI 可能错误润色，因此保留原文和人工核实提示。
 
 运行证据见 tests、docs/evaluation.json 与 docs/live_check.json。未执行云端 CI、渗透测试或独立人工同行评审，不应在报告中声称已完成这些工作。
+
+## 后续修订核对
+
+- JobsDB 档案过滤 macOS 元数据、限制大小、校验必需字段、按 ID 去重并输出清单。
+- 研究快照保留 6,910 条有效记录，应用显式导入 6,908 条未在快照时标记过期的记录。
+- 重复导入保留投递备注；错误批次不写入数据库。7 项新增 benchmark 测试纳入总计 71 项测试。
+- 直接打开 HTML 导致绝对资源路径失效：改为相对路径并提供启动指引；已在 Safari 验证 HTTP 入口及真实样式加载。本次工具策略不允许直接访问 file URL，未声称完成文件模式浏览器验证。
+- GitHub 当前是 ZIP 发布，不能将 ZIP 内的 Actions 配置描述为已经执行的 CI。
+# v1.3 AI-assisted review — 2026-11-18
+
+Reviewed learning.py and storage.py independently from their implementation agent. Checked: recursive cycle rejection, immutable cached prerequisites, per-job denominators, real/demo and expiry boundaries; atomic history updates, no-op saves, redo branch invalidation, migration, 50-entry limit and concurrent edits. No blocking finding in these reviewed paths. Tests and browser verification provide complementary evidence; this is an AI review, not a completed student peer review.
+
+Ranking cache retains only one result, fingerprints all inputs and returns independent copies. Clearing the resume also releases the cache. Focused static analysis checks mutable defaults, bare except, direct eval/exec and wildcard imports. Remaining engineering risks and intentional scope are tracked in TECHNICAL_DEBT.md; actual GitHub Actions runs and peer sign-off are not asserted.
+
+The following record is historical and keeps its original scope and counts.

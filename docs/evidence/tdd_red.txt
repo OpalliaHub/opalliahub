@@ -1,0 +1,199 @@
+test_archive_duplicate_and_symlink_rejected (tests.test_quality_gate.QualityGateTests) ... FAIL
+test_archive_missing_entrypoint_rejected (tests.test_quality_gate.QualityGateTests) ... FAIL
+test_archive_private_files_rejected (tests.test_quality_gate.QualityGateTests) ... test_archive_secret_redacted (tests.test_quality_gate.QualityGateTests) ... FAIL
+test_archive_traversal_and_absolute_paths_rejected (tests.test_quality_gate.QualityGateTests) ... test_corrupt_archive_returns_structured_failure (tests.test_quality_gate.QualityGateTests) ... FAIL
+test_placeholder_is_allowed (tests.test_quality_gate.QualityGateTests) ... ok
+test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) ... test_private_root_directory_symlink_is_not_followed (tests.test_quality_gate.QualityGateTests) ... ok
+test_scan_never_opens_private_env_or_symlink (tests.test_quality_gate.QualityGateTests) ... FAIL
+test_scan_reports_location_but_never_secret_value (tests.test_quality_gate.QualityGateTests) ... ERROR
+test_syntax_failure_contains_location_without_source (tests.test_quality_gate.QualityGateTests) ... ERROR
+test_valid_archive_has_digest_and_counts (tests.test_quality_gate.QualityGateTests) ... FAIL
+
+======================================================================
+ERROR: test_scan_reports_location_but_never_secret_value (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 52, in test_scan_reports_location_but_never_secret_value
+    self.assertEqual(report['findings'][0]['path'], 'jobcompass/leak.py')
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_syntax_failure_contains_location_without_source (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 86, in test_syntax_failure_contains_location_without_source
+    self.assertEqual(report['errors'][0]['line'], 1)
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_archive_duplicate_and_symlink_rejected (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 126, in test_archive_duplicate_and_symlink_rejected
+    self.assertTrue(package_report(path)['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_missing_entrypoint_rejected (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 111, in test_archive_missing_entrypoint_rejected
+    self.assertTrue(package_report(path)['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_private_files_rejected (tests.test_quality_gate.QualityGateTests) (name='.env')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 105, in test_archive_private_files_rejected
+    self.assertTrue(report['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_private_files_rejected (tests.test_quality_gate.QualityGateTests) (name='data/private/a.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 105, in test_archive_private_files_rejected
+    self.assertTrue(report['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_private_files_rejected (tests.test_quality_gate.QualityGateTests) (name='data/app.sqlite')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 105, in test_archive_private_files_rejected
+    self.assertTrue(report['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_private_files_rejected (tests.test_quality_gate.QualityGateTests) (name='.git/config')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 105, in test_archive_private_files_rejected
+    self.assertTrue(report['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_secret_redacted (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 116, in test_archive_secret_redacted
+    self.assertTrue(report['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_traversal_and_absolute_paths_rejected (tests.test_quality_gate.QualityGateTests) (name='../escape.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 99, in test_archive_traversal_and_absolute_paths_rejected
+    self.assertTrue(package_report(self.archive({name: ''}))['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_traversal_and_absolute_paths_rejected (tests.test_quality_gate.QualityGateTests) (name='/tmp/escape.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 99, in test_archive_traversal_and_absolute_paths_rejected
+    self.assertTrue(package_report(self.archive({name: ''}))['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_traversal_and_absolute_paths_rejected (tests.test_quality_gate.QualityGateTests) (name='group11_project/../escape.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 99, in test_archive_traversal_and_absolute_paths_rejected
+    self.assertTrue(package_report(self.archive({name: ''}))['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_archive_traversal_and_absolute_paths_rejected (tests.test_quality_gate.QualityGateTests) (name='group11_project/dir\\escape.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 99, in test_archive_traversal_and_absolute_paths_rejected
+    self.assertTrue(package_report(self.archive({name: ''}))['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_corrupt_archive_returns_structured_failure (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 131, in test_corrupt_archive_returns_structured_failure
+    self.assertTrue(package_report(path)['errors'])
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='.env')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='.env.local')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='data/private/a.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='data/raw/a.csv')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='data/user.db')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='.git/config')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) (name='x/__pycache__/a.pyc')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 44, in test_private_paths_and_env_example_exception
+    self.assertIsNotNone(PRIVATE_REASON(name))
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_scan_never_opens_private_env_or_symlink (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 69, in test_scan_never_opens_private_env_or_symlink
+    self.assertEqual(report['scanned_files'], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_valid_archive_has_digest_and_counts (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_quality_gate.py", line 92, in test_valid_archive_has_digest_and_counts
+    self.assertEqual(report['members'], 5)
+AssertionError: 0 != 5
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.018s
+
+FAILED (failures=21, errors=2)

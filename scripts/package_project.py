@@ -4,8 +4,8 @@ import zipfile
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-ALLOWED_FILES=['main.py','README.md','requirements.txt','.env.example','.gitignore','启动JobCompass.command']
-ALLOWED_DIRS=['jobcompass','tests','scripts','docs','.github']
+ALLOWED_FILES=['main.py','README.md','AGENTS.md','requirements.txt','requirements-server.txt','LICENSE','Dockerfile','compose.yaml','.dockerignore','.env.example','.gitignore','启动JobCompass.command']
+ALLOWED_DIRS=['jobcompass','tests','scripts','docs','.github','.vscode','deploy']
 DEMO_FILES=['demo_jobs.json','demo_resume.txt','import_template.csv']
 
 def main():

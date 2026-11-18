@@ -11,9 +11,13 @@
 - Python 实习示例改为「面试中」并添加备注，在投递看板显示；服务重启后依然保留。
 - 1440px 桌面布局显示侧栏、岗位列表和画像；390px 移动布局切换为顶部导航和单列区域，文档宽度与视口宽度均为 390px。
 - 浏览器控制台未发现 JavaScript 错误。
-- 完整离线测试 64 项通过，原始输出保存为 `test_results.txt`。
+- 早期验证曾有 64 项测试通过；本次扩展后的当前结果为 71 项通过，输出保存为 `test_results.txt`。
 - 合成样例的 Precision@4 为 1.0；1,200 条样例排序约 0.055 秒，详见 `evaluation.json`。这不代表真实招聘准确率。
 
 截图：`screenshots/dashboard.jpg`、`screenshots/matching.jpg`、`screenshots/sources.jpg`、`screenshots/tracker.jpg`。截图与 AI 测试使用虚构候选人。
 
 未完成的外部活动：未向任何企业投递，未发布公网服务，未运行云端 GitHub Actions，未录制成员参与的课程视频，未完成真实个人简历匹配（用户尚未提供简历）。
+
+## 2026-09-30 更新
+
+本机 HTTP 入口 http://127.0.0.1:8765/ 的首页、CSS、JS 均返回 200。Safari 实际截图确认布局与岗位数据正常。JobsDB 导入端到端检查返回 6,908 条研究岗位且均具有匹配分。直接 HTML 预览添加相对资源路径和启动说明，但 file URL 被浏览器工具策略阻止，未进行该模式的可视验证。页面总数会随本机库变化，不能当作研究 benchmark 样本量。

@@ -1,0 +1,14 @@
+{
+  "server": "Gunicorn 27.0.1",
+  "python": "3.12",
+  "bind": "127.0.0.1:8790",
+  "workers": 1,
+  "threads": 8,
+  "public_mode": true,
+  "owner_resume_excluded": true,
+  "secure_httponly_cookie": true,
+  "origin_write_rejected": true,
+  "olap_ads": 6908,
+  "olap_groups": 18,
+  "note": "Local WSGI smoke only; production TLS proxy and Docker image are not tested."
+}

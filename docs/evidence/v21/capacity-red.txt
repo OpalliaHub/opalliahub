@@ -1,0 +1,14 @@
+test_recommendation_capacity_is_global_and_released_after_completion (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+
+======================================================================
+FAIL: test_recommendation_capacity_is_global_and_released_after_completion (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 234, in test_recommendation_capacity_is_global_and_released_after_completion
+    self.assertEqual(status, 429)
+AssertionError: 500 != 429
+
+----------------------------------------------------------------------
+Ran 1 test in 0.031s
+
+FAILED (failures=1)

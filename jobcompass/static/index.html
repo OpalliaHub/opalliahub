@@ -3,50 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JobCompass · 智能求职工作台</title>
-<link rel="stylesheet" href="/style.css">
+<title>JobCompass · 职业与人力资源研究平台</title>
+<meta name="description" content="以 JobsDB 岗位数据为基础的职业与人力资源研究平台，支持多维交互分析、自然语言查询与可追溯数据结果。">
+<link rel="stylesheet" href="./style.css">
 </head>
-<body>
-<aside class="sidebar">
-<a class="brand" href="/" aria-label="JobCompass 首页">
-<span class="logo">✳</span>
-<span>JobCompass<small>让下一步，更有方向</small>
-</span>
-</a>
-<div class="nav-caption">你的求职空间</div>
-<nav aria-label="主导航">
-<button class="nav active" data-page="discover">
-<span>◈</span> 岗位发现 <i>01</i>
-</button>
-<button class="nav" data-page="resume">
-<span>▤</span> 我的简历 <i>02</i>
-</button>
-<button class="nav" data-page="sources">
-<span>◎</span> 数据工作台 <i>03</i>
-</button>
-<button class="nav" data-page="tracker">
-<span>▦</span> 投递看板 <i>04</i>
-</button>
-</nav>
-<div class="sidebar-bottom">
-<div class="status-dot">
-</div>本地工作空间<small>简历与记录保存在这台电脑</small>
-<div class="course-label">INT6181 · PYTHON PROJECT</div>
+<body data-workspace-view="panel">
+<a class="skip-link" href="#main-content">跳到主要内容</a>
+<section id="file-launch" class="file-launch" hidden aria-labelledby="file-launch-title">
+<div class="file-launch-card">
+<span class="brand-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 15l4-5 4 3 5-7"/></svg></span>
+<h1 id="file-launch-title">打开你的求职工作台</h1>
+<p>你正在预览页面文件。简历分析、岗位匹配和投递记录需要本机程序提供服务。</p>
+<a class="button primary" href="http://127.0.0.1:8765/">进入 JobCompass →</a>
+<p class="small muted">若提示无法连接，请先双击项目文件夹中的「启动JobCompass.command」，保持启动窗口打开，再点击上方按钮。</p>
 </div>
-</aside>
-<main>
-<header class="topbar">
-<span id="breadcrumb">工作空间 / 岗位发现</span>
-<span class="local-badge">LOCAL FIRST <span>●</span>
-</span>
-</header>
-<section id="discover" class="page active">
+</section>
+<aside class="sidebar" id="app-sidebar">
+<a class="brand" href="#analytics" aria-label="JobCompass 研究总览"><span class="brand-symbol"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 15l4-5 4 3 5-7"/></svg></span><span>JobCompass<small>WORKFORCE INTELLIGENCE</small></span></a>
+<div class="workspace-label"><span class="workspace-dot"></span><span id="workspace-name">研究工作空间</span><span class="workspace-version">2.1</span></div>
+<nav aria-label="主导航">
+<div class="nav-caption">研究与数据</div>
+<button class="nav active" data-page="analytics"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>研究总览</span></button>
+<button class="nav " data-page="research"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 15l4-5 4 3 5-7"/></svg><span>深度研究</span></button>
+<button class="nav " data-page="sources"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg><span>数据管理</span></button>
+<div class="nav-caption nav-divider">个人求职工具</div>
+<button class="nav" data-page="discover"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>岗位检索</span></button>
+<button class="nav" data-page="resume"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V8zM14 3v5h5M8 12h8M8 16h6"/></svg><span>简历分析</span></button>
+<button class="nav" data-page="tracker"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16M5.5 8h1M11.5 8h1M17.5 8h1M5.5 12h1M11.5 12h1"/></svg><span>投递管理</span></button>
+<button class="nav" data-page="learning"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-5 9 5-9 5zM6 11v6c4 3 8 3 12 0v-6M21 9v7"/></svg><span>技能成长</span></button>
+</nav><div class="sidebar-bottom"><div class="workspace-health"><span class="status-dot"></span><span id="deployment-label">本地研究空间</span></div><p id="deployment-note">基于岗位样本的可追溯分析</p><div class="sidebar-footnote">数据有边界，结论有依据。</div></div></aside>
+<main id="main-content" tabindex="-1">
+<header class="topbar"><div class="topbar-left"><button class="icon-button mobile-menu" id="mobile-menu" aria-label="展开导航" aria-controls="app-sidebar" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><span class="breadcrumb-home">研究空间</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5 7 7-7 7"/></svg><span id="breadcrumb">研究总览</span></div><div class="topbar-right"><span class="topbar-status" id="topbar-dataset">正在连接数据</span><span class="public-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg><span id="access-label">开放研究 · 无需登录</span></span></div></header>
+<div class="mobile-workspace-tabs" role="group" aria-label="工作区视图"><button type="button" id="workspace-tab-panel" class="active" aria-pressed="true">平台面板</button><button type="button" id="workspace-tab-chat" aria-pressed="false">AI 对话 <span id="chat-unread" hidden>●</span></button></div>
+<section id="analytics" class="page active" aria-labelledby="analytics-heading">
+<div class="page-heading analytics-heading"><div><div class="eyebrow">LABOR MARKET RESEARCH</div><h1 id="analytics-heading">研究总览</h1><p>从招聘数据中发现职业结构、技能变化与研究线索。</p></div><div class="heading-actions"><button class="button secondary" id="analytics-refresh"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 8a8 8 0 0 0-14-3L3 8m0-5v5h5M4 16a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></svg> 刷新数据</button><details class="export-menu"><summary class="button primary" ><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"/></svg> 导出报告</summary><div class="export-options"><button id="analytics-export" type="button" disabled>CSV 统计表</button><button id="analytics-export-json" type="button" disabled>JSON 完整结果</button><button id="analytics-export-png" type="button" disabled>PNG 图表</button></div></details></div></div>
+<div id="analytics-alert" class="analytics-alert" role="alert" hidden></div>
+<div class="analytics-kpis" id="analytics-kpis" aria-live="polite"><div class="kpi-card"><span>样本广告</span><strong>—</strong><small>等待查询结果</small></div><div class="kpi-card"><span>招聘主体</span><strong>—</strong><small>按雇主显示名统计</small></div><div class="kpi-card"><span>技能提及</span><strong>—</strong><small>基于广告全文探针</small></div><div class="kpi-card"><span>样本提及率</span><strong>—</strong><small>不代表整体市场需求</small></div></div>
+<div class="analysis-workspace"><div class="analysis-toolbar-head"><h2><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg> 多维分析</h2><span class="data-freshness" id="analytics-freshness">数据来源待确认</span></div>
+<form id="analytics-filter-form" class="analytics-filter-form"><label class="field">数据集<select id="analytics-dataset" aria-label="分析数据集"><option>正在加载…</option></select></label><label class="field">观察维度<select id="analytics-dimension"><option value="month">月份</option><option value="sector">行业</option></select></label><label class="field">交叉维度<select id="analytics-dimension-2"><option value="">不交叉</option></select></label><label class="field">统计指标<select id="analytics-measure"><option value="ads">岗位广告数</option></select></label><label class="field" id="analytics-concept-field">技能 / 词语<select id="analytics-concept"><option value="python">Python</option></select></label><button type="submit" class="button dark" id="analytics-apply">应用筛选</button>
+<details class="analytics-advanced"><summary>时间与更多筛选</summary><div class="analytics-advanced-grid"><label class="field">起始日期<input type="date" id="analytics-start"></label><label class="field">截止日期<input type="date" id="analytics-end"></label><label class="field">职位关键词<input id="analytics-title-filter" maxlength="150" placeholder="例如 Data Analyst"></label><label class="field">行业筛选<select id="analytics-sector-filter"><option value="">所有行业</option></select></label><label class="field">地区关键词<input id="analytics-location-filter" maxlength="150" placeholder="例如 Hong Kong"></label><label class="field">雇主关键词<input id="analytics-company-filter" maxlength="150" placeholder="按显示名称筛选"></label><label class="field">观察截止日<input id="analytics-cutoff" type="date"></label><label class="field">去重口径<select id="analytics-dedup"><option value="id">唯一广告 ID</option><option value="family">雇主正文族</option></select></label><div class="filter-line"><label><input id="analytics-common" type="checkbox"> 共同三个行业</label><label><input id="analytics-fresh" type="checkbox"> 近期所见样本</label><button class="text-link" id="analytics-clear-filters" type="button">清除全部筛选</button></div></div></details></form>
+<div id="analytics-scope-summary" class="scope-summary" aria-live="polite"></div><div class="drilldown-bar"><div id="analytics-breadcrumbs"><span class="drilldown-placeholder">点击图表中的数据点，继续下钻分析</span></div><button class="text-link" id="analytics-reset" type="button" hidden>重置下钻</button></div>
+</div>
+<div id="analytics-coverage-note" class="coverage-note" hidden></div><div class="analytics-chart-grid"><article class="chart-card main-chart-card"><div class="chart-card-head"><div><h2 id="analytics-chart-title">岗位样本趋势</h2><p id="analytics-chart-subtitle">按照当前数据口径查看变化</p></div><div class="chart-view-switch" role="group" aria-label="图表类型"><button type="button" data-chart-type="line" class="active" aria-pressed="true">折线</button><button type="button" data-chart-type="bar" aria-pressed="false">柱状</button><button type="button" data-chart-type="heatmap" aria-pressed="false">热力</button></div></div><div id="analytics-main-chart" class="chart-canvas chart-canvas-main" role="img" aria-label="当前查询的交互图表"></div><div class="chart-empty" id="analytics-main-empty"><span class="chart-empty-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v17h17M8 15l4-5 4 3 5-7"/></svg></span><b>正在准备分析视图</b><span>仅展示当前可查询的数据</span></div><div class="chart-card-footer"><span id="analytics-result-note">鼠标悬停查看数值 · 拖动底部滑块缩放</span><span id="analytics-query-time"></span></div></article>
+<article class="chart-card"><div class="chart-card-head"><div><h2>行业分布</h2><p>同一筛选口径下的广告数量</p></div><span class="chart-label">可下钻</span></div><div id="analytics-sector-chart" class="chart-canvas chart-canvas-main" role="img" aria-label="行业广告数量条形图"></div><div class="chart-empty" id="analytics-sector-empty" hidden><b>暂无行业数据</b><span>请调整数据集或筛选条件</span></div><div class="chart-card-footer"><span>点击行业，查看该行业的细分数据</span></div></article></div>
+<article class="chart-card heatmap-card"><div class="chart-card-head"><div><h2 id="analytics-heatmap-title">时间 × 行业</h2><p id="analytics-heatmap-subtitle">交叉观察样本结构，识别变化出现的位置</p></div><span class="chart-label">OLAP 交叉分析</span></div><div id="analytics-heatmap-chart" class="chart-canvas chart-canvas-heatmap" role="img" aria-label="月份与行业交叉分析热力图"></div><div class="chart-empty" id="analytics-heatmap-empty" hidden><b>当前没有可交叉分析的数据</b><span>未观察到的组合保留为空缺</span></div><div class="chart-card-footer"><span>空白表示没有观测结果，不按零需求处理</span><span id="analytics-heatmap-note"></span></div></article>
+<article class="chart-card results-card"><div class="chart-card-head"><div><h2>查询结果</h2><p id="analytics-table-caption">每个图形都对应可检查、可导出的统计结果。</p></div><button class="button secondary compact" id="analytics-export-table" disabled><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6"/></svg> CSV</button></div><div id="analytics-table" class="data-table-wrap"><div class="empty"><b>等待数据</b>选择分析口径或直接输入研究问题。</div></div><div class="results-bottom"><span id="analytics-table-count"></span><details class="query-details"><summary>查看查询口径与执行详情</summary><div id="analytics-instruction"></div><pre id="analytics-query-json"></pre></details></div></article>
+<div class="analytics-methodology"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg><p id="analytics-methodology-text">统计描述已采集的岗位广告样本。广告数量不等于招聘人数，词语提及不等于明确技能要求。</p></div>
+<details id="analytics-limitations" class="data-limitations" hidden><summary id="analytics-limitations-label">数据覆盖与解释边界</summary><ul id="analytics-limitations-list"></ul></details>
+</section>
+<section id="discover" class="page">
 <div class="page-heading">
 <div>
-<div class="eyebrow">FIND YOUR NEXT CHAPTER</div>
-<h1>好机会，从了解你开始<span>。</span>
+<div class="eyebrow">JOB EXPLORER</div>
+<h1>岗位检索与匹配
 </h1>
-<p>把经历变成优势，找到值得迈出的下一步。</p>
+<p>以 JobsDB 香港岗位为主，结合你的简历寻找下一步。</p>
 </div>
 <button class="button primary" data-go="resume">完善我的简历 <span>↗</span>
 </button>
@@ -60,6 +71,7 @@
 </div>
 <div class="stats" id="stats">
 </div>
+<div class="jobsdb-notice"><span>JobsDB 岗位库包含历史研究数据。点击更新可获取最新岗位，申请前请在原站核实。</span><button class="text-link" data-go="sources">更新 JobsDB 岗位 ↗</button></div>
 <div class="workspace-grid">
 <div>
 <div class="section-title">
@@ -71,6 +83,7 @@
 <div class="filters">
 <input id="search" type="search" placeholder="搜索岗位、公司或技能" aria-label="搜索岗位">
 <select id="source-filter" aria-label="筛选来源">
+<option value="JobsDB" selected>JobsDB（主要来源）</option>
 <option value="">所有来源</option>
 </select>
 <select id="location-filter" aria-label="筛选地区">
@@ -84,6 +97,8 @@
 <div class="filter-line">
 <label>
 <input type="checkbox" id="real-only"> 仅看真实来源</label>
+<label><input type="checkbox" id="hide-expired" checked> 隐藏已过期</label>
+<label><input type="checkbox" id="live-only"> 仅看在线更新</label>
 <span id="ranking-hint">保存简历后可查看匹配度</span>
 </div>
 <div id="job-list" class="job-list">
@@ -92,9 +107,9 @@
 </div>
 <aside class="insights">
 <div class="panel profile-panel">
-<div class="panel-heading">你的竞争力画像 <span>✧</span>
+<div class="panel-heading">个人技能画像
 </div>
-<div class="avatar">YOU</div>
+<div class="profile-mark"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V8zM14 3v5h5M8 12h8M8 16h6"/></svg></div>
 <h3 id="profile-title">等待认识你</h3>
 <p id="profile-subtitle">添加简历，提取你已有的技能与经历。</p>
 <div id="profile-skills" class="tags">
@@ -115,10 +130,10 @@
 <section id="resume" class="page">
 <div class="page-heading">
 <div>
-<div class="eyebrow">YOUR STORY, CLEARER</div>
-<h1>让每段经历，都有分量<span>。</span>
+<div class="eyebrow">RESUME INTELLIGENCE</div>
+<h1>简历分析
 </h1>
-<p>先提取事实，再用 AI 打磨表达。原始简历始终由你掌握。</p>
+<p>从真实经历中提炼优势，找到有依据的岗位匹配，再按需用 AI 打磨表达。</p>
 </div>
 <button class="button secondary" id="demo-resume">填入示例简历</button>
 </div>
@@ -148,17 +163,37 @@
 <button class="button secondary" id="save-prefs">更新匹配条件</button>
 <p class="small muted">远程岗位仍可能有地域要求。地区词按文本匹配，建议同时填写中英文地名。</p>
 </div>
-<div class="panel">
-<h2>本地分析结果</h2>
+<details class="panel">
+<summary>查看原文技能索引</summary>
 <div id="resume-analysis" class="muted">保存简历后，这里会展示技能证据与改进建议。</div>
+</details>
 </div>
 </div>
+<section class="panel recommendations-panel" aria-labelledby="recommendations-heading">
+<div class="section-title recommendations-heading"><div><div class="eyebrow">EVIDENCE-BASED MATCHING</div><h2 id="recommendations-heading">优势与岗位推荐</h2></div><span class="pill local-analysis-pill"><span></span>本地证据分析</span></div>
+<p class="muted recommendation-intro">结合简历原文、求职偏好与当前岗位库，提炼有证据的优势，并解释每个推荐结果。此过程无需调用大模型，不会将简历发送至 DeepSeek。</p>
+<form id="recommendations-form">
+<div class="recommendations-command"><label class="field">目标职位 <span class="field-optional">选填</span><input id="recommendations-target" maxlength="100" placeholder="例如 Data Analyst / 数据分析师"></label><button class="button primary" type="submit" id="recommendations-run"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H5v18h14V3h-4M9 3v4h6V3zM8 12l2 2 5-5M8 18h8"/></svg><span>提炼优势并推荐岗位</span></button></div>
+<div class="recommendations-save-note">点击后先保存上方的简历与求职偏好，再生成本次推荐。</div>
+<details class="recommendations-options"><summary>推荐筛选与演示选项</summary><div class="recommendations-option-grid"><label class="field">最低个性化匹配分<input id="recommendations-min-score" type="number" min="0" max="100" step="1" value="0"></label><label class="recommendations-check"><input id="recommendations-strict-location" type="checkbox"><span>仅保留符合地区偏好的岗位<small>使用上方已填写的地区；按文本匹配</small></span></label><label class="recommendations-check"><input id="recommendations-include-demo" type="checkbox"><span>包含虚构演示岗位<small>仅用于功能演示，会明确标注</small></span></label></div></details>
+</form>
+<div id="recommendations-status" class="recommendations-status" role="status" aria-live="polite">准备好简历后，即可生成个人优势与最多 12 个岗位推荐。</div>
+<div id="recommendations-results" hidden>
+<div id="recommendations-summary" class="recommendations-summary"></div>
+<div class="recommendations-subhead"><h3>简历中的优势证据</h3><span>以原文为依据 · 不推断未提供的经历</span></div>
+<div id="recommendations-strengths" class="strength-cards"></div>
+<div id="recommendations-strength-note" class="small muted"></div>
+<div class="recommendations-subhead"><h3>适合继续了解的岗位</h3><span id="recommendations-count"></span></div>
+<p class="small muted">个性化匹配分用于比较与排序，不是录用概率。历史快照不代表仍在招聘，请在申请前核实原始岗位。</p>
+<div id="recommendations-jobs" class="recommendation-jobs"></div>
+<details class="recommendations-method"><summary>本次匹配方法、筛选范围与局限</summary><div id="recommendations-method"></div></details>
 </div>
+</section>
 <div class="panel ai-panel">
 <div class="section-title">
 <div>
 <div class="eyebrow">POWERED BY DEEPSEEK</div>
-<h2>AI 简历顾问</h2>
+<h2>可选 DeepSeek 增强</h2>
 </div>
 <span id="ai-status" class="pill">检查配置中</span>
 </div>
@@ -166,7 +201,7 @@
 <label class="consent">
 <input id="ai-consent" type="checkbox"> 我同意将简历内容发送至 DeepSeek 进行本次分析（常见邮箱、内地手机号与证件号会先遮盖；姓名及其他信息仍可能保留）。</label>
 <div class="action-row">
-<button class="button dark" id="ai-analyze">✧ 提炼我的优势</button>
+<button class="button dark" id="ai-analyze">DeepSeek 优势解读</button>
 <button class="button secondary" id="ai-polish">润色简历</button>
 </div>
 <div id="ai-result" class="ai-result">
@@ -176,12 +211,24 @@
 <section id="sources" class="page">
 <div class="page-heading">
 <div>
-<div class="eyebrow">MORE SOURCES, MORE POSSIBILITIES</div>
-<h1>机会，汇集到一处<span>。</span>
+<div class="eyebrow">JOBSDB · PRIMARY SOURCE</div>
+<h1>数据管理
 </h1>
-<p>公开招聘源、网页结构化采集与手动导入，共享同一套匹配流程。</p>
+<p>直接获取 JobsDB 香港岗位，更新后自动进入简历匹配与投递管理。</p>
 </div>
 </div>
+<article class="panel jobsdb-primary">
+<div class="section-title"><div><span class="pill">主要岗位来源</span><h2>JobsDB 香港</h2></div><a href="https://hk.jobsdb.com" target="_blank" rel="noopener noreferrer">访问原站 ↗</a></div>
+<p class="muted">在平台内直接更新，无需运行外部脚本或同步文件。沿用你的爬虫中三个岗位类别的范围，按最新发布时间采集。</p>
+<div class="form-grid">
+<label class="field">关键词（可选）<input id="jobsdb-keyword" maxlength="100" placeholder="例如 Python、data analyst；留空更新全部选定类别"></label>
+<label class="field">本次最多更新<select id="jobsdb-limit"><option value="20">20 条 · 快速查看</option><option value="50" selected>50 条 · 推荐</option><option value="100">100 条</option><option value="200">200 条</option></select></label>
+</div>
+<div class="action-row"><button id="update-jobsdb" class="button primary">更新 JobsDB 岗位</button><button id="cancel-jobsdb" class="button secondary" hidden>停止更新</button></div>
+<p class="small muted">逐条读取详情，通常需要几分钟。重复岗位更新内容并保留投递备注；本次未出现的岗位不会被自动删除。</p>
+<div id="jobsdb-run-status" role="status" aria-live="polite" class="jobsdb-run-status">尚未在线更新。历史数据仍可离线使用。</div>
+</article>
+<h2>补充岗位来源</h2>
 <div class="source-grid">
 <article class="panel source-card">
 <div class="source-icon coral">R</div>
@@ -202,11 +249,11 @@
 </div>
 </article>
 </div>
-<p class="small muted">每个公开 API 的采集尝试间隔为 6 小时。已保存的岗位可随时离线检索，采集不会上传简历。</p>
+<p class="small muted">Remotive 与 Arbeitnow 的采集尝试间隔为 6 小时。已保存的岗位可随时离线检索，采集不会上传简历。</p>
 <article class="panel source-card">
 <h2>JobsDB 研究快照</h2>
 <p>2026-09-28 快照，6,910 条清洗后的历史岗位。用于离线研究与匹配演示，不保证岗位当前仍在招聘。</p>
-<button id="import-benchmark" class="button secondary">导入本地研究快照</button>
+<button id="import-benchmark" class="button secondary">导入研究快照</button>
 </article>
 <div class="two-col">
 <div class="panel">
@@ -251,17 +298,68 @@
 <section id="tracker" class="page">
 <div class="page-heading">
 <div>
-<div class="eyebrow">ONE STEP AT A TIME</div>
-<h1>每次尝试，都有迹可循<span>。</span>
+<div class="eyebrow">APPLICATION WORKSPACE</div>
+<h1>投递管理
 </h1>
 <p>记录收藏、投递与面试进展。点击岗位卡片更新状态和备注。</p>
 </div>
 </div>
 <div id="board" class="board">
 </div>
+<div class="panel history-toolbar"><div><b>操作历史</b><p class="small muted">保留最近 50 次状态与备注修改。撤销后保存新修改会清空重做记录；历史保存在当前个人工作空间。</p></div><div class="action-row"><button id="history-undo" class="button secondary" disabled>↶ 撤销</button><button id="history-redo" class="button secondary" disabled>↷ 重做</button><span id="history-count" class="small muted"></span></div></div>
 </section>
-<footer>JobCompass <span>·</span> 用 Python 构建的智能求职工作空间 <span>·</span> 课程示例岗位均为虚构</footer>
+<section id="learning" class="page">
+<div class="page-heading"><div><div class="eyebrow">SKILL DEVELOPMENT</div><h1>技能成长</h1><p>结合已保存的简历与当前岗位库，找出值得学习的技能，并先补齐基础。</p></div><span class="pill">技能路径</span></div>
+<div class="panel"><div class="learning-controls"><label class="field">目标职位关键词<input id="learning-target" maxlength="100" placeholder="例如 Data Analyst、Python（留空分析全部岗位）"></label><label class="field">展示技能数<select id="learning-limit"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></label><button id="learning-build" class="button dark">生成学习计划 ↗</button></div><p class="small muted">数据来自当前平台岗位，不调用大模型。学习先修关系由项目预设，仅作学习建议；岗位出现频率不代表就业概率。</p></div>
+<p id="learning-summary" class="learning-summary" role="status">先在「我的简历」保存技能画像，再生成与你的求职方向相关的学习计划。</p>
+<div id="learning-metrics" class="stats"></div>
+<div id="learning-order" class="panel" hidden></div>
+<div id="learning-skills" class="learning-grid"></div>
+<div id="learning-notes" class="small muted"></div>
+</section>
+<section id="research" class="page">
+<div class="page-heading"><div><div class="eyebrow">LONGITUDINAL RESEARCH</div><h1>深度研究</h1><p>从岗位探索到研究分析，用清晰的口径理解招聘数据。</p></div><span class="pill">纵向研究</span></div>
+<div id="research-metrics" class="stats"></div>
+<div class="research-layout">
+<div>
+<div class="panel research-command"><div class="section-title"><h2>用一句话开始分析</h2><span class="pill" id="research-ai-status">DeepSeek</span></div>
+<p class="muted small">指令和字段说明发给 DeepSeek；统计由平台计算。原始研究库保持只读。</p>
+<textarea id="research-command" rows="3" maxlength="2000" aria-label="研究分析指令" placeholder="比较 2025 年 3–4 月与 2026 年 3–4 月，共同三类中 Python 的全文提及率"></textarea>
+<div class="research-examples"><button data-example="compare">两期技能变化</button><button data-example="pairs">查看 AI 广告修订</button><button data-example="skills">教育岗位能力分布</button></div>
+<div class="action-row"><button class="button dark" id="research-plan">生成分析计划</button><span id="research-progress" class="muted small" role="status"></span></div>
+<details class="research-agent-box"><summary>让研究助手分步分析</summary><p class="small muted">助手可根据上一轮统计选择下一步，仅能执行分布、技能、趋势及两期比较。指令限 1000 字符；最多 3 轮模型调用（每轮瞬态错误最多重试 2 次），到达预算即停止。</p><label class="consent"><input type="checkbox" id="research-agent-consent">同意将本次指令与聚合统计发送给 DeepSeek；原始广告、简历与本机路径不发送。</label><div class="action-row"><button id="research-agent" class="button secondary">开始分步分析</button><button id="research-agent-stop" class="button subtle" disabled>停止后续步骤</button></div><div id="research-agent-trace" class="ai-result" aria-live="polite"></div></details>
+<details id="research-plan-box"><summary>查看或编辑分析计划</summary><p id="research-plan-explanation" class="small muted"></p><textarea id="research-plan-json" rows="10" aria-label="JSON 分析计划"></textarea><button class="button primary" id="research-execute-plan">运行此计划 →</button></details></div>
+<div class="panel"><div class="section-title"><h2>分析结果</h2><div class="action-row"><a id="research-csv" class="text-link" hidden download>CSV ↗</a><a id="research-json" class="text-link" hidden download>完整记录 ↗</a></div></div>
+<div id="research-result"><div class="empty"><b>选择一个研究问题</b>使用右侧筛选直接计算，或让 DeepSeek 将自然语言转换成分析计划。</div></div>
+<div id="research-chart"></div><div id="research-table" class="research-table"></div><div id="research-notes"></div>
+<div class="action-row"><button class="button secondary" id="research-explain" hidden>解读聚合统计</button><button class="button subtle" id="research-save" hidden>保存当前筛选队列</button></div><div id="research-interpretation" class="ai-result"></div></div>
+<details class="panel"><summary>最近的分析与已存队列</summary><div id="research-history"></div><div id="research-cohorts"></div></details>
+</div>
+<aside>
+<div class="panel"><h2>数据与口径</h2>
+<label class="field">数据集<select id="research-dataset"><option value="research">纵向 benchmark 研究库</option><option value="current">当前平台岗位（排除演示）</option></select></label>
+<label class="field">分析类型<select id="research-action"><option value="overview">职业分布与数据质量</option><option value="dataset">筛选与导出广告行</option><option value="skills">36 类能力提及分布</option><option value="trend">月度提及趋势</option><option value="compare">两期对比</option><option value="sample">查看原文证据</option><option value="pairs">同广告首末修订</option><option value="forecast">成熟窗口预测诊断</option></select></label>
+<label class="field">词语探针<select id="research-concept"></select></label>
+<label class="field">职业标题<input id="research-title" placeholder="例如 Data Analyst / Teacher"></label>
+<label class="field">平台大类<select id="research-sector"><option value="">不限大类</option><option>Information &amp; Communication Technology</option><option>Engineering</option><option>Education &amp; Training</option></select></label>
+<div class="filter-line"><label><input id="research-common" type="checkbox" checked> 共同三类</label><label><input id="research-fresh" type="checkbox" checked> 近期所见（−1 至 35 天）</label></div>
+<label class="field">去重口径<select id="research-dedup"><option value="id">唯一广告 ID（主口径）</option><option value="family">首次雇主正文族（敏感性）</option></select></label>
+<label class="field">来源标示日期起<input id="research-start" type="date"></label><label class="field">来源标示日期止<input id="research-end" type="date"></label>
+<label class="field">观察截止日<input id="research-cutoff" type="date"></label>
+<div id="research-periods" hidden><label class="field">A 窗口开始<input id="research-a-start" type="date" value="2025-03-01"></label><label class="field">A 窗口结束<input id="research-a-end" type="date" value="2025-04-30"></label><label class="field">B 窗口开始<input id="research-b-start" type="date" value="2026-03-01"></label><label class="field">B 窗口结束<input id="research-b-end" type="date" value="2026-04-30"></label></div>
+<button class="button primary full" id="research-run">计算并展示 →</button></div>
+<details class="panel" data-local-only><summary>研究数据库连接</summary><p class="muted small">连接已有 JobsDB 审计 SQLite。生成可重建的本机探针索引，大型原始库不随公开代码发布。</p><label class="field">SQLite 路径<input id="research-path" placeholder="/path/to/research/data_audit/jobsdb.sqlite"></label><button class="button secondary" id="research-connect">连接</button><button class="button secondary" id="research-build">构建 / 刷新索引</button><p id="research-build-state" class="small muted"></p></details>
+<div class="panel research-caution"><b>先观察，再解释</b><p>词语出现可能来自公司介绍、福利或模板。增长率、模型解释与人工标签分别记录；没有人工金标准时，不生成准确率或“新兴需求”结论。</p></div>
+</aside></div></section>
+<footer><span>JobCompass · Workforce Intelligence</span><span>观察样本 · 核查证据 · 审慎解释</span></footer>
 </main>
+<aside class="analytics-chat-panel" id="analytics-chat-panel" aria-label="DeepSeek 研究对话">
+<header class="chat-header"><div><span class="chat-kicker">RESEARCH ASSISTANT</span><h2>DeepSeek 研究助手</h2></div><button class="icon-button" id="analytics-chat-clear" aria-label="清空本次对话" title="清空本次对话"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></svg></button></header>
+<div class="chat-connection"><span class="ai-provider" id="analytics-ai-status"><span></span> DeepSeek</span><span>自动查询 · 图表联动</span></div>
+<div id="analytics-chat-messages" class="chat-messages" role="log" aria-label="分析对话记录" aria-live="polite"><article class="chat-message assistant welcome-message"><div class="chat-message-label">研究助手</div><div class="chat-message-body"><h3>从一个问题开始研究</h3><p>告诉我你想了解的职业、技能或时间变化。我会查询所选数据集，并更新左侧图表。</p><div class="prompt-examples"><span>试着问</span><button type="button" data-analytics-prompt="按月统计岗位数量，用折线图展示">月度岗位趋势</button><button type="button" data-analytics-prompt="按行业比较 Python 的全文提及率">行业技能差异</button><button type="button" data-analytics-prompt="按季度和行业交叉统计岗位数量，用热力图展示">季度 × 行业</button></div></div></article></div>
+<div class="chat-composer"><div id="analytics-chat-context" class="chat-context">当前分析上下文加载中</div><div class="execution-strip" id="analytics-execution" role="status" aria-live="polite" hidden><div class="execution-stages"><span data-execution-stage="understand">1 理解问题</span><i></i><span data-execution-stage="query">2 查询数据</span><i></i><span data-execution-stage="chart">3 更新图表</span></div><span id="analytics-execution-label">正在处理</span><button class="text-link" id="analytics-cancel" hidden>停止</button></div>
+<form id="analytics-command-form"><label for="analytics-command" class="sr-only">输入你的研究问题</label><textarea id="analytics-command" rows="4" maxlength="1500" placeholder="输入研究问题，例如：用折线图比较三个职业类别的季度广告数量。"></textarea><div class="command-actions"><span class="command-hint">⌘ / Ctrl + Enter 发送</span><button class="button primary" id="analytics-send" type="submit">开始分析 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div></form><p class="command-disclosure">发送后由 DeepSeek 理解指令，平台自动执行经过校验的聚合查询。模型解释仍需结合样本范围核查。</p></div>
+</aside>
 <dialog id="job-dialog">
 <button id="close-dialog" class="close" aria-label="关闭详情">×</button>
 <div id="job-detail">
@@ -271,7 +369,10 @@
 </div>
 <div id="task-tray" aria-live="polite">
 </div>
-<script src="/app.js">
-</script>
+<script src="./app.js"></script>
+<script src="./research.js"></script>
+<script src="./learning.js"></script>
+<script src="./vendor/echarts.min.js"></script>
+<script src="./analytics.js"></script>
 </body>
 </html>

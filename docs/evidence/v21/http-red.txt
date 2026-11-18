@@ -1,0 +1,131 @@
+test_duplicate_active_recommendation_is_rejected_without_second_computation (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) ... test_missing_visitor_resume_does_not_use_owner_profile_or_enqueue (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+test_offline_recommendation_needs_no_ai_allowance_and_preserves_inputs (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+test_preferences_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+test_recommendation_inputs_outputs_and_tasks_are_visitor_scoped (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+test_resume_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests) ... FAIL
+
+======================================================================
+FAIL: test_duplicate_active_recommendation_is_rejected_without_second_computation (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 173, in test_duplicate_active_recommendation_is_rejected_without_second_computation
+    self.assertEqual(status, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'target_role': []})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'limit': True})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'limit': -1})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'limit': 9999})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'min_score': -1})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'min_score': 101})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'strict_location': 'yes'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'include_demo': 'yes'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) (options={'sql': 'SELECT * FROM private'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 96, in test_invalid_options_rejected_before_background_submission
+    self.assertEqual(self.request('POST', '/api/recommendations', options, self.a)[0], 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_missing_visitor_resume_does_not_use_owner_profile_or_enqueue (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 82, in test_missing_visitor_resume_does_not_use_owner_profile_or_enqueue
+    self.assertEqual(status, 400)
+AssertionError: 404 != 400
+
+======================================================================
+FAIL: test_offline_recommendation_needs_no_ai_allowance_and_preserves_inputs (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 130, in test_offline_recommendation_needs_no_ai_allowance_and_preserves_inputs
+    self.assertEqual(status, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_preferences_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 158, in test_preferences_changed_during_task_prevents_publication
+    self.assertEqual(status, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_recommendation_inputs_outputs_and_tasks_are_visitor_scoped (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 108, in test_recommendation_inputs_outputs_and_tasks_are_visitor_scoped
+    self.assertEqual(status, 200)
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_resume_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendation_http.py", line 143, in test_resume_changed_during_task_prevents_publication
+    self.assertEqual(status, 200)
+AssertionError: 404 != 200
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.123s
+
+FAILED (failures=15)

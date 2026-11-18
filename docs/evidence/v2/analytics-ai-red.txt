@@ -1,0 +1,54 @@
+test_analytics_ai (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_analytics_ai (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_analytics_ai
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_analytics_ai.py", line 7, in <module>
+    from jobcompass.analytics_ai import compile_and_run
+ModuleNotFoundError: No module named 'jobcompass.analytics_ai'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+test_unsupported_intent_is_refused_without_substituting_an_analysis (tests.test_analytics_ai.AnalyticsAITests) ... FAIL
+
+======================================================================
+FAIL: test_unsupported_intent_is_refused_without_substituting_an_analysis (tests.test_analytics_ai.AnalyticsAITests)
+----------------------------------------------------------------------
+ValueError: 模型指令必须明确数据集、维度与指标。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_analytics_ai.py", line 150, in test_unsupported_intent_is_refused_without_substituting_an_analysis
+    compile_and_run('分析工资的因果影响', 'current', olap)
+AssertionError: "不支持" does not match "模型指令必须明确数据集、维度与指标。"
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+test_category_comparison_line_normalizes_time_first_and_preserves_scope (tests.test_analytics_ai.AnalyticsAITests) ... ERROR
+
+======================================================================
+ERROR: test_category_comparison_line_normalizes_time_first_and_preserves_scope (tests.test_analytics_ai.AnalyticsAITests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_analytics_ai.py", line 74, in test_category_comparison_line_normalizes_time_first_and_preserves_scope
+    result = compile_and_run('比较不同职业类别的季度 Python 提及率，画多条折线', 'current', olap)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/analytics_ai.py", line 126, in compile_and_run
+    query, chart, explanation = _instruction(value, dataset, previous)
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/jobcompass/analytics_ai.py", line 94, in _instruction
+    raise ValueError('折线图需要单一时间维度。')
+ValueError: 折线图需要单一时间维度。
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

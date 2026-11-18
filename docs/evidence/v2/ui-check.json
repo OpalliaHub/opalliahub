@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-18",
+  "browser": "in-app browser",
+  "desktop_viewport": [
+    1440,
+    1000
+  ],
+  "mobile_viewport": [
+    390,
+    844
+  ],
+  "mobile_scroll_width": 390,
+  "chat_turns": 2,
+  "commands": [
+    "按季度和职业类别比较岗位广告数量，保留当前筛选，用多条折线展示。",
+    "保留刚才的季度和职业类别维度以及筛选，把统计指标改成 Python 的全文提及率，仍用多条折线。"
+  ],
+  "ads": 136380,
+  "groups": 36,
+  "cross_page_chat_messages": 5,
+  "drilldown_exact_filters": {
+    "quarter": "2024-Q1",
+    "sector": "Education & Training"
+  },
+  "drilldown_dimensions": [
+    "month"
+  ],
+  "reset_drilldown_verified": true,
+  "formats_downloaded": [
+    "csv",
+    "json",
+    "png"
+  ],
+  "console_errors_and_warnings": [],
+  "temporary_viewport_reset": true
+}

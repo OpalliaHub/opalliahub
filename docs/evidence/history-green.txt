@@ -1,0 +1,13 @@
+test_bounded_history (tests.test_history.HistoryTests) ... ok
+test_concurrent_updates_are_serializable (tests.test_history.HistoryTests) ... ok
+test_empty_and_invalid_actions (tests.test_history.HistoryTests) ... ok
+test_existing_schema_migrates_without_losing_records (tests.test_history.HistoryTests) ... ok
+test_new_change_discards_redo_branch (tests.test_history.HistoryTests) ... ok
+test_noop_preserves_redo (tests.test_history.HistoryTests) ... ok
+test_restart_and_private_notes (tests.test_history.HistoryTests) ... ok
+test_round_trip_create_update_delete (tests.test_history.HistoryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.218s
+
+OK

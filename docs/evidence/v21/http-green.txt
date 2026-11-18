@@ -1,0 +1,15 @@
+test_application_note_changes_do_not_invalidate_matching_inputs (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_duplicate_active_recommendation_is_rejected_without_second_computation (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_invalid_options_rejected_before_background_submission (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_job_corpus_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_missing_visitor_resume_does_not_use_owner_profile_or_enqueue (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_offline_recommendation_needs_no_ai_allowance_and_preserves_inputs (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_preferences_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_recommendation_capacity_is_global_and_released_after_completion (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_recommendation_inputs_outputs_and_tasks_are_visitor_scoped (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+test_resume_changed_during_task_prevents_publication (tests.test_recommendation_http.RecommendationHTTPTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.287s
+
+OK

@@ -1,133 +1,139 @@
-# JobCompass 智能求职平台
+# JobCompass 2.1 · 人力资源与职业研究平台
 
-INT6181 Applied Programming with Python 课程项目。Python 负责简历解析、公开岗位采集、SQLite 持久化、匹配算法、后台任务、HTTP 接口及 DeepSeek 调用；浏览器提供中文 GUI，同时提供 CLI。适合在个人电脑上单人使用。
+JobCompass 以 JobsDB 招聘广告样本为基础，提供多维统计、职业与技能趋势、自然语言数据查询，以及简历匹配、投递管理和学习路线。**默认首页是「研究总览」**：左侧使用平台与图表，右侧常驻 DeepSeek 对话；输入问题后，模型生成受限统计指令，服务器验证并自动执行，再更新真实图表，无需复制或手动批准 JSON。
+
+当前代码版本为 **2.1.0**。本地运行与匿名公开模式均已写入代码；正式云服务器、域名和 TLS 部署仍待提供环境并验收。本仓库页面不是已上线的平台。Python 3.8.10 与 3.12 各通过 342 项离线测试；新增推荐的浏览器、隔离和性能记录见 [v2.1 验证](docs/RESUME_VERIFICATION.md)。此前 OLAP、导出与本机 Gunicorn smoke 保留在 [v2.0 验证记录](docs/V2_VERIFICATION.md)。
 
 **Group 11** · OU JUNHANG · ZHANG XIQIAN · JIANG YIFAN · CAI SHANGHENG · GUO ZHENGKUN
+INT6181 Applied Programming with Python 课程项目。
 
-英文项目提案：[Group11 Project Proposal](docs/submission/Group11_Project_Proposal.docx)。
+## v2.1：从简历优势到岗位推荐
+
+进入「简历分析」，导入或粘贴简历，填写求职偏好和可选目标职位，点击 **提炼优势并推荐岗位**。平台保存当前输入，在后台生成原文证据卡片和个性化岗位列表；每项推荐都显示分项、推荐理由与技能差距。已过期岗位和重复链接被排除，历史快照会保留时效提示。
+
+这条流程无需发送简历给大模型。需要 DeepSeek 补充表达或解读时，可继续使用独立授权的 AI 按钮。原「岗位检索」保留基础匹配算法，新推荐页增加实践证据和目标职位信号；两者分数明确标识，不能作为录用概率。算法、测试与限制见 [优势与推荐说明](docs/RESUME_MATCHING.md)。
 
 ## 快速启动
 
-完成下面的首次安装后，双击 `启动JobCompass.command`，或在此文件所在目录执行：
+本项目需要 Python 服务。不要直接打开 `jobcompass/static/index.html`；它不能代替后端。已有本机环境可双击 `启动JobCompass.command`，或在项目目录运行：
 
 ```bash
 .venv/bin/python main.py
 ```
 
-访问 <http://127.0.0.1:8765>。终端按 Ctrl+C 停止。如果已有服务在运行，直接访问网页即可。端口占用时使用 `python main.py --port 8766`。
+然后访问 **http://127.0.0.1:8765/**。终端按 Ctrl+C 停止；已有服务时直接打开网页。更换端口可用 `python main.py --port 8766`。
 
-在其他电脑首次运行（Python 3.8 或以上）：
+首次安装使用 Python 3.8 或以上：
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-cp .env.example .env
+cp -n .env.example .env
 python main.py
 ```
 
-Windows：`py -m venv .venv`，然后 `.venv\Scripts\python -m pip install -r requirements.txt` 和 `.venv\Scripts\python main.py`。用编辑器将 `.env.example` 复制为 `.env`。
+Windows 可使用 `py -m venv .venv`，随后运行 `.venv\Scripts\python -m pip install -r requirements.txt` 与 `.venv\Scripts\python main.py`；仅在 `.env` 不存在时复制配置模板。公开会话服务需要 Linux/macOS 文件锁，Windows 保留个人本地模式。
 
-**离线核心功能不依赖第三方库。** 未安装依赖时，`python3 main.py` 仍支持 TXT、DOCX、示例岗位、匹配和投递管理。PDF 需要 `pypdf`；HTTPS 证书问题可通过安装 `certifi` 解决。
+离线解析、规则匹配、SQLite 和已有数据分析使用标准库；PDF 解析需要 `pypdf`，HTTPS 证书辅助使用 `certifi`。DeepSeek 未配置时，手动 OLAP、已有数据、匹配和投递功能仍可用。ECharts 随项目本地提供，不依赖 CDN。
 
-## 一次完整使用流程
+## 从研究到个人工具
 
-1. 首页点击「体验示例匹配」，或在「我的简历」粘贴自己的文字、上传 TXT／DOCX／文字型 PDF，点击「保存并分析」。示例简历与 12 条示例岗位均为虚构。
-2. 填写求职地区和实际工作年限。地区以文本匹配，建议同时填写 `香港, Hong Kong, 深圳` 等中英文名称。
-3. 在「数据工作台」同步 Remotive 和 Arbeitnow，或导入 CSV／JSON／HTML 文件、手动添加岗位。
-4. 在「岗位发现」搜索、筛选来源／地区，选择「仅看真实来源」排除课程样例。点击岗位查看技能、文本、年限、地区和学历分项。
-5. 将岗位收藏或标记为已投递／面试中／已录用／已结束，添加备注，在「投递看板」跟进。投递状态只是本地记录，程序不会自动发送申请。
-6. 在「我的简历」勾选发送授权，点击「提炼我的优势」或「润色简历」。岗位详情也可以做 AI 解读。AI 请求使用已保存的简历，编辑后请先保存。润色结果可以下载为 TXT，不会覆盖原文。
+1. 在「研究总览」选择数据集、维度与指标。月份、季度、年份、职业类别、地区可以组合为一维或二维分析；研究索引未就绪时使用当前岗位样本。
+2. 在右侧 DeepSeek 对话输入问题，例如“比较不同职业类别的季度 Python 全文提及率，用多条折线展示”。验证通过后自动查询，左侧显示实际执行口径、图表和统计表；对话支持继续修改上一次分析。
+3. 点击图表或表格分组下钻；使用面包屑撤销精确筛选。可导出当前结果的 CSV、JSON 和 PNG。缺失日期/组合不会补造成零需求。
+4. 「深度研究」保留纵向队列、两期比较、修订证据和回测诊断。这里原有的单计划预览/手动执行流程仍保留；它与首页的新自动执行入口是不同功能。
+5. 「岗位检索」「简历分析」「投递管理」「技能成长」继续提供简历上传、解释性匹配、状态备注、撤销/重做与递归学习建议。投递状态是记录，程序不会自动发送申请。
+6. 「数据管理」支持平台内更新 JobsDB、固定公开 API、授权文件导入与手动岗位。公开模式下这些个人变更保存在自己的临时访客空间，共享研究数据由服务器维护。
 
-## DeepSeek 配置
+桌面界面采用左平台、右对话；窄屏切换平台/对话视图。最新布局和导出按钮的实际浏览器验收见 [界面说明](docs/UI_V2.md) 与 [v2 验证记录](docs/V2_VERIFICATION.md)。
 
-在 `.env` 中填写 `DEEPSEEK_API_KEY`，可用 `DEEPSEEK_MODEL` 指定模型。默认使用本次通过真实请求验证的 `deepseek-flash`。API 名称和 Tracking ID 是账户管理信息，不作为模型名称或认证字段。
+## 多维分析的统计口径
 
-密钥仅由 Python 后端读取，浏览器只能看到配置状态。`.env`、数据库、虚拟环境均排除在提交压缩包及 Git 之外。改动 `.env` 后重启服务。API 调用可能按供应商规则计费，程序每次按钮操作只发起一项任务，未配置、超时、余额不足或格式错误都会提示。
+| 项目 | 实际含义 |
+| --- | --- |
+| 广告数 | 筛选、去重后的样本广告，不是招聘人数 |
+| 雇主标签数 | 归一化显示标签的去重数，不是已核实的法人数量 |
+| 提及广告数 / 提及率 | 固定词语探针在广告全文中出现的记录数及其占比，不等于强制技能要求 |
+| 总体指标 | 独立从全部筛选记录计算，不累加分组中的去重雇主，也不简单平均分组百分比 |
+| 分组上限 | 单次显示最多 100 组；截断不改变总体分母 |
+| 空值与缺口 | 零样本提及率为 `null`；缺失/非法日期进入 `Unknown`，未观察组合保留空缺 |
 
-简历默认保存在本机 `data/jobcompass.db`。仅在主动授权 AI 操作后发送给 DeepSeek；发送前遮盖常见邮箱、内地手机号及身份证号，**不是完整匿名化**。姓名、项目和其他个人信息仍可能保留，请自行检查。界面「清除简历数据」删除当前可访问记录，不等于磁盘安全擦除。
+详细字段、SQL 边界、热力图、自动执行与测试证据见 [OLAP 说明](docs/OLAP.md)。研究广告是便利样本，不代表香港整体劳动力市场；跨期类别覆盖与抓取断档会影响解释。不能据此宣称因果、录用概率或未进行的显著性检验。
 
-## 数据来源与限制
+## 两种运行模式
 
-| 方式 | 真实支持范围 | 行为 |
-|---|---|---|
-| Remotive | 公开远程岗位，可能限制居住地 | 固定官方 API，每次尝试间隔 6 小时，保留原站链接和署名 |
-| Arbeitnow | 以欧洲为主的公开岗位 | 固定官方 API，每次尝试间隔 6 小时，保留原站链接和署名 |
-| 网页采集 | 公开 HTTPS 页面中的 schema.org JobPosting JSON-LD | 校验公开网络地址，读取 robots.txt，同域至少间隔 15 秒 |
-| CSV / JSON / HTML | 用户已有或获授权的数据 | 校验字段后整批写入，使用相同匹配流程 |
-| 手动岗位 | 国内或其他平台可见的单条职位 | 粘贴岗位描述和原始链接 |
+| 模式 | 数据与访问方式 |
+| --- | --- |
+| 本地个人模式 | `python main.py` 默认只监听回环地址；自己的简历、备注和分析记录保存在本机数据库 |
+| 公开访客模式 | 访客无需注册/登录；每个浏览器通过随机安全 cookie 获得隔离的临时工作空间，共享岗位目录与只读研究索引 |
 
-没有实现 BOSS直聘、猎聘、智联等平台的登录态抓包、验证码处理或受限接口采集。它们的岗位可通过授权导出或手动录入使用。网页若不含 JobPosting 或 robots.txt 不可读取，会明确失败。使用 Fake-IP 代理的本机，通用网页安全检查可能拒绝其保留网段地址；固定官方 API 适配器支持本机代理路由，HTTPS 证书校验始终开启。
+公开模式中的简历、偏好、AI 草稿、个人导入、投递备注、撤销历史、结果文件和任务 ID 均归当前匿名会话。默认闲置期限一小时；运行中的请求/任务暂缓清理。进程重启使旧访客凭据失效，需保留的结果应及时导出。它不是账户系统或跨设备持久同步服务，也不是磁盘加密方案。
 
-历史岗位保留在本机；同步执行新增／更新，不自动删除已下线岗位。是否仍招聘、时区、居住地、签证和薪资必须在原站核实。不同币种与月薪／年薪只显示原文，不直接换算或比较。Remotive 的公开职位有约 24 小时延迟。在线采集到的完整岗位库不会随源码包分发；本项目另附一批用户提供、经过清洗的 JobsDB 研究快照，详见下文。
+公开入口必须配置明确的 **HTTPS origin、Host 白名单和受信代理**；TLS 由反向代理提供，后端监听保留在代理后面。访问者不能通过 HTTP 连接任意服务器数据库路径或重建共享索引。任意网页采集在公开模式默认关闭，仅可由管理员用 `JOBCOMPASS_PAGE_HOSTS` 配置精确主机白名单开放；初始地址、robots 与每次重定向均校验。固定 JobsDB/API 接入与文件导入继续可用。免登录不等于无限量：访客创建、请求和 AI 任务有容量/速率限制。
 
-## JobsDB 研究数据与 benchmark
+生产入口是 `jobcompass.wsgi:application`，另有 `requirements-server.txt`、Docker/Compose、Caddy/Nginx 模板及研究索引维护脚本。当前设计只允许 **一个 Gunicorn worker**，默认八个 HTTP 线程，后台任务共享有界线程池；不能直接扩成多个副本。部署步骤与环境变量见 [公开部署准备](docs/DEPLOYMENT.md)。本机没有 Docker，因此没有把镜像配置写成“已经构建成功”，也没有声称云站点已上线。
 
-随附 2026-09-28 快照：6,939 条输入记录中 6,910 条通过校验。数据工作台点击「导入本地研究快照」，或运行 `python main.py --import-benchmark`，将其中 6,908 条未在快照时标记过期的岗位导入本机。所有岗位均为历史研究数据，需在原站核实招聘状态。
+## DeepSeek 与隐私
 
-运行 `python scripts/benchmark_jobsdb.py` 可复现数据质量与完整排序耗时评估。当前没有人工相关性标签，因此不报告真实数据的匹配准确率。数据来源、清洗规则、校验和、范围与限制见 [benchmark 说明](docs/BENCHMARK.md) 和 [实测结果](docs/benchmark_jobsdb.json)。原始 OneDrive 压缩包和其他课程文件不随项目打包。
+在本机 `.env` 或服务器运行环境设置 `DEEPSEEK_API_KEY`，可用 `DEEPSEEK_MODEL` 指定模型；当前默认 `deepseek-flash`。API 名称、Tracking ID 不作为模型名或认证字段。密钥由后端读取，不发送到浏览器，也不应进入 Git 或交付包。更改配置后重启。
 
-## 匹配方法
+首页命令会发送你输入的问题及受限的上次查询结构/数字总量。不会自动附加岗位原文、简历或服务器路径；标题、公司、位置等上下文文本筛选值保留在服务器，不发给模型。不要把不想发送的私人文字直接写进问题。模型只生成经过校验的数据指令和图表配置，不运行模型生成的 Python、SQL、Shell 或 JavaScript。
 
-总分为可用分项的加权平均，乘以 100。基础权重：技能契合 45%、TF-IDF 文本余弦相似度 25%、经验要求 15%、地区偏好 10%、学历 5%。条件缺失时该项不计入分母，详情显示有效权重与条件覆盖率。
+简历 AI 功能仍有独立的发送授权，会发送已保存且有限脱敏的简历。邮箱、部分电话/证件号遮盖不是完整匿名化；姓名和项目经历可能仍存在。公开 AI 配额按访客来源/IP 与全局容量约束，不是精确费用上限。瞬态 HTTP 重试和多步研究助手可能产生多次供应商请求；见 [API 可靠性边界](docs/AI_RELIABILITY.md)。本项目未训练或微调本地 LLM。
 
-技能项采用加权 F1：技能精确率衡量简历能力中有多少与岗位重合，技能召回率衡量岗位识别技能被覆盖多少；二者取调和平均。英语和沟通每项权重 0.2，其他词典技能每项 1。此设计避免仅凭一种通用技能把不相关岗位推到前列。算法仅处理词典识别的关键词，不等同于专业技能验证。
+## 数据与保留功能
 
-分数是可解释的排序指标，**不是录用概率**。语料新增时 TF-IDF 的 IDF 会变化，既有岗位分数也可能变化。规则无法可靠区分「了解」「熟练」「希望学习」和否定表达；AI 提供辅助解释，不修改基础匹配分。
+JobsDB 是主要来源，平台内可直接更新岗位列表和详情；默认 50 条、最多 200 条，包含间隔、取消、过期标记和保留个人状态的更新逻辑。Remotive、Arbeitnow、CSV/JSON/HTML 导入与手动录入作为补充。没有实现登录态抓包、验证码绕过或 BOSS/猎聘等受限接口。数据有效性、签证、地域和薪资仍需在原站核实。
 
-## 测试与评估
+源码随附 2026-09-28 的历史 JobsDB 快照：6,939 条输入中 6,910 条通过校验，应用默认排除当时已过期的两条后导入 6,908 条。它是研究快照，不是当前在线招聘承诺。大型纵向原始研究库、个人数据库、OneDrive 压缩包均不公开打包。新电脑可直接分析随附快照，也可以由管理员配置自己的纵向研究库。
+
+匹配分数保持技能 F1 45%、TF-IDF 文本 25%、经验 15%、地区 10%、学历 5% 的基础权重，缺失条件重新归一化。分数是排序指标，不是录用概率。技能成长的先修图是人工编写的学习建议，不是雇主要求。更多内容见 [JobsDB 接入](docs/JOBSDB_INTEGRATION.md)、[benchmark](docs/BENCHMARK.md)、[学习路线](docs/LEARNING_PLANNER.md) 和 [排名缓存](docs/RANKING_CACHE.md)。
+
+## 验证与交付
 
 ```bash
 python -m unittest discover -v
-python scripts/evaluate.py
-python -m compileall -q main.py jobcompass
-```
-
-自动化测试覆盖解析、评分、未知值、代理边界、导入、SQLite、AI 输出格式、HTTP、跨站请求及本地完整流程。单元测试不访问外网、不消耗 API 额度。
-
-`scripts/evaluate.py` 使用 12 条人工构造、人工标注的示例岗位测量 Precision@4，并在 1,200 条复制样例上测量排序时间。该数据集只能证明样例行为，不代表真实招聘准确率。实测记录见 `docs/evaluation.json`。
-
-手动网络冒烟测试：`python scripts/check_live.py`。它会采集真实岗位，并向 DeepSeek 发送虚构示例简历，产生一次真实 API 调用。结果写入 `docs/live_check.json`。不要把这项有外部副作用的测试放入 CI。
-
-GitHub Actions 配置在 `.github/workflows/tests.yml`，准备对 Python 3.8、3.11、3.13 运行离线检查。当前只验证了本机 Python 3.8.10，云端 CI 状态以仓库 Actions 实际记录为准。
-
-## CLI 与目录
-
-```bash
-python main.py --no-browser
-python main.py --collect Remotive
-python main.py --match data/demo_resume.txt --db /tmp/jobcompass-demo.db
+python scripts/quality_gate.py --mutations
+python scripts/coverage_report.py
 python scripts/package_project.py --group 11
 ```
 
-`--match` 会将指定简历保存到所选数据库，建议评估时使用临时数据库。打包脚本默认生成 `dist/group11_project.zip`，明确白名单只包含源码、测试、演示数据和文档。
+离线测试不访问招聘网站、不调用付费 AI。真实联网验证单独记录，不放入 CI。当前单条 DeepSeek 命令自动执行的实测在 [analytics_live_check.json](docs/analytics_live_check.json)，只证明该次调用与本机查询成功，不代表所有问题的理解准确率。
 
-```text
-main.py                    课程要求的入口
-jobcompass/config.py        本地配置
-jobcompass/resume.py        简历文件解析与证据提取
-jobcompass/matching.py      技能 F1 与 TF-IDF 排序
-jobcompass/sources.py       公开数据源及导入器
-jobcompass/storage.py       SQLite 仓储
-jobcompass/ai.py            DeepSeek 提示词与输出校验
-jobcompass/server.py        HTTP、后台任务及业务接口
-jobcompass/static/          中文响应式 GUI
-data/                      虚构演示简历、岗位及 CSV 模板
-tests/                     自动化测试
-scripts/                   网络检查、评估、打包
-docs/                      规格、审查、提交材料与演示说明
+已观察到 Python 3.8.10 和 3.12 各 306 项测试通过、8 个 doctest 通过、5 个指定变异被测试检出，以及真实单 worker/八线程 Gunicorn smoke 通过。日志、双栏/窄屏/导出交互和最终交付包状态统一见 [V2_VERIFICATION.md](docs/V2_VERIFICATION.md)。旧版 223 项或中间轮次 283 项不能替代这些 v2 证据。配置好的 GitHub Actions 不等于远端已运行；本文不声称本轮 GitHub 已更新、Docker 已构建或云服务已部署。
+
+可用的 CLI 示例：
+
+```bash
+python main.py --no-browser
+python main.py --collect JobsDB --keyword Python --limit 20
+python main.py --match data/demo_resume.txt --db /tmp/jobcompass-demo.db
+python main.py --demo --db /tmp/jobcompass-only-demo.db --port 8766 --no-browser
 ```
 
-## 故障处理
+`--match` 会保存简历到指定数据库；演示请使用临时库。`--demo` 的虚构岗位用于匹配演示，研究聚合会排除演示数据，因此纯示例库的研究首页可能没有可统计记录。
 
-- 端口占用：打开已经运行的平台，或用 `--port 8766`。
-- API 认证或余额错误：检查 `.env`，在供应商控制台核实密钥／余额后重启。
-- 网页采集失败：查看明确提示，改用 CSV／JSON、带结构化数据的 HTML 或手动录入。
-- PDF 没有文字：扫描件暂不支持 OCR，请粘贴文字或先用其他工具 OCR。
-- 岗位没有匹配分：先保存有效简历。修改简历未保存不会改变已有分析。
-- 网络不可用：示例与已采集数据、评分、投递看板均可离线使用。
-- 日志时间：数据库使用 UTC，界面按本机时区显示。
+## 代码与文档导航
 
-## 课程材料与引用
+| 路径 | 职责 |
+| --- | --- |
+| `main.py` | 本地 GUI 服务、采集及匹配 CLI |
+| `jobcompass/server.py` | 业务应用、任务队列、功能接口 |
+| `jobcompass/web.py` / `public.py` / `wsgi.py` | HTTP 边界、匿名隔离、配额和生产适配 |
+| `jobcompass/olap.py` / `analytics_ai.py` | 多维统计与自然命令自动执行 |
+| `jobcompass/research.py` / `research_agent.py` | 纵向研究与有预算的多步助手 |
+| `jobcompass/resume.py` / `matching.py` / `learning.py` | 简历、排名和技能路线 |
+| `jobcompass/static/` | 平台界面、常驻对话、本地图表资源 |
+| `tests/` / `scripts/` | 自动化验证、质量门禁、评估及打包 |
+| `deploy/` / `Dockerfile` / `compose.yaml` | 生产配置与维护模板，尚需目标环境验收 |
+| `docs/SPECIFICATION.md` | 当前 v2 功能需求与边界 |
+| `docs/V2_VERIFICATION.md` | 当前证据、未完成的外部验证及版本状态 |
 
-见 `docs/SPECIFICATION.md`、`docs/CODE_REVIEW.md`、`docs/DEMO_SCRIPT.md`、`docs/COURSE_CHECKLIST.md`、`docs/REFERENCES.md`。项目由 AI 按用户提出的需求生成、调试并测试；个人报告须如实记录本人后续实际阅读、验证、修改和演示贡献。
+## 历史版本与课程材料
+
+v1.3 的课程增强工作继续保留：[课程映射](docs/COURSE_COVERAGE.md)、[v1.3 验证](docs/COURSE_VERIFICATION.md)、[v1.3 演示补充](docs/COURSE_DEMO_V1_3.md)、[质量流程](docs/QUALITY_WORKFLOW.md)。v1.2 研究室和 v1.1 JobsDB 直连说明分别见 [研究室文档](docs/RESEARCH_WORKBENCH.md) 与 [接入文档](docs/JOBSDB_INTEGRATION.md)。这些记录适用于各自版本，未改写成 v2 验收结果。
+
+原有 Word/PDF/PPT 保留为 **2026-09-30 课堂材料**，本轮没有重新生成：[英文 Proposal](docs/submission/Group11_Project_Proposal.docx)、[项目报告](docs/submission/Group11_Project_Report.docx)、[Presentation](docs/submission/group11_presentation.pptx)、[演示说明](docs/submission/Group11_Demo_Guide.docx)、[个人报告参考](docs/submission/Group11_Individual_Report_Draft.pdf)。原大作业 DOCX 在此前指定路径缺失，历史页数/时长要求尚未重新核对原件，见 [提交清单](docs/COURSE_CHECKLIST.md)。
+
+项目由 AI 根据用户需求生成、调试与测试。成员报告应如实补充本人实际阅读、修改、验证、评审与演示经历，不虚构人工贡献、课堂操作或提交记录。

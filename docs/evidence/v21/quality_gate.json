@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-11-18T16:09:16.055256+00:00",
+  "python": "3.8.10",
+  "mode": "full",
+  "cloud_ci_verified": false,
+  "commands": [
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "-m",
+        "doctest",
+        "-v",
+        "scripts/quality_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.069,
+      "log": "doctest.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "scripts/static_checks.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.086,
+      "log": "static_checks.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 2.324,
+      "log": "unittest.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "scripts/mutation_check.py",
+        "--output",
+        "output/quality-v21-final/mutations"
+      ],
+      "exit_code": 0,
+      "seconds": 1.758,
+      "log": "mutation.log"
+    },
+    {
+      "command": [
+        "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/.venv/bin/python",
+        "scripts/package_project.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.222,
+      "log": "package.log"
+    }
+  ],
+  "source": {
+    "scanned_files": 169,
+    "findings": [],
+    "scope": "Allowlisted source and Office XML; .env, private data, databases and symlinks are not read."
+  },
+  "syntax": {
+    "files": 57,
+    "errors": []
+  },
+  "package": {
+    "members": 190,
+    "sha256": "3cb3bd8d65c852283316dd6215f6fee160eb4ea0882aa1ea35310d6b3b683807",
+    "errors": []
+  },
+  "status": "passed"
+}

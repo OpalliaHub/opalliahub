@@ -1,0 +1,24 @@
+test_executor_rejection_leaves_no_permanent_queued_task (tests.test_task_queue.TaskQueueTests) ... FAIL
+
+======================================================================
+FAIL: test_executor_rejection_leaves_no_permanent_queued_task (tests.test_task_queue.TaskQueueTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_task_queue.py", line 16, in test_executor_rejection_leaves_no_permanent_queued_task
+    self.assertEqual(tasks.active(),[])
+AssertionError: Lists differ: [{'id': '6af3f66750b498e79a82', 'label': '[60 chars]878}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'id': '6af3f66750b498e79a82', 'label': 'rejected', 'status': 'queued', 'created_at': 1795015724.6033878}
+
++ []
+- [{'created_at': 1795015724.6033878,
+-   'id': '6af3f66750b498e79a82',
+-   'label': 'rejected',
+-   'status': 'queued'}]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

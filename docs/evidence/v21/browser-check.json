@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-19",
+  "version": "2.1.0",
+  "dataset": "isolated fictional demo only",
+  "desktop": [
+    1440,
+    1000
+  ],
+  "mobile": [
+    390,
+    844
+  ],
+  "mobile_scroll_width": 390,
+  "returned_jobs": 12,
+  "top_title": "Junior Data Analyst",
+  "top_score": 75.1,
+  "list_detail_score_equal": true,
+  "bookmark_preserves_recommendations": true,
+  "edited_target_clears_previous_results": true,
+  "original_skill_index_collapsed": true,
+  "ai_consent_unchecked": true,
+  "external_ai_calls": 0,
+  "console_errors_and_warnings": [],
+  "user_real_resume_modified": false,
+  "temporary_viewport_reset": true,
+  "demo_server_stopped": true,
+  "main_version": "2.1",
+  "main_recommendation_entry_present": true
+}

@@ -1,0 +1,40 @@
+test_actual_project_evidence_outweighs_an_equal_generic_skill_mention (tests.test_recommendations.RecommendationTests) ... ok
+test_all_scores_bounded_deterministic_and_breakdown_reconciles (tests.test_recommendations.RecommendationTests) ... ok
+test_changing_only_identity_fields_does_not_change_scores_or_order (tests.test_recommendations.RecommendationTests) ... ok
+test_demo_only_corpus_and_explicit_include_demo_are_labeled (tests.test_recommendations.RecommendationTests) ... FAIL
+test_expired_newest_duplicate_does_not_resurrect_older_active_copy (tests.test_recommendations.RecommendationTests) ... ok
+test_expiry_url_dedup_demo_and_missing_status_are_explained (tests.test_recommendations.RecommendationTests) ... FAIL
+test_inputs_are_unchanged_and_ranker_runs_once (tests.test_recommendations.RecommendationTests) ... ok
+test_invalid_options_and_preferences_fail_without_ranking (tests.test_recommendations.RecommendationTests) ... ok
+test_multiple_real_skills_fit_better_than_a_single_generic_overlap (tests.test_recommendations.RecommendationTests) ... ok
+test_nontechnical_recruitment_work_ranks_relevant_work_above_software (tests.test_recommendations.RecommendationTests) ... ok
+test_past_expiry_timestamp_excludes_record_even_if_marked_active (tests.test_recommendations.RecommendationTests) ... ok
+test_strict_location_does_not_treat_remote_as_worldwide (tests.test_recommendations.RecommendationTests) ... ok
+test_unknown_evidence_is_weak_not_certified_fit_and_minimum_is_explicit (tests.test_recommendations.RecommendationTests) ... ok
+test_english_negation_scope_does_not_erase_an_actual_other_skill (tests.test_recommendations.StrengthTests) ... ok
+test_explicit_personal_identity_lines_do_not_become_strengths (tests.test_recommendations.StrengthTests) ... ok
+test_nontechnical_actual_work_has_evidence_and_role_features (tests.test_recommendations.StrengthTests) ... ok
+test_not_only_is_not_negation_and_bare_negative_lists_propagate (tests.test_recommendations.StrengthTests) ... ok
+test_positive_denied_and_aspirational_skills_have_separate_statuses (tests.test_recommendations.StrengthTests) ... ok
+test_strength_evidence_is_a_local_verbatim_excerpt_and_not_mastery_claim (tests.test_recommendations.StrengthTests) ... ok
+
+======================================================================
+FAIL: test_demo_only_corpus_and_explicit_include_demo_are_labeled (tests.test_recommendations.RecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 136, in test_demo_only_corpus_and_explicit_include_demo_are_labeled
+    self.assertEqual(mixed['summary']['returned'], 2)
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_expiry_url_dedup_demo_and_missing_status_are_explained (tests.test_recommendations.RecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_recommendations.py", line 115, in test_expiry_url_dedup_demo_and_missing_status_are_explained
+    self.assertEqual(result['summary']['excluded_duplicates'], 1)
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.023s
+
+FAILED (failures=2)

@@ -1,0 +1,40 @@
+{
+  "csv_rows": 36,
+  "csv_columns": [
+    "quarter",
+    "sector",
+    "ads",
+    "employers",
+    "mentions",
+    "share_pct"
+  ],
+  "json_groups": 36,
+  "query": {
+    "dataset": "research",
+    "dimensions": [
+      "quarter",
+      "sector"
+    ],
+    "measure": "share_pct",
+    "concept": "python",
+    "filters": {
+      "common_only": true,
+      "fresh_only": false
+    },
+    "exact_filters": {},
+    "dedup": "id",
+    "limit": 100,
+    "sort": "label"
+  },
+  "totals": {
+    "ads": 136380,
+    "employers": 11183,
+    "mentions": 13393,
+    "share_pct": 9.8204
+  },
+  "png_dimensions": [
+    1676,
+    840
+  ],
+  "png_bytes": 99952
+}

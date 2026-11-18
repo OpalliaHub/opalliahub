@@ -1,0 +1,7 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {"name": "JobCompass isolated demo", "type": "debugpy", "request": "launch", "program": "${workspaceFolder}/main.py", "args": ["--demo", "--db", "data/private/debug-demo.db", "--port", "8766", "--no-browser"], "console": "integratedTerminal", "justMyCode": true},
+    {"name": "JobCompass offline tests", "type": "debugpy", "request": "launch", "module": "unittest", "args": ["discover", "-v"], "console": "integratedTerminal", "justMyCode": true}
+  ]
+}

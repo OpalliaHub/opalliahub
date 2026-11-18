@@ -1,0 +1,44 @@
+# Native alternative to Docker; install as /etc/systemd/system/jobcompass.service.
+# Paths below are examples. Create the user, venv, release and data directory first.
+[Unit]
+Description=JobCompass anonymous workforce research platform
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=jobcompass
+Group=jobcompass
+WorkingDirectory=/opt/jobcompass/current
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+Environment=JOBCOMPASS_PUBLIC=1
+Environment=JOBCOMPASS_DB=/srv/jobcompass/data/shared.sqlite
+EnvironmentFile=/etc/jobcompass/server.env
+ExecStart=/opt/jobcompass/venv/bin/gunicorn --workers 1 --threads 8 --bind 127.0.0.1:8765 --timeout 120 --graceful-timeout 120 --no-control-socket --worker-tmp-dir /tmp --access-logfile - --error-logfile - jobcompass.wsgi:application
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=130
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ReadWritePaths=/srv/jobcompass/data
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+TasksMax=128
+# Initial bounds for a host shared with another application; measure before tuning.
+MemoryMax=1G
+CPUQuota=100%
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

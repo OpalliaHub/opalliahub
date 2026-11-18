@@ -1,0 +1,24 @@
+test_unknown_routes_do_not_allocate_visitors (tests.test_public_http.PublicHTTPTests) ... FAIL
+test_creation_budget_applies_to_cookie_churn_not_existing_visitors (tests.test_public_http.PublicHTTPTests) ... ok
+test_public_arbitrary_page_collection_is_disabled_by_default (tests.test_public_http.PublicHTTPTests) ... FAIL
+
+======================================================================
+FAIL: test_unknown_routes_do_not_allocate_visitors (tests.test_public_http.PublicHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_public_http.py", line 110, in test_unknown_routes_do_not_allocate_visitors
+    self.assertNotIn('Set-Cookie', headers)
+AssertionError: 'Set-Cookie' unexpectedly found in {'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer', 'Content-Security-Policy': "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'", 'Set-Cookie': 'jobcompass_session=wKTgshZlN6R3mRQktbF2Nb0KhFytByw-N4-nHNunC2o; HttpOnly; Max-Age=3600; Path=/; SameSite=Strict; Secure'}
+
+======================================================================
+FAIL: test_public_arbitrary_page_collection_is_disabled_by_default (tests.test_public_http.PublicHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_public_http.py", line 125, in test_public_arbitrary_page_collection_is_disabled_by_default
+    self.assertEqual(status, 403)
+AssertionError: 200 != 403
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.045s
+
+FAILED (failures=2)

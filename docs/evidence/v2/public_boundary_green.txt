@@ -1,0 +1,47 @@
+test_active_limit_is_atomic_under_concurrent_reservations (tests.test_public.LimitAndConfigTests) ... ok
+test_config_requires_exact_origin_and_host (tests.test_public.LimitAndConfigTests) ... ok
+test_forwarded_address_only_accepted_from_configured_proxy (tests.test_public.LimitAndConfigTests) ... ok
+test_global_and_active_caps_and_window_reset (tests.test_public.LimitAndConfigTests) ... ok
+test_insecure_or_wildcard_public_configuration_rejected (tests.test_public.LimitAndConfigTests) ... ok
+test_new_cookie_cannot_bypass_ip_limit_and_release_is_idempotent (tests.test_public.LimitAndConfigTests) ... ok
+test_public_fetch_disables_proxy_environment_and_uses_bound (tests.test_public.LimitAndConfigTests) ... ok
+test_public_metadata_removes_local_paths (tests.test_public.LimitAndConfigTests) ... ok
+test_public_page_config_rejects_wildcards_and_url_entries (tests.test_public.LimitAndConfigTests) ... ok
+test_public_page_hosts_exactly_match_every_redirect (tests.test_public.LimitAndConfigTests) ... ok
+test_sanitization_preserves_job_urls_and_salary_units (tests.test_public.LimitAndConfigTests) ... ok
+test_active_request_and_background_job_prevent_deletion (tests.test_public.SessionTests) ... ok
+test_cookie_churn_limited_but_existing_cookie_still_works (tests.test_public.SessionTests) ... ok
+test_expired_idle_session_data_deleted_and_cookie_rotated (tests.test_public.SessionTests) ... ok
+test_failed_creation_releases_active_slot_without_refunding_allowance (tests.test_public.SessionTests) ... ok
+test_new_cookie_is_opaque_and_secure (tests.test_public.SessionTests) ... ok
+test_registry_cap_rejects_without_evicting_live_data (tests.test_public.SessionTests) ... ok
+test_second_process_registry_cannot_delete_live_session (tests.test_public.SessionTests) ... ok
+test_unknown_or_traversal_cookie_cannot_choose_session_path (tests.test_public.SessionTests) ... ok
+test_application_preserves_legacy_shared_id_and_isolates_history (tests.test_public.VisitorStoreTests) ... ok
+test_cooldown_shared_across_visitors (tests.test_public.VisitorStoreTests) ... ok
+test_import_updates_only_visitor_and_preserves_shared_identity (tests.test_public.VisitorStoreTests) ... ok
+test_invalid_application_does_not_copy_job (tests.test_public.VisitorStoreTests) ... ok
+test_owner_resume_notes_and_ai_are_not_shared (tests.test_public.VisitorStoreTests) ... ok
+test_private_log_does_not_leak_to_other_visitors (tests.test_public.VisitorStoreTests) ... ok
+test_public_collection_cooldown_is_global_and_rows_are_private (tests.test_public.VisitorStoreTests) ... ok
+test_public_collection_obeys_robots_before_fetching_advertisement (tests.test_public.VisitorStoreTests) ... ok
+test_resume_preferences_and_research_results_are_private (tests.test_public.VisitorStoreTests) ... ok
+test_shared_research_config_is_readonly (tests.test_public.VisitorStoreTests) ... ok
+test_allowlisted_page_collection_uses_restricted_transport (tests.test_public_http.PublicHTTPTests) ... ok
+test_creation_budget_applies_to_cookie_churn_not_existing_visitors (tests.test_public_http.PublicHTTPTests) ... ok
+test_health_is_available_to_loopback_probe (tests.test_public_http.PublicHTTPTests) ... ok
+test_heavy_gets_share_work_budget_without_blocking_health_or_status (tests.test_public_http.PublicHTTPTests) ... ok
+test_import_and_application_are_private (tests.test_public_http.PublicHTTPTests) ... ok
+test_new_cookie_does_not_bypass_ai_limit (tests.test_public_http.PublicHTTPTests) ... ok
+test_owner_and_visitors_do_not_share_resume (tests.test_public_http.PublicHTTPTests) ... ok
+test_public_arbitrary_page_collection_is_disabled_by_default (tests.test_public_http.PublicHTTPTests) ... ok
+test_public_cannot_configure_server_paths (tests.test_public_http.PublicHTTPTests) ... ok
+test_tasks_and_saved_results_cannot_cross_sessions (tests.test_public_http.PublicHTTPTests) ... ok
+test_unknown_routes_do_not_allocate_visitors (tests.test_public_http.PublicHTTPTests) ... ok
+test_writes_require_exact_origin (tests.test_public_http.PublicHTTPTests) ... ok
+test_wsgi_boundary_uses_same_gateway (tests.test_public_http.PublicHTTPTests) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 0.361s
+
+OK

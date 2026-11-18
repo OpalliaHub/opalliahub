@@ -1,0 +1,80 @@
+{
+  "created_at": "2026-11-18T15:35:47.183563+00:00",
+  "mutants": [
+    {
+      "exit_code": 1,
+      "tests": 10,
+      "assertion_failures": 2,
+      "errors": 0,
+      "name": "ranking_order",
+      "file": "jobcompass/matching.py",
+      "before": "(-j['score'], j['id'])",
+      "after": "(j['score'], j['id'])",
+      "test_target": "tests.test_core.MatchingTests",
+      "status": "killed"
+    },
+    {
+      "exit_code": 1,
+      "tests": 10,
+      "assertion_failures": 2,
+      "errors": 0,
+      "name": "skill_intersection",
+      "file": "jobcompass/matching.py",
+      "before": "mass(own & required)",
+      "after": "mass(own | required)",
+      "test_target": "tests.test_core.MatchingTests",
+      "status": "killed"
+    },
+    {
+      "exit_code": 1,
+      "tests": 10,
+      "assertion_failures": 1,
+      "errors": 0,
+      "name": "experience_penalty",
+      "file": "jobcompass/matching.py",
+      "before": "min(1.0, own_years / years)",
+      "after": "1.0",
+      "test_target": "tests.test_core.MatchingTests",
+      "status": "killed"
+    },
+    {
+      "exit_code": 1,
+      "tests": 22,
+      "assertion_failures": 1,
+      "errors": 0,
+      "name": "plan_limit_boundary",
+      "file": "jobcompass/research.py",
+      "before": "1 <= p['limit'] <= 200",
+      "after": "1 <= p['limit'] <= 201",
+      "test_target": "tests.test_research.ResearchTests",
+      "status": "killed"
+    },
+    {
+      "exit_code": 1,
+      "tests": 22,
+      "assertion_failures": 1,
+      "errors": 0,
+      "name": "plan_boolean_limit",
+      "file": "jobcompass/research.py",
+      "before": "type(p['limit']) is not int",
+      "after": "not isinstance(p['limit'], int)",
+      "test_target": "tests.test_research.ResearchTests",
+      "status": "killed"
+    }
+  ],
+  "scope": "Five hand-selected faults; not whole-project mutation coverage.",
+  "baseline": {
+    "exit_code": 0,
+    "tests": 32,
+    "assertion_failures": 0,
+    "errors": 0
+  },
+  "source_unchanged": true,
+  "source_sha256": {
+    "jobcompass/matching.py": "ab207cf909c9b0c063301f78385ed1dae805d7b95d66f7df99da128c68bacd38",
+    "jobcompass/research.py": "423db4e91522bc410020ec966cda3b9db550273843b4c035f2fe28c144b7faa4"
+  },
+  "killed": 5,
+  "total": 5,
+  "status": "passed"
+}

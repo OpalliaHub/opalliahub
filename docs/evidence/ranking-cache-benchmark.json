@@ -1,0 +1,30 @@
+{
+  "dataset": "Deterministic synthetic fixture; no personal or live recruitment data",
+  "jobs": 1200,
+  "description_characters": 1998720,
+  "python": "3.8.10",
+  "system": "Darwin",
+  "architecture": "arm64",
+  "uncached": {
+    "runs": 5,
+    "median_ms": 201.321,
+    "min_ms": 198.972,
+    "max_ms": 205.051
+  },
+  "cold_cache": {
+    "runs": 5,
+    "median_ms": 255.026,
+    "min_ms": 250.98,
+    "max_ms": 257.352
+  },
+  "warm_cache": {
+    "runs": 10,
+    "median_ms": 52.661,
+    "min_ms": 52.053,
+    "max_ms": 56.277
+  },
+  "equal_to_uncached": true,
+  "scope": "One local process on this machine; timings exclude HTTP/SQLite and are not a cross-machine guarantee.",
+  "warm_speedup_over_uncached": 3.82,
+  "warm_speedup_over_cold_cache": 4.84
+}

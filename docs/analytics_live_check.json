@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "live_provider_request": true,
+  "command": "按来源标示月份统计当前平台岗位的广告数量，用折线图展示，不添加日期范围。",
+  "query": {
+    "dataset": "current",
+    "dimensions": [
+      "month"
+    ],
+    "measure": "ads",
+    "concept": "python",
+    "filters": {},
+    "exact_filters": {},
+    "dedup": "id",
+    "limit": 50,
+    "sort": "label"
+  },
+  "chart": {
+    "type": "line",
+    "title": "按来源标示月份统计的当前平台岗位广告数量"
+  },
+  "totals": {
+    "ads": 7277,
+    "employers": 2528,
+    "mentions": 980,
+    "share_pct": 13.4671
+  },
+  "groups": 19,
+  "model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 936,
+    "completion_tokens": 91,
+    "total_tokens": 1027
+  },
+  "elapsed_seconds": 23.175,
+  "notes": "真实DeepSeek编译指令后自动执行本机OLAP。请求未传输原始岗位、简历或本机路径；结果仅验证此单条指令。"
+}

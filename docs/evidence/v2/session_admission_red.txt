@@ -1,0 +1,23 @@
+test_cookie_churn_limited_but_existing_cookie_still_works (tests.test_public.SessionTests) ... ERROR
+test_failed_creation_releases_active_slot_without_refunding_allowance (tests.test_public.SessionTests) ... ERROR
+
+======================================================================
+ERROR: test_cookie_churn_limited_but_existing_cookie_still_works (tests.test_public.SessionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_public.py", line 161, in test_cookie_churn_limited_but_existing_cookie_still_works
+    self.manager = SessionManager(self.base, self.root/'sessions', self.factory,
+TypeError: __init__() got an unexpected keyword argument 'creation_limiter'
+
+======================================================================
+ERROR: test_failed_creation_releases_active_slot_without_refunding_allowance (tests.test_public.SessionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tracyooo/Documents/ChatGPT/匹配工作平台/tests/test_public.py", line 175, in test_failed_creation_releases_active_slot_without_refunding_allowance
+    self.manager = SessionManager(self.base, self.root/'sessions', Mock(side_effect=ValueError('failed factory')),
+TypeError: __init__() got an unexpected keyword argument 'creation_limiter'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.007s
+
+FAILED (errors=2)

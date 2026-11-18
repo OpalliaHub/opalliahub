@@ -17,7 +17,7 @@ from .resume import skills_in
 AGENT = 'JobCompass-CourseProject/1.0'
 ENDPOINTS = {'Remotive': 'https://remotive.com/api/remote-jobs',
              'Arbeitnow': 'https://www.arbeitnow.com/api/job-board-api'}
-TRUSTED_SERVICES = {'api.deepseek.com', 'remotive.com', 'www.arbeitnow.com'}
+TRUSTED_SERVICES = {'api.deepseek.com', 'remotive.com', 'www.arbeitnow.com', 'hk.jobsdb.com'}
 
 
 class PlainText(HTMLParser):
@@ -44,6 +44,7 @@ class PlainText(HTMLParser):
 def plain(value):
     parser = PlainText()
     parser.feed(str(value or ''))
+    parser.close()  # Flush buffered text such as a trailing bare "R&D" at EOF.
     return re.sub(r'\n\s*\n+', '\n', ''.join(parser.parts)).strip()
 
 
