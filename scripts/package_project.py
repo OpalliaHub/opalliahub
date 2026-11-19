@@ -1,26 +1,54 @@
-"""Build a reproducible course submission with a strict allowlist."""
+"""Build an allowlisted JobCompass source release without private/local artifacts."""
 import argparse
+import sys
 import zipfile
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[1]
-ALLOWED_FILES=['main.py','README.md','AGENTS.md','requirements.txt','requirements-server.txt','LICENSE','Dockerfile','compose.yaml','.dockerignore','.env.example','.gitignore','启动JobCompass.command']
-ALLOWED_DIRS=['jobcompass','tests','scripts','docs','.github','.vscode','deploy']
-DEMO_FILES=['demo_jobs.json','demo_resume.txt','import_template.csv']
+ROOT = Path(__file__).resolve().parents[1]
+if __package__ in (None, ''):
+    sys.path.insert(0, str(ROOT))
+from scripts.quality_gate import source_files
+
+DEMO_FILES = ('demo_jobs.json', 'demo_resume.txt', 'import_template.csv')
+BENCHMARK_FILES = ('jobsdb_20260928.json.gz', 'jobsdb_20260928.manifest.json')
+
+
+def _fixture(root, name):
+    path = root / name
+    if not path.is_file() or path.is_symlink():
+        return None
+    if any(parent.is_symlink() for parent in path.parents if parent != root and root in parent.parents):
+        return None
+    return path
+
+
+def build_package(root=ROOT):
+    """Return the archive path; local excluded files are neither read nor copied."""
+    root = Path(root)
+    files = set(source_files(root))
+    names = ['data/' + name for name in DEMO_FILES]
+    names.extend('data/benchmark/' + name for name in BENCHMARK_FILES)
+    for name in names:
+        path = _fixture(root, name)
+        if path is not None:
+            files.add(path)
+    output = root / 'dist'
+    if output.is_symlink():
+        raise ValueError('Release output directory must not be a symbolic link.')
+    output.mkdir(exist_ok=True)
+    destination = output / 'jobcompass.zip'
+    if destination.is_symlink():
+        raise ValueError('Release archive must not be a symbolic link.')
+    with zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED) as archive:
+        for path in sorted(files):
+            archive.write(path, str(Path('jobcompass') / path.relative_to(root)))
+    return destination
+
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--group',default='11');args=parser.parse_args()
-    if not args.group.isalnum():parser.error('组号只接受字母或数字')
-    files=[ROOT/name for name in ALLOWED_FILES]+[ROOT/'data'/name for name in DEMO_FILES]
-    files.extend(ROOT/'data'/'benchmark'/name for name in ['jobsdb_20260928.json.gz','jobsdb_20260928.manifest.json'])
-    for folder in ALLOWED_DIRS:
-        files.extend(p for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.zip') and not p.name.startswith('.'))
-    output=ROOT/'dist';output.mkdir(exist_ok=True)
-    destination=output/('group'+args.group+'_project.zip')
-    with zipfile.ZipFile(destination,'w',zipfile.ZIP_DEFLATED) as archive:
-        for path in sorted(set(files)):
-            if path.is_symlink():continue
-            archive.write(path,str(Path('group'+args.group+'_project')/path.relative_to(ROOT)))
-    print(destination)
+    argparse.ArgumentParser(description=__doc__).parse_args()
+    print(build_package())
 
-if __name__=='__main__':main()
+
+if __name__ == '__main__':
+    main()

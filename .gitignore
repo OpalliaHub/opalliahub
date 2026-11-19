@@ -15,3 +15,5 @@ data/private/
 *.zip
 
 .chart-data-*/
+
+.local-archives/

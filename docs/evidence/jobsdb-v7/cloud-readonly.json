@@ -1,0 +1,59 @@
+{
+  "started_at": "2026-11-19T06:39:52.254400+00:00",
+  "scope": "Read-only continuation after a partial real collection; no new collection task",
+  "checks": [
+    {
+      "name": "fresh visitor homepage",
+      "passed": true
+    },
+    {
+      "name": "fresh visitor state",
+      "passed": true
+    },
+    {
+      "name": "shared catalog remains6908",
+      "passed": true
+    },
+    {
+      "name": "another visitor has no run or private resume",
+      "passed": true
+    },
+    {
+      "name": "research catalog available",
+      "passed": true
+    },
+    {
+      "name": "catalog contains251042 researchads",
+      "passed": true
+    },
+    {
+      "name": "read-only OLAP available",
+      "passed": true
+    },
+    {
+      "name": "OLAP full historical total retained",
+      "passed": true
+    },
+    {
+      "name": "existing mainwebsite200",
+      "passed": true
+    },
+    {
+      "name": "existing EcoQuest200",
+      "passed": true
+    }
+  ],
+  "measurements": {
+    "shared_jobs": 6908,
+    "research": {
+      "catalog_ads": 251042,
+      "query_ads": 251042,
+      "groups": 3,
+      "seconds": 1.702
+    }
+  },
+  "jobsdb_submissions": 0,
+  "ai_requests": 0,
+  "status": "passed",
+  "completed_at": "2026-11-19T06:40:15.897451+00:00"
+}

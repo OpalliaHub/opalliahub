@@ -26,6 +26,15 @@ RULES = (
 )
 MAX_MEMBER_BYTES = 32 * 1024 * 1024
 MAX_ARCHIVE_BYTES = 256 * 1024 * 1024
+# Source releases deliberately omit presentation/report deliverables even when
+# an old local copy is accidentally returned to an otherwise allowed folder.
+EXCLUDED_RELEASE_NAMES = frozenset({
+    'project_proposal.md', 'project_report.md', 'individual_report_draft.md',
+    'demo_script.md', 'debugging_lab.md', 'course_topics.json',
+})
+EXCLUDED_RELEASE_SUFFIXES = frozenset({
+    '.doc', '.docx', '.pdf', '.ppt', '.pptx', '.xls', '.xlsx', '.odt', '.odp', '.zip',
+})
 
 
 def private_reason(name):
@@ -50,6 +59,19 @@ def private_reason(name):
     return None
 
 
+def release_exclusion(name):
+    """Reject non-source deliverables independently of private-data checks."""
+    parts = PurePosixPath(name).parts
+    lower = [part.casefold() for part in parts]
+    if (any(part in {'submission', 'coursework', 'classroom'}
+            or part.startswith('course_') or re.match(r'^group[0-9]+(?:_|$)', part)
+            for part in lower)
+            or lower and lower[-1] in EXCLUDED_RELEASE_NAMES
+            or PurePosixPath(name).suffix.casefold() in EXCLUDED_RELEASE_SUFFIXES):
+        return 'excluded_release_material'
+    return None
+
+
 def source_files(root):
     """Yield allowlisted files without following file or directory symlinks."""
     root = Path(root)
@@ -63,10 +85,12 @@ def source_files(root):
             continue
         for directory, children, names in os.walk(str(base), followlinks=False):
             children[:] = sorted(child for child in children if not (Path(directory) / child).is_symlink()
-                                 and not private_reason((Path(directory) / child).relative_to(root).as_posix()))
+                                 and not private_reason((Path(directory) / child).relative_to(root).as_posix())
+                                 and not release_exclusion((Path(directory) / child).relative_to(root).as_posix()))
             for name in sorted(names):
                 path = Path(directory) / name
-                if not path.is_symlink() and not private_reason(path.relative_to(root).as_posix()):
+                if (not path.is_symlink() and not private_reason(path.relative_to(root).as_posix())
+                        and not release_exclusion(path.relative_to(root).as_posix())):
                     yield path
 
 
@@ -108,7 +132,7 @@ def scan_source(root):
         else:
             findings.extend(text_findings(name, path.read_bytes()))
     return {'scanned_files': count, 'findings': findings,
-            'scope': 'Allowlisted source and Office XML; .env, private data, databases and symlinks are not read.'}
+            'scope': 'Allowlisted source; private state, symlinks and excluded report/presentation deliverables are not read.'}
 
 
 def syntax_report(root):
@@ -126,24 +150,24 @@ def syntax_report(root):
 
 
 def archive_relative(name):
-    """Validate a submission member's root and return its project-relative path.
+    """Validate a source-release member's root and return its project-relative path.
 
-    >>> archive_relative('group11_project/main.py')
+    >>> archive_relative('jobcompass/main.py')
     'main.py'
-    >>> archive_relative('group11_project/.github/workflows/tests.yml')
+    >>> archive_relative('jobcompass/.github/workflows/tests.yml')
     '.github/workflows/tests.yml'
-    >>> archive_relative('group11_project/../escape.py')
+    >>> archive_relative('jobcompass/../escape.py')
     Traceback (most recent call last):
         ...
     ValueError: invalid_member_path
-    >>> archive_relative('/group11_project/main.py')
+    >>> archive_relative('/jobcompass/main.py')
     Traceback (most recent call last):
         ...
     ValueError: invalid_member_path
     """
     parts = PurePosixPath(name).parts
     components = name.rstrip('/').split('/')
-    if not parts or name.startswith('/') or '\\' in name or any(part in ('', '.', '..') for part in components) or not re.fullmatch(r'group[A-Za-z0-9]+_project', parts[0]):
+    if not parts or name.startswith('/') or '\\' in name or any(part in ('', '.', '..') for part in components) or parts[0] != 'jobcompass':
         raise ValueError('invalid_member_path')
     return '/'.join(parts[1:])
 
@@ -178,7 +202,7 @@ def package_report(path):
                     continue
                 roots.add(parts[0])
                 relative_names.add(relative)
-                reason = private_reason(relative)
+                reason = private_reason(relative) or release_exclusion(relative)
                 if reason:
                     report['errors'].append({'path': name, 'rule': reason})
                     continue
@@ -220,7 +244,7 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / 'output/quality')
     parser.add_argument('--quick', action='store_true', help='Source, syntax and doctests only; no full-suite or release claim.')
     parser.add_argument('--mutations', action='store_true', help='Also run isolated targeted mutation checks.')
-    parser.add_argument('--package', type=Path, help='Validate this ZIP instead of building the default course ZIP.')
+    parser.add_argument('--package', type=Path, help='Validate this ZIP instead of building the default JobCompass source ZIP.')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     report = {'created_at': datetime.now(timezone.utc).isoformat(), 'python': platform.python_version(),
@@ -241,7 +265,7 @@ def main():
             report['commands'].append(run_command(['scripts/package_project.py'], args.output, 'package'))
             failed = bool(report['commands'][-1]['exit_code'])
         if not failed:
-            report['package'] = package_report(args.package or ROOT / 'dist/group11_project.zip')
+            report['package'] = package_report(args.package or ROOT / 'dist/jobcompass.zip')
             failed = bool(report['package']['errors'])
     elif args.package and not failed:
         report['package'] = package_report(args.package)

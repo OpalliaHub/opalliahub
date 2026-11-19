@@ -62,8 +62,8 @@ python -m unittest discover -v
 
 The source database path may also be configured with `JOBCOMPASS_RESEARCH_DB` in `.env`. The local connection UI persists a selected path in the application database. On this computer the sibling research workspace is auto-discovered; no user-specific absolute path is committed. The full audit database must be supplied separately for longitudinal research. The bundled historical job snapshot enables current-library analysis on another computer.
 
-## Verification and course artifacts
+## Verification
 
 See `research_verification.json` and `test_results.txt` for actual local checks. Tests cover reference denominators, family sensitivity, future observation exclusion, mature training windows, cancellation preserving the index, SQL/code rejection, CSV formula escaping, schema validation, source immutability and evidence provenance. Browser checks exercise a live Chinese command, plan execution and CSV export. This release does not assert a hosted multi-user big-data service, a scientific novelty result, model accuracy or a completed research benchmark.
 
-The Word, PDF and PowerPoint files under `docs/submission` and the old course bundle remain the 30 September classroom revision. The current v1.2 code and this guide are the new deliverables; those classroom artifacts should not be presented as descriptions of the research module.
+This guide describes the v1.2 research module. Current requirements and release validation are maintained in `SPECIFICATION.md` and `V2_VERIFICATION.md`.

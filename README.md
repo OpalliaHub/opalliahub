@@ -1,148 +1,145 @@
-# JobCompass 2.1 · 人力资源与职业研究平台
+# JobCompass
 
-JobCompass 以 JobsDB 招聘广告样本为基础，提供多维统计、职业与技能趋势、自然语言数据查询，以及简历匹配、投递管理和学习路线。**默认首页是「研究总览」**：左侧使用平台与图表，右侧常驻 DeepSeek 对话；输入问题后，模型生成受限统计指令，服务器验证并自动执行，再更新真实图表，无需复制或手动批准 JSON。
+**职业与人力资源研究平台 · Workforce and Career Research Platform**
 
-当前代码版本为 **2.1.1**。JobsDB 更新已迁移至 `JobSearchV7`，加入同批会话、实际分页、有限退避和跨访客冷却；本批关键词筛选的范围在界面明确显示。本轮测试、联网及发布状态见 [JobsDB 更新验证](docs/JOBSDB_V7_VERIFICATION.md)。
+[简体中文](#简体中文) · [English](#english) · [MIT License](LICENSE)
 
-此前 **2.1.0** 原生云服务已通过受信 HTTPS、完整研究库迁移与索引、公网访客隔离/推荐/OLAP/真实 DeepSeek 命令检查、Safari 对话与图表操作，以及云端 342 项离线测试；该版本 GitHub 五个环境的 CI 与源码打包通过。临时部署密钥和传输副本已清理，实际范围见 [历史云部署验证](docs/CLOUD_VERIFICATION.md)。仓库页面用于托管源码，不能代替运行中的平台。推荐的本地浏览器、隔离和性能记录见 [v2.1 验证](docs/RESUME_VERIFICATION.md)；此前 OLAP、导出与本机 Gunicorn smoke 保留在 [v2.0 验证记录](docs/V2_VERIFICATION.md)。
+## 简体中文
 
-**Group 11** · OU JUNHANG · ZHANG XIQIAN · JIANG YIFAN · CAI SHANGHENG · GUO ZHENGKUN
-INT6181 Applied Programming with Python 课程项目。
+JobCompass 将招聘广告样本转化为可查询、可解释的职业研究数据。平台提供多维分析、自然语言查询与动态图表，同时保留简历优势提炼、岗位推荐和投递管理。桌面采用左侧研究面板、右侧常驻 DeepSeek 对话的布局；小屏幕可切换平台与对话视图。当前界面使用中文。
 
-## v2.1：从简历优势到岗位推荐
+### 主要功能
 
-进入「简历分析」，导入或粘贴简历，填写求职偏好和可选目标职位，点击 **提炼优势并推荐岗位**。平台保存当前输入，在后台生成原文证据卡片和个性化岗位列表；每项推荐都显示分项、推荐理由与技能差距。已过期岗位和重复链接被排除，历史快照会保留时效提示。
+- **职业研究与 OLAP**：按月份、季度、年份、职业类别和地区组合分析广告数、雇主标签数及词语提及率；支持折线图、柱状图、热力图、表格、下钻及 CSV／JSON／PNG 导出。纵向研究工具提供队列、跨期比较与修订分析。
+- **对话驱动分析**：DeepSeek 将问题转成有类型、受限制的查询计划。服务器校验后自动执行统计并更新图表，支持继续调整上一次分析。模型生成的 Python、Shell、JavaScript 或任意 SQL 不会执行。
+- **JobsDB 平台内更新**：使用 GraphQL `JobSearchV7`，复用同批会话并按实际分页读取最新岗位。默认检查 50 条，最多 200 条详情及 20 个列表页；请求串行限速，网络故障和明确限流有界重试。遇到访问拒绝或验证页会停止并保留已完成结果。**关键词仅筛选本批岗位的标题、公司及正文，不是全站搜索。**
+- **个人求职工具**：从简历提炼带原文依据的优势，生成有分项解释的岗位推荐，记录投递状态与备注，并提供技能缺口和学习建议。规则推荐无需发送简历给大模型；AI 润色与解读另有发送授权。
 
-这条流程无需发送简历给大模型。需要 DeepSeek 补充表达或解读时，可继续使用独立授权的 AI 按钮。原「岗位检索」保留基础匹配算法，新推荐页增加实践证据和目标职位信号；两者分数明确标识，不能作为录用概率。算法、测试与限制见 [优势与推荐说明](docs/RESUME_MATCHING.md)。
+例如在右侧对话中输入：
 
-## 快速启动
+> 按月份统计全部广告数，清除所有筛选，按广告 ID 去重，用折线图展示。
 
-本项目需要 Python 服务。不要直接打开 `jobcompass/static/index.html`；它不能代替后端。已有本机环境可双击 `启动JobCompass.command`，或在项目目录运行：
+查询针对当前选中的数据集执行，图表展示实际查询口径和结果。
 
-```bash
-.venv/bin/python main.py
-```
+### 本地启动
 
-然后访问 **http://127.0.0.1:8765/**。终端按 Ctrl+C 停止；已有服务时直接打开网页。更换端口可用 `python main.py --port 8766`。
-
-首次安装使用 Python 3.8 或以上：
+需要 **Python 3.8+**。在项目目录运行：
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 cp -n .env.example .env
-python main.py
+python main.py --no-browser
 ```
 
-Windows 可使用 `py -m venv .venv`，随后运行 `.venv\Scripts\python -m pip install -r requirements.txt` 与 `.venv\Scripts\python main.py`；仅在 `.env` 不存在时复制配置模板。公开会话服务需要 Linux/macOS 文件锁，Windows 保留个人本地模式。
+然后打开 [http://127.0.0.1:8765/](http://127.0.0.1:8765/)。需要 Python 服务运行，不要直接打开静态 HTML。按 Ctrl+C 停止；可用 `--port 8766` 更换端口。
 
-离线解析、规则匹配、SQLite 和已有数据分析使用标准库；PDF 解析需要 `pypdf`，HTTPS 证书辅助使用 `certifi`。DeepSeek 未配置时，手动 OLAP、已有数据、匹配和投递功能仍可用。ECharts 随项目本地提供，不依赖 CDN。
+Windows 可用 `py -m venv .venv`，随后运行 `.venv\Scripts\python -m pip install -r requirements.txt` 与 `.venv\Scripts\python main.py`；仅在 `.env` 不存在时从模板复制。Windows 支持本地个人模式；公开会话服务需要 Linux／macOS 文件锁。
 
-## 从研究到个人工具
+核心逻辑使用 Python 标准库与 SQLite；`requirements.txt` 提供 PDF 解析和证书辅助依赖。ECharts 随源码提供，不依赖 CDN。
 
-1. 在「研究总览」选择数据集、维度与指标。月份、季度、年份、职业类别、地区可以组合为一维或二维分析；研究索引未就绪时使用当前岗位样本。
-2. 在右侧 DeepSeek 对话输入问题，例如“比较不同职业类别的季度 Python 全文提及率，用多条折线展示”。验证通过后自动查询，左侧显示实际执行口径、图表和统计表；对话支持继续修改上一次分析。
-3. 点击图表或表格分组下钻；使用面包屑撤销精确筛选。可导出当前结果的 CSV、JSON 和 PNG。缺失日期/组合不会补造成零需求。
-4. 「深度研究」保留纵向队列、两期比较、修订证据和回测诊断。这里原有的单计划预览/手动执行流程仍保留；它与首页的新自动执行入口是不同功能。
-5. 「岗位检索」「简历分析」「投递管理」「技能成长」继续提供简历上传、解释性匹配、状态备注、撤销/重做与递归学习建议。投递状态是记录，程序不会自动发送申请。
-6. 「数据管理」支持平台内更新 JobsDB、固定公开 API、授权文件导入与手动岗位。公开模式下这些个人变更保存在自己的临时访客空间，共享研究数据由服务器维护。
+要启用 DeepSeek，在本机 `.env` 中填写 `DEEPSEEK_API_KEY`，可选设置 `DEEPSEEK_MODEL`，然后重启服务。配置字段见 [.env.example](.env.example)。密钥只由后端读取；不要提交 `.env`。未配置 AI 时，手动分析、已有岗位、规则推荐和投递记录仍可使用。
 
-桌面界面采用左平台、右对话；窄屏切换平台/对话视图。最新布局和导出按钮的实际浏览器验收见 [界面说明](docs/UI_V2.md) 与 [v2 验证记录](docs/V2_VERIFICATION.md)。
+### 数据、隐私与解释边界
 
-## 多维分析的统计口径
+随附历史 JobsDB 快照可用于初始运行，其采集日期和处理信息保留在数据清单中；历史记录不保证仍在招聘。更大的纵向研究库由运营者另行配置，只读访问。平台更新写入当前岗位工作空间，不自动改写历史研究库。Remotive、Arbeitnow、授权文件导入和手动录入可作为补充来源。
 
-| 项目 | 实际含义 |
-| --- | --- |
-| 广告数 | 筛选、去重后的样本广告，不是招聘人数 |
-| 雇主标签数 | 归一化显示标签的去重数，不是已核实的法人数量 |
-| 提及广告数 / 提及率 | 固定词语探针在广告全文中出现的记录数及其占比，不等于强制技能要求 |
-| 总体指标 | 独立从全部筛选记录计算，不累加分组中的去重雇主，也不简单平均分组百分比 |
-| 分组上限 | 单次显示最多 100 组；截断不改变总体分母 |
-| 空值与缺口 | 零样本提及率为 `null`；缺失/非法日期进入 `Unknown`，未观察组合保留空缺 |
+- 招聘广告是样本，不是整体劳动力市场或招聘人数。词语提及率不是强制技能要求；推荐分数不是录用概率；学习先修关系是人工编写的建议。
+- 总体指标独立于分组显示上限计算；缺失记录和零分母保持明确空值。来源覆盖、采集断档及数据时效都会影响研究解释。
+- 公开模式无需注册或登录，每个浏览器通过安全 Cookie 获得临时私有工作空间。简历、备注、个人导入、更新结果和任务互相隔离；共享研究索引只读。默认闲置一小时后清理，服务重启使旧会话失效，重要结果请及时导出。
+- 分析 AI 接收你输入的命令，以及允许的查询结构和有限聚合数据；不会自动附加岗位原文、简历、结果明细或服务器路径。直接写进命令的文字会传给模型。简历 AI 在单独授权后发送有限脱敏的内容，脱敏不等于完全匿名。
 
-详细字段、SQL 边界、热力图、自动执行与测试证据见 [OLAP 说明](docs/OLAP.md)。研究广告是便利样本，不代表香港整体劳动力市场；跨期类别覆盖与抓取断档会影响解释。不能据此宣称因果、录用概率或未进行的显著性检验。
+原始研究档案、个人数据库、简历、运行密钥及服务器私有配置不包含在源码包中。本项目使用外部模型接口，没有训练或微调自有 LLM。
 
-## 两种运行模式
+### 服务器部署
 
-| 模式 | 数据与访问方式 |
-| --- | --- |
-| 本地个人模式 | `python main.py` 默认只监听回环地址；自己的简历、备注和分析记录保存在本机数据库 |
-| 公开访客模式 | 访客无需注册/登录；每个浏览器通过随机安全 cookie 获得隔离的临时工作空间，共享岗位目录与只读研究索引 |
+生产环境使用 **Python 3.12**、`requirements-server.txt` 和 `jobcompass.wsgi:application`。必须使用 **一个 Gunicorn worker**；会话、任务与配额协调当前不支持直接增加 worker 或副本。
 
-公开模式中的简历、偏好、AI 草稿、个人导入、投递备注、撤销历史、结果文件和任务 ID 均归当前匿名会话。默认闲置期限一小时；运行中的请求/任务暂缓清理。进程重启使旧访客凭据失效，需保留的结果应及时导出。它不是账户系统或跨设备持久同步服务，也不是磁盘加密方案。
+通过 HTTPS 反向代理提供访问，配置精确的公开 Origin、Host 和受信代理；后端保持非公开监听。公开入口有请求、会话和 AI 配额，JobsDB 冷却跨访客共享。配置及原生／容器部署模板见 [部署指南](docs/DEPLOYMENT.md) 和 [deploy/](deploy/)。部署模板本身不代表已完成部署或容量验证。
 
-公开入口必须配置明确的 **HTTPS origin、Host 白名单和受信代理**；TLS 由反向代理提供，后端监听保留在代理后面。访问者不能通过 HTTP 连接任意服务器数据库路径或重建共享索引。任意网页采集在公开模式默认关闭，仅可由管理员用 `JOBCOMPASS_PAGE_HOSTS` 配置精确主机白名单开放；初始地址、robots 与每次重定向均校验。固定 JobsDB/API 接入与文件导入继续可用。免登录不等于无限量：访客创建、请求和 AI 任务有容量/速率限制。
-
-生产入口是 `jobcompass.wsgi:application`，另有 `requirements-server.txt`、Docker/Compose、原生 systemd、Caddy/Nginx 模板及研究索引维护脚本。当前设计只允许 **一个 Gunicorn worker**，默认八个 HTTP 线程，后台任务共享有界线程池；不能直接扩成多个副本。部署步骤与环境变量见 [公开部署指南](docs/DEPLOYMENT.md)。本轮实际使用 Python 3.12/systemd/Nginx 和受信 IP 地址证书，未进行 Docker 镜像构建；公网和业务检查的范围分别记录在 [云端验收](docs/CLOUD_VERIFICATION.md)。
-
-## DeepSeek 与隐私
-
-在本机 `.env` 或服务器运行环境设置 `DEEPSEEK_API_KEY`，可用 `DEEPSEEK_MODEL` 指定模型；当前默认 `deepseek-flash`。API 名称、Tracking ID 不作为模型名或认证字段。密钥由后端读取，不发送到浏览器，也不应进入 Git 或交付包。更改配置后重启。
-
-首页命令会发送你输入的问题及受限的上次查询结构/数字总量。不会自动附加岗位原文、简历或服务器路径；标题、公司、位置等上下文文本筛选值保留在服务器，不发给模型。不要把不想发送的私人文字直接写进问题。模型只生成经过校验的数据指令和图表配置，不运行模型生成的 Python、SQL、Shell 或 JavaScript。
-
-简历 AI 功能仍有独立的发送授权，会发送已保存且有限脱敏的简历。邮箱、部分电话/证件号遮盖不是完整匿名化；姓名和项目经历可能仍存在。公开 AI 配额按访客来源/IP 与全局容量约束，不是精确费用上限。瞬态 HTTP 重试和多步研究助手可能产生多次供应商请求；见 [API 可靠性边界](docs/AI_RELIABILITY.md)。本项目未训练或微调本地 LLM。
-
-## 数据与保留功能
-
-JobsDB 是主要来源，平台通过 `JobSearchV7` 读取最新岗位列表及详情，默认 50 条、最多 200 条。按服务端实际页大小翻页，同批复用会话、串行限速；保留取消、过期标记、已完成结果和个人投递状态。关键词只筛选本批岗位的标题、公司及正文，不代表全站关键词检索。公开访客的更新仅写入自己的临时岗位库，不改写共享历史研究库。遇限流会有界等待，拒绝访问或验证页会停止；接口迁移不保证网站未来持续允许云端访问。
-
-Remotive、Arbeitnow、CSV/JSON/HTML 导入与手动录入作为补充。没有实现登录态抓包、验证码绕过或 BOSS/猎聘等受限接口。数据有效性、签证、地域和薪资仍需在原站核实。运维可显式运行 `python scripts/check_jobsdb.py --limit 1` 做联网检查，使用临时库且仅输出统计元信息；CI 不执行此命令。
-
-源码随附 2026-09-28 的历史 JobsDB 快照：6,939 条输入中 6,910 条通过校验，应用默认排除当时已过期的两条后导入 6,908 条。它是研究快照，不是当前在线招聘承诺。大型纵向原始研究库、个人数据库、OneDrive 压缩包均不公开打包。新电脑可直接分析随附快照，也可以由管理员配置自己的纵向研究库。
-
-匹配分数保持技能 F1 45%、TF-IDF 文本 25%、经验 15%、地区 10%、学历 5% 的基础权重，缺失条件重新归一化。分数是排序指标，不是录用概率。技能成长的先修图是人工编写的学习建议，不是雇主要求。更多内容见 [JobsDB 接入](docs/JOBSDB_INTEGRATION.md)、[benchmark](docs/BENCHMARK.md)、[学习路线](docs/LEARNING_PLANNER.md) 和 [排名缓存](docs/RANKING_CACHE.md)。
-
-## 验证与交付
+### 开发与验证
 
 ```bash
 python -m unittest discover -v
 python scripts/quality_gate.py --mutations
 python scripts/coverage_report.py
-python scripts/package_project.py --group 11
 ```
 
-离线测试不访问招聘网站、不调用付费 AI。真实联网验证单独记录，不放入 CI。云端实际命令、独立查询比对与公开会话检查见 [public-smoke.json](docs/evidence/cloud/public-smoke.json)；此前本机单条命令记录保留在 [analytics_live_check.json](docs/analytics_live_check.json)。这些检查证明所测流程，不代表所有问题的理解准确率。
+测试和 CI 使用虚构或模拟响应，不抓取招聘网站、不调用付费 AI。实际联网结果、版本验证范围与限制见 [JobsDB 更新验证](docs/JOBSDB_V7_VERIFICATION.md)。一次检查通过不保证第三方接口持续可用。
 
-当前 v2.1 本地完整质量门禁通过，含 **342 项测试、8 个 doctest 与 5 个指定变异**，见 [推荐版本验证](docs/RESUME_VERIFICATION.md)。GitHub 实际运行的五个环境各通过同一套 342 项测试，交付任务成功；云服务器也通过 342 项测试（13.321 秒）。公网冒烟的 123 次检查含重复轮询和逐岗位断言，不计为额外单元测试，见 [云部署与 GitHub 验证](docs/CLOUD_VERIFICATION.md)。历史 v2.0 的 306 项、v1.3 的 223 项及中间轮次 283 项只对应各自版本，不作为本版计数。Docker、压力测试及本轮未复测的云端窄屏/导出不纳入新的通过声明。
+技术文档：[功能规格](docs/SPECIFICATION.md) · [OLAP 与查询边界](docs/OLAP.md) · [简历优势与推荐算法](docs/RESUME_MATCHING.md) · [部署指南](docs/DEPLOYMENT.md)。
 
-可用的 CLI 示例：
+### 许可
+
+项目代码采用 [MIT License](LICENSE)。随附 ECharts 保留其 [Apache 2.0 许可](jobcompass/static/vendor/ECHARTS-LICENSE.txt)。招聘广告数据及其他第三方内容的权利归其原权利人，代码许可不自动授予第三方数据的再分发权。
+
+## English
+
+JobCompass turns recruitment advertisement samples into queryable, explainable workforce research data. It combines multidimensional analysis, natural-language queries and interactive charts with resume strengths, job recommendations and application tracking. The desktop layout places the research workspace on the left and a persistent DeepSeek conversation on the right; smaller screens can switch between them. The application interface is currently in Chinese.
+
+### Features
+
+- **Workforce research and OLAP**: combine month, quarter, year, occupational category and location to analyze advertisement counts, employer labels and term mention rates. Explore line charts, bar charts, heatmaps, tables and drill-downs; export CSV, JSON or PNG. Longitudinal tools support cohorts, period comparisons and revision analysis.
+- **Conversation-driven analysis**: DeepSeek converts a request into a typed, restricted query plan. The server validates it, runs the analysis automatically and updates the charts. Follow-up commands can refine the previous analysis. Model-generated Python, shell commands, JavaScript and arbitrary SQL are never executed.
+- **JobsDB updates inside the platform**: the GraphQL `JobSearchV7` adapter reuses one batch session and follows the server's pagination. It checks 50 listings by default, with limits of 200 details and 20 search pages. Requests are serial and paced; network failures and explicit rate limits receive bounded retries. Access refusals or verification pages stop the update while preserving completed results. **Keywords filter only the titles, companies and descriptions fetched in this batch; this is not a site-wide search.**
+- **Personal job tools**: extract resume strengths supported by source text, produce explainable recommendations, track applications and notes, and explore skill gaps and learning suggestions. Rule-based recommendations do not send the resume to a model. AI rewriting and interpretation require separate sending consent.
+
+Example command in the conversation panel:
+
+> Group all advertisements by month, clear all filters, deduplicate by advertisement ID, and show a line chart.
+
+The query runs against the selected dataset, and the platform displays the actual query scope and results.
+
+### Run locally
+
+Use **Python 3.8+**. From the project directory:
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+cp -n .env.example .env
 python main.py --no-browser
-python main.py --collect JobsDB --keyword Python --limit 20
-python main.py --match data/demo_resume.txt --db /tmp/jobcompass-demo.db
-python main.py --demo --db /tmp/jobcompass-only-demo.db --port 8766 --no-browser
 ```
 
-`--match` 会保存简历到指定数据库；演示请使用临时库。`--demo` 的虚构岗位用于匹配演示，研究聚合会排除演示数据，因此纯示例库的研究首页可能没有可统计记录。
+Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/). Keep the Python service running; opening the static HTML directly does not start the application. Press Ctrl+C to stop, or use `--port 8766` to choose another port.
 
-## 代码与文档导航
+On Windows, use `py -m venv .venv`, then `.venv\Scripts\python -m pip install -r requirements.txt` and `.venv\Scripts\python main.py`. Copy the environment template only if `.env` does not exist. Windows supports local personal mode; public sessions require Linux/macOS file locking.
 
-| 路径 | 职责 |
-| --- | --- |
-| `main.py` | 本地 GUI 服务、采集及匹配 CLI |
-| `jobcompass/server.py` | 业务应用、任务队列、功能接口 |
-| `jobcompass/web.py` / `public.py` / `wsgi.py` | HTTP 边界、匿名隔离、配额和生产适配 |
-| `jobcompass/olap.py` / `analytics_ai.py` | 多维统计与自然命令自动执行 |
-| `jobcompass/research.py` / `research_agent.py` | 纵向研究与有预算的多步助手 |
-| `jobcompass/resume.py` / `matching.py` / `learning.py` | 简历、排名和技能路线 |
-| `jobcompass/static/` | 平台界面、常驻对话、本地图表资源 |
-| `tests/` / `scripts/` | 自动化验证、质量门禁、评估及打包 |
-| `deploy/` / `Dockerfile` / `compose.yaml` | 原生与容器部署模板、维护命令；实际运行范围见云端记录 |
-| `docs/SPECIFICATION.md` | 当前 v2 功能需求与边界 |
-| `docs/CLOUD_VERIFICATION.md` | 当前云部署、GitHub、远端 CI 与剩余验收 |
-| `docs/RESUME_VERIFICATION.md` / `docs/V2_VERIFICATION.md` | v2.1 简历验证及保留的 v2.0 原始证据 |
+The core uses the Python standard library and SQLite. `requirements.txt` adds PDF extraction and certificate support. ECharts is bundled locally rather than loaded from a CDN.
 
-## 历史版本与课程材料
+To enable DeepSeek, set `DEEPSEEK_API_KEY` in your local `.env`, optionally set `DEEPSEEK_MODEL`, and restart. See [.env.example](.env.example). Keys are read only by the backend; never commit `.env`. Manual analysis, existing data, rule-based recommendations and application tracking remain available without AI configuration.
 
-v1.3 的课程增强工作继续保留：[课程映射](docs/COURSE_COVERAGE.md)、[v1.3 验证](docs/COURSE_VERIFICATION.md)、[v1.3 演示补充](docs/COURSE_DEMO_V1_3.md)、[质量流程](docs/QUALITY_WORKFLOW.md)。v1.2 研究室和 v1.1 JobsDB 直连说明分别见 [研究室文档](docs/RESEARCH_WORKBENCH.md) 与 [接入文档](docs/JOBSDB_INTEGRATION.md)。这些记录适用于各自版本，未改写成 v2 验收结果。
+### Data, privacy and interpretation
 
-原有 Word/PDF/PPT 保留为 **2026-09-30 课堂材料**，本轮没有重新生成：[英文 Proposal](docs/submission/Group11_Project_Proposal.docx)、[项目报告](docs/submission/Group11_Project_Report.docx)、[Presentation](docs/submission/group11_presentation.pptx)、[演示说明](docs/submission/Group11_Demo_Guide.docx)、[个人报告参考](docs/submission/Group11_Individual_Report_Draft.pdf)。原大作业 DOCX 在此前指定路径缺失，历史页数/时长要求尚未重新核对原件，见 [提交清单](docs/COURSE_CHECKLIST.md)。
+A bundled historical JobsDB snapshot supports initial use; its collection date and processing metadata remain in the data manifest. Historical advertisements are not a guarantee of current vacancies. Operators can separately configure a larger longitudinal research database for read-only access. Platform updates write to the current job workspace and do not rewrite the historical research database. Remotive, Arbeitnow, authorized file imports and manual entries are supplementary sources.
 
-项目由 AI 根据用户需求生成、调试与测试。成员报告应如实补充本人实际阅读、修改、验证、评审与演示经历，不虚构人工贡献、课堂操作或提交记录。
+- Advertisements form a sample, not the entire labor market or a count of people being hired. Term mentions are not mandatory skill requirements, recommendation scores are not hiring probabilities, and learning prerequisites are authored suggestions.
+- Overall metrics are computed independently of the displayed group limit. Missing observations and zero denominators remain explicit gaps. Source coverage, collection interruptions and freshness affect interpretation.
+- Public mode requires no account or login. Secure cookies identify temporary private browser workspaces. Resumes, notes, personal imports, update results and tasks are isolated; the research index is shared read-only. Idle workspaces expire after one hour by default, and restarting the service invalidates old sessions. Export results you need to retain.
+- Analytical AI receives the command you enter plus permitted query structure and bounded aggregates. It does not automatically receive raw advertisements, resumes, result rows or server paths. Text explicitly entered in a command is sent to the model. Resume AI sends partially redacted content only with separate consent; redaction is not complete anonymization.
 
-## GitHub 历史资料
+Raw research archives, personal databases, resumes, runtime keys and private server configuration are excluded from source packages. This project uses an external model API; it does not train or fine-tune its own LLM.
 
-根目录的早期 Word/PDF/PPT、`group11_course_submission.zip`、`group11_project.zip` 及其 `SHA256SUMS.txt` 保留为 v1.x 历史发布，未覆盖为新版本。当前 v2.1 可直接克隆仓库运行；需要新源码包时运行 `python scripts/package_project.py --group 11`。远端既有提交与本地开发提交通过合并保留，不改写历史。
+### Deploy
+
+Production uses **Python 3.12**, `requirements-server.txt` and `jobcompass.wsgi:application`. Run **one Gunicorn worker**. The current session, task and quota coordination does not support simply adding workers or replicas.
+
+Expose the application through an HTTPS reverse proxy with an exact public Origin, allowed Host and explicitly trusted proxy configuration. Keep the backend listener private. Public requests, session creation and AI usage have admission limits; JobsDB cooldowns are shared across visitors. See the [deployment guide](docs/DEPLOYMENT.md) and [deploy/](deploy/) for native and container templates. A template is not evidence of a completed deployment or measured capacity.
+
+### Develop and verify
+
+```bash
+python -m unittest discover -v
+python scripts/quality_gate.py --mutations
+python scripts/coverage_report.py
+```
+
+Tests and CI use fictional or mocked responses, with no recruitment-site crawling or paid AI calls. Actual network checks, verification scope and limitations are recorded in [JobsDB update verification](docs/JOBSDB_V7_VERIFICATION.md). A successful check does not guarantee continuing third-party API availability.
+
+Technical documentation: [specification](docs/SPECIFICATION.md) · [OLAP and query boundaries](docs/OLAP.md) · [resume strengths and recommendation algorithm](docs/RESUME_MATCHING.md) · [deployment](docs/DEPLOYMENT.md).
+
+### License
+
+Project code is available under the [MIT License](LICENSE). Bundled ECharts retains its [Apache 2.0 license](jobcompass/static/vendor/ECHARTS-LICENSE.txt). Recruitment advertisements and other third-party content retain their original rights; the code license does not automatically grant redistribution rights for third-party data.

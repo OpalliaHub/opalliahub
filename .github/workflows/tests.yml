@@ -1,4 +1,4 @@
-name: Course quality and delivery
+name: Quality and source release
 on:
   push:
   pull_request:
@@ -56,12 +56,12 @@ jobs:
       - name: Build the tested revision
         run: python scripts/package_project.py
       - name: Check the exact delivery archive
-        run: python scripts/quality_gate.py --quick --package dist/group11_project.zip
+        run: python scripts/quality_gate.py --quick --package dist/jobcompass.zip
       - uses: actions/upload-artifact@v7
         with:
-          name: group11-course-project-${{ github.sha }}
+          name: jobcompass-source-${{ github.sha }}
           path: |
-            dist/group11_project.zip
+            dist/jobcompass.zip
             output/quality/report.json
           if-no-files-found: error
           retention-days: 14

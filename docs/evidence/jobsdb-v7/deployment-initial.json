@@ -1,0 +1,28 @@
+{
+  "commit": "ece98a22bac9e25640da6827e04f059be11f75d7",
+  "archive_sha256": "2fd1eeb460c7e976b8143d5fca7348fa83eba0bb4f7d423aeb6d1abc2f624627",
+  "method": "existing authenticated cloud Workbench; checksum-verified source; offline tests before restart",
+  "status": "updated",
+  "health": {
+    "status": "ok",
+    "version": "2.1.1"
+  },
+  "offline_tests": {
+    "count": 382,
+    "seconds": 17.272,
+    "passed": true
+  },
+  "runtime_files": [
+    "jobcompass/__init__.py",
+    "jobcompass/jobsdb.py",
+    "jobcompass/jobsdb_http.py",
+    "jobcompass/public.py",
+    "jobcompass/static/index.html",
+    "jobcompass/storage.py"
+  ],
+  "changed_files_backed_up": true,
+  "new_credentials_added": false,
+  "research_source_sha256": "e2a6e532173643894b5cf12a6fb2b5f17c5358fb703a4209e51e55cf8fc8e61e",
+  "research_source_hash_matches_previous_deployment": true,
+  "observation": "Terminal output and public HTTPS health observed on 2026-11-19; no private infrastructure paths included."
+}

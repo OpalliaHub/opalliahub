@@ -1,0 +1,157 @@
+test_archive_duplicate_rejected (tests.test_quality_gate.QualityGateTests) ... ok
+test_archive_missing_entrypoint_rejected (tests.test_quality_gate.QualityGateTests) ... ok
+test_archive_private_files_rejected (tests.test_quality_gate.QualityGateTests) ... ok
+test_archive_secret_redacted (tests.test_quality_gate.QualityGateTests) ... ok
+test_archive_symlink_rejected (tests.test_quality_gate.QualityGateTests) ... ok
+test_archive_total_size_limit_checked_before_content (tests.test_quality_gate.QualityGateTests) ... ok
+test_archive_traversal_and_absolute_paths_rejected (tests.test_quality_gate.QualityGateTests) ... ok
+test_builder_excludes_restored_classroom_materials_and_symlinks (tests.test_quality_gate.QualityGateTests) ... ERROR
+test_builder_never_reads_fixture_through_linked_data_directory (tests.test_quality_gate.QualityGateTests) ... ERROR
+test_corrupt_archive_returns_structured_failure (tests.test_quality_gate.QualityGateTests) ... ok
+test_office_xml_secret_scanned (tests.test_quality_gate.QualityGateTests) ... ok
+test_placeholder_is_allowed (tests.test_quality_gate.QualityGateTests) ... ok
+test_private_paths_and_env_example_exception (tests.test_quality_gate.QualityGateTests) ... ok
+test_private_root_directory_symlink_is_not_followed (tests.test_quality_gate.QualityGateTests) ... ok
+test_scan_never_opens_private_env_or_symlink (tests.test_quality_gate.QualityGateTests) ... ok
+test_scan_reports_location_but_never_secret_value (tests.test_quality_gate.QualityGateTests) ... ok
+test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) ... test_syntax_failure_contains_location_without_source (tests.test_quality_gate.QualityGateTests) ... ok
+test_valid_archive_has_digest_and_counts (tests.test_quality_gate.QualityGateTests) ... FAIL
+
+======================================================================
+ERROR: test_builder_excludes_restored_classroom_materials_and_symlinks (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 177, in test_builder_excludes_restored_classroom_materials_and_symlinks
+    result = package_project.build_package(self.root)
+AttributeError: module 'scripts.package_project' has no attribute 'build_package'
+
+======================================================================
+ERROR: test_builder_never_reads_fixture_through_linked_data_directory (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 189, in test_builder_never_reads_fixture_through_linked_data_directory
+    result = package_project.build_package(self.root)
+AttributeError: module 'scripts.package_project' has no attribute 'build_package'
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/submission/readme.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/COURSE_CHECKLIST.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/course_topics.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/PROJECT_REPORT.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/PROJECT_PROPOSAL.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/INDIVIDUAL_REPORT_DRAFT.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/DEMO_SCRIPT.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/DEBUGGING_LAB.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/archive/Group11_notes.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/report.docx')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/presentation.pptx')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/report.PDF')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_source_archive_rejects_classroom_materials_and_document_binaries (tests.test_quality_gate.QualityGateTests) (name='docs/bundle.zip')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 161, in test_source_archive_rejects_classroom_materials_and_document_binaries
+    self.assertTrue(any(error['rule'] == 'excluded_release_material'
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_valid_archive_has_digest_and_counts (tests.test_quality_gate.QualityGateTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_quality_gate.py", line 93, in test_valid_archive_has_digest_and_counts
+    self.assertEqual(report['errors'], [])
+AssertionError: Lists differ: [{'path': 'jobcompass/main.py', 'rule': 'i[649 chars]er'}] != []
+
+First list contains 11 additional elements.
+First extra element 0:
+{'path': 'jobcompass/main.py', 'rule': 'invalid_member_path'}
+
+Diff is 734 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.033s
+
+FAILED (failures=14, errors=2)

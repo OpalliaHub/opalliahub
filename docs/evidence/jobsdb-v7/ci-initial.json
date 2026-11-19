@@ -1,0 +1,165 @@
+{
+  "databaseId": 44472544835,
+  "headSha": "ece98a22bac9e25640da6827e04f059be11f75d7",
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835",
+  "createdAt": "2026-11-19T06:29:34Z",
+  "updatedAt": "2026-11-19T06:30:42Z",
+  "jobs": [
+    {
+      "name": "test (ubuntu-latest, 3.11)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835/job/135385270245",
+      "startedAt": "2026-11-19T06:29:36Z",
+      "completedAt": "2026-11-19T06:30:07Z"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835/job/135385270482",
+      "startedAt": "2026-11-19T06:29:37Z",
+      "completedAt": "2026-11-19T06:30:10Z"
+    },
+    {
+      "name": "test (ubuntu-24.04, 3.8)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835/job/135385270514",
+      "startedAt": "2026-11-19T06:29:36Z",
+      "completedAt": "2026-11-19T06:30:08Z"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835/job/135385270551",
+      "startedAt": "2026-11-19T06:29:36Z",
+      "completedAt": "2026-11-19T06:29:58Z"
+    },
+    {
+      "name": "test (macos-latest, 3.11)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835/job/135385270591",
+      "startedAt": "2026-11-19T06:29:36Z",
+      "completedAt": "2026-11-19T06:30:31Z"
+    },
+    {
+      "name": "deliver",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/OpalliaHub/opalliahub/actions/runs/44472544835/job/135385656553",
+      "startedAt": "2026-11-19T06:30:33Z",
+      "completedAt": "2026-11-19T06:30:41Z"
+    }
+  ],
+  "artifact_checks": [
+    {
+      "artifact": "quality-macos-latest-py3.11",
+      "python": "3.11.9",
+      "unittest_count": 382,
+      "unittest_seconds": 40.629,
+      "unittest_passed": true,
+      "quality_gate_status": "passed",
+      "mutation": {
+        "status": "passed",
+        "killed": 5,
+        "total": 5,
+        "source_unchanged": true
+      },
+      "package": {
+        "members": 238,
+        "sha256": "33f27ae67ff444402fff83676d7f512c6f29d46dc4247369f999b14cb8435b97",
+        "errors": []
+      }
+    },
+    {
+      "artifact": "quality-ubuntu-24.04-py3.8",
+      "python": "3.8.18",
+      "unittest_count": 382,
+      "unittest_seconds": 11.117,
+      "unittest_passed": true,
+      "quality_gate_status": "passed",
+      "mutation": {
+        "status": "passed",
+        "killed": 5,
+        "total": 5,
+        "source_unchanged": true
+      },
+      "package": {
+        "members": 238,
+        "sha256": "3750002bf3db38faf2e3a711a3fa961d1f9e00398320b737af259df6471417f9",
+        "errors": []
+      }
+    },
+    {
+      "artifact": "quality-ubuntu-latest-py3.11",
+      "python": "3.11.18",
+      "unittest_count": 382,
+      "unittest_seconds": 8.685,
+      "unittest_passed": true,
+      "quality_gate_status": "passed",
+      "mutation": {
+        "status": "passed",
+        "killed": 5,
+        "total": 5,
+        "source_unchanged": true
+      },
+      "package": {
+        "members": 238,
+        "sha256": "3750002bf3db38faf2e3a711a3fa961d1f9e00398320b737af259df6471417f9",
+        "errors": []
+      }
+    },
+    {
+      "artifact": "quality-ubuntu-latest-py3.12",
+      "python": "3.12.16",
+      "unittest_count": 382,
+      "unittest_seconds": 5.317,
+      "unittest_passed": true,
+      "quality_gate_status": "passed",
+      "mutation": {
+        "status": "passed",
+        "killed": 5,
+        "total": 5,
+        "source_unchanged": true
+      },
+      "package": {
+        "members": 238,
+        "sha256": "3750002bf3db38faf2e3a711a3fa961d1f9e00398320b737af259df6471417f9",
+        "errors": []
+      }
+    },
+    {
+      "artifact": "quality-ubuntu-latest-py3.13",
+      "python": "3.13.18",
+      "unittest_count": 382,
+      "unittest_seconds": 3.81,
+      "unittest_passed": true,
+      "quality_gate_status": "passed",
+      "mutation": {
+        "status": "passed",
+        "killed": 5,
+        "total": 5,
+        "source_unchanged": true
+      },
+      "package": {
+        "members": 238,
+        "sha256": "b3f4ddb3d6a58e1424685a9d39d5ac0103f5b6a8a3510e2409c25e387ecb4048",
+        "errors": []
+      }
+    }
+  ],
+  "delivery": {
+    "artifact": "group11-course-project-ece98a22bac9e25640da6827e04f059be11f75d7",
+    "bytes": 7803454,
+    "members": 238,
+    "sha256": "2d1deddaec28f19fb3383658f8a55dc85844ebfe7f7832aa4d9a09982fa1d93d",
+    "errors": [],
+    "quality_gate_status": "quick_checks_passed"
+  },
+  "scope": "Same offline suite in five environments; counts are not summed. No live crawl or paid AI in CI. Downloaded delivery archive independently checked."
+}

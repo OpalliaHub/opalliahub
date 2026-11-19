@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-11-19T06:49:17.955127+00:00",
+  "python": "3.8.10",
+  "mode": "full",
+  "cloud_ci_verified": false,
+  "commands": [
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "-m",
+        "doctest",
+        "-v",
+        "scripts/quality_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.086,
+      "log": "doctest.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "scripts/static_checks.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.088,
+      "log": "static_checks.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 3.315,
+      "log": "unittest.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "scripts/mutation_check.py",
+        "--output",
+        "<verification-output>/final-quality/mutations"
+      ],
+      "exit_code": 0,
+      "seconds": 1.84,
+      "log": "mutation.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "scripts/package_project.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.271,
+      "log": "package.log"
+    }
+  ],
+  "source": {
+    "scanned_files": 205,
+    "findings": [],
+    "scope": "Allowlisted source; private state, symlinks and excluded report/presentation deliverables are not read."
+  },
+  "syntax": {
+    "files": 63,
+    "errors": []
+  },
+  "package": {
+    "members": 228,
+    "sha256": "30d942325c127f3188444c7599a9035dcb068b6e86d0c10374415f6e872dbb1c",
+    "errors": []
+  },
+  "status": "passed"
+}

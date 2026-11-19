@@ -31,7 +31,7 @@ Only one digest and one ranked result are retained, never an unbounded history o
 
 ## Measured local performance
 
-On 18 November 2026, a deterministic synthetic fixture containing 1,200 jobs and 1,998,720 description characters was measured using Python 3.8.10 on this arm64 macOS machine. Five role families share realistic analytical/programming vocabulary; all records are explicitly synthetic. Each result was compared for exact equality with the original ranker.
+On 18 November 2026, a deterministic synthetic fixture containing 1,200 jobs and 1,998,720 description characters was measured using Python 3.8.10 on an arm64 macOS machine. Five role families share realistic analytical/programming vocabulary; all records are explicitly synthetic. Each result was compared for exact equality with the original ranker.
 
 | Path | Runs | Median | Minimum–maximum |
 | --- | ---: | ---: | ---: |
@@ -39,7 +39,7 @@ On 18 November 2026, a deterministic synthetic fixture containing 1,200 jobs and
 | Cold cache, cleared before each call | 5 | 255.026 ms | 250.980–257.352 ms |
 | Warm cache, same inputs | 10 | 52.661 ms | 52.053–56.277 ms |
 
-The measured warm call was 3.82 times faster than the original ranker and 4.84 times faster than a cold cache call. A cold call was slower than the original ranker because it also copied, serialized and hashed the input. The intended benefit is repeated unchanged state refreshes. These timings exclude HTTP, SQLite reads, rendering and other application work; they describe this fixture and machine, not general performance guarantees. Raw results are retained locally in `output/course-audit/ranking-cache-benchmark.json`.
+The measured warm call was 3.82 times faster than the original ranker and 4.84 times faster than a cold cache call. A cold call was slower than the original ranker because it also copied, serialized and hashed the input. The intended benefit is repeated unchanged state refreshes. These timings exclude HTTP, SQLite reads, rendering and other application work; they describe this fixture and machine, not general performance guarantees. Raw results are retained in [ranking-cache-benchmark.json](evidence/ranking-cache-benchmark.json).
 
 To reproduce the workload from the repository directory, run the following using `.venv/bin/python`:
 
@@ -90,8 +90,8 @@ print('Cold median/min/max ms:', measure(cache.rank, 5, cache.clear))
 print('Warm median/min/max ms:', measure(cache.rank, 10))
 ```
 
-## Tests and course evidence
+## Tests and retained evidence
 
-Run `.venv/bin/python -m unittest tests.test_ranking_cache -v`. Fourteen tests cover output equivalence, canonical key ordering, preference normalization, 18 distinct invalidation cases, one-entry eviction, nested mutation isolation, failed recomputation, empty results, clearing, concurrent callers and invalid JSON representations. Tests assert computation counts and output correctness, not brittle wall-clock speed thresholds.
+Run `.venv/bin/python -m unittest tests.test_ranking_cache -v`. The original fourteen tests cover output equivalence, canonical key ordering, preference normalization, 18 distinct invalidation cases, one-entry eviction, nested mutation isolation, failed recomputation, empty results, clearing, concurrent callers and invalid JSON representations. Tests assert computation counts and output correctness, not brittle wall-clock speed thresholds.
 
-The tests were written and executed before implementation. The actual first failure is preserved in `output/course-audit/cache-red.txt`. The successful implementation demonstrates encapsulation, a bounded cache, hashing, locks for concurrent requests, independent copies instead of shared aliases, mock-based interaction tests, regression tests and a measured technical-debt improvement. It does not claim a student manually wrote or reviewed the implementation.
+The tests were written and executed before implementation. The actual first failure is preserved in [cache-red.txt](evidence/cache-red.txt). The successful implementation demonstrates encapsulation, a bounded cache, hashing, locks for concurrent requests, independent copies instead of shared aliases, mock-based interaction tests, regression tests and a measured technical-debt improvement. This evidence does not establish an independent human review.

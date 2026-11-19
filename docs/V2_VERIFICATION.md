@@ -4,7 +4,7 @@
 
 此前 v2.1.0 的简历优势与岗位推荐验证见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)；2026-11-19 已观察的原生云服务、公网 HTTPS、完整研究迁移、公开 API/真实 AI、Safari 图表操作、GitHub 五环境 CI 及临时部署访问清理见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)。该记录中的 **342 项**属于当时 v2.1.0 的实际测试，不是 v2.1.1 的新计数；当时未重新进行云端窄屏/导出测试。以下保留 2026-11-18 v2.0 的原始验收及其当时未部署状态，不将历史 **306 项**或旧状态冒充当前结果。
 
-版本：2.0.0；记录日期：2026-11-18。本文记录已观察证据与剩余验收。**双 Python 版本各 306 项测试、质量门禁、真实本机 Gunicorn smoke，以及桌面/窄屏对话和三种导出均已验证**。历史 v1.3 证据保留在 [COURSE_VERIFICATION.md](COURSE_VERIFICATION.md)，原 Word/PDF/PPT 未在本轮重生成。
+版本：2.0.0；记录日期：2026-11-18。本文记录已观察证据与剩余验收。**双 Python 版本各 306 项测试、质量门禁、真实本机 Gunicorn smoke，以及桌面/窄屏对话和三种导出均已验证**。历史证据保留其原始运行范围。
 
 ## 本轮范围
 
@@ -20,8 +20,8 @@
 | 检查 | 已观察结果 | 证据与限定 |
 | --- | --- | --- |
 | 版本标识 | `jobcompass.__version__` 为 2.0.0 | 代码版本不等于部署版本 |
-| OLAP/自动命令专用测试 | 37 项通过：22 OLAP + 15 编译器测试 | `output/course-audit/olap-ai-green.txt`；含真实 SQLite 与模拟模型，不代表完整应用总数 |
-| 研究模块与上述功能联合回归 | 64 项通过 | `output/course-audit/olap-research-green.txt`；发生在最终公开模式/界面集成收尾之前 |
+| OLAP/自动命令专用测试 | 37 项通过：22 OLAP + 15 编译器测试 | 本机历史联合回归日志；含真实 SQLite 与模拟模型，不代表完整应用总数 |
+| 研究模块与上述功能联合回归 | 64 项通过 | 本机历史研究回归日志；发生在最终公开模式/界面集成收尾之前 |
 | 真正的 DeepSeek 自动执行 | 一条“按来源标示月份统计当前平台岗位广告数并画折线”命令成功编译并执行 | [analytics_live_check.json](analytics_live_check.json)；当时 7,277 条广告、19 个分组、模型 deepseek-flash；不外推其他问题的准确率 |
 | 目录启动优化 | 研究所选目录 10.6712 s → 1.0379 s；当前所选目录 0.5087 s | [之前](evidence/v2/catalog-before.json)、[之后](evidence/v2/catalog-after.json)；251,042 研究广告/7,277 当前广告；未加应用缓存，未清空操作系统缓存，非云性能承诺 |
 | 真实测试先行 | 保留缺失模块、非法日期分组、职业多序列折线、目录误扫描等实际失败及修复 | [OLAP red](evidence/v2/olap-red.txt)、[AI red](evidence/v2/analytics-ai-red.txt)；不倒填开发历史 |
@@ -41,7 +41,7 @@
 | 桌面左平台/右常驻对话 | **1440 × 1000 浏览器验证通过** | 两轮真实 DeepSeek 指令先比较季度/职业类别广告数，再改 Python 提及率，保留筛选；136,380 广告/36 组。跨技能成长页面聊天保留，控制台无警告/错误。[桌面对话](screenshots/v2-desktop-chat.jpg)、[OLAP 视图](screenshots/v2-olap-chat.jpg) |
 | 窄屏平台/对话切换 | **390 × 844 浏览器验证通过** | 平台→对话→平台切换正常，输入区可见；DOM 可视宽度和滚动宽度均 390，无水平溢出；临时视口测试后恢复。[窄屏截图](screenshots/v2-mobile-chat.jpg) |
 | 图表与导出 | **三类导出实际下载并核对** | CSV 36 行、JSON 36 组且 query/totals 一致；PNG 1676 × 840 可读。实际点击分组得到季度/职业类别 exact_filters 与月份下钻，重置恢复全样本；折线/热力切换正常。[导出核对](evidence/v2/ui-exports.json)、[PNG](screenshots/v2-export-chart.png) |
-| 新版交付包 | **最终 184 个文件的白名单检查与凭据扫描通过** | `dist/group11_project_v2.0.zip`；最终 SHA 单独记录在 `dist/package-verification-v2.json`。原门禁报告保留其当时 157 个成员的候选包 SHA；v1.3 归档保留。 |
+| 新版交付包 | **最终 184 个文件的白名单检查与凭据扫描通过** | 当时的 v2.0 归档（本机保留）；最终 SHA 单独记录在 `dist/package-verification-v2.json`。原门禁报告保留其当时 157 个成员的候选包 SHA；v1.3 归档保留。 |
 | GitHub 更新/远端 CI | 未在本文确认 | 实际远端 URL、commit 与 Actions 记录；配置工作流不能记成运行成功 |
 
 ## 本机无法完成或尚无目标环境的项目
@@ -56,6 +56,6 @@
 
 OLAP 统计为广告样本和固定词语探针；不把提及率写成真实技能要求、整体劳动力需求或因果影响。模型生成的解释与标题仍需核对，单条供应商请求成功不证明所有自然语言都被正确理解。总体指标不依赖当前图表显示上限，缺失时段和组合不补零。
 
-v1.3 的课程对照、演示补充与验证日志保持原始版本；9 月 30 日课堂 Word/PDF/PPT 没有改写为 v2 材料。本轮未重新核实缺失的原大作业文档，也不虚构学生评审、学习、课堂演示、Moodle 提交或人类标注。
+历史验证日志保持原始版本；本记录不代表独立人工评审或人类标注。
 
 交付包校验和由 `dist/package-verification-v2.json` 单独记录，避免把校验清单自包含进同一个压缩包。保留尚未完成的 Docker/云端项目；本文没有声明 GitHub 更新、远端 CI 或云站点上线。

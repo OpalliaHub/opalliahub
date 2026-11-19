@@ -1,6 +1,8 @@
 """Offline JobsDB V7 transport contracts; no network, cookies or real waits."""
 import io
 import json
+import socket
+import ssl
 import unittest
 from datetime import datetime, timezone
 from email.message import Message
@@ -98,7 +100,7 @@ class JobsDBHTTPTests(unittest.TestCase):
             self.assertEqual(headers['referer'], 'https://hk.jobsdb.com/jobs')
             self.assertEqual(headers['x-seek-ec-sessionid'], self.client.session_id)
             self.assertEqual(headers['x-seek-ec-visitorid'], self.client.session_id)
-            self.assertTrue(headers['user-agent'].startswith('JobCompass-'))
+            self.assertEqual(headers['user-agent'], 'JobCompass/2.1')
             self.assertNotIn('authorization', headers)
         self.assertEqual(self.event.waits, [1.5])
 
@@ -262,14 +264,97 @@ class JobsDBHTTPTests(unittest.TestCase):
                 self.read()
             self.opener.open.assert_called_once()
 
-    def test_network_failures_and_timeouts_have_safe_messages_and_no_retry(self):
-        for error in (TimeoutError('private hostname'), URLError('private network route'), OSError('private path')):
+    def test_network_failures_and_timeouts_retry_three_times_with_safe_messages(self):
+        for error, code in ((TimeoutError('private hostname'), 'timeout'),
+                            (socket.timeout('private read timeout'), 'timeout'),
+                            (URLError(socket.timeout('private socket')), 'timeout'),
+                            (URLError('private network route'), 'network'),
+                            (ConnectionResetError('private reset'), 'network')):
             self.opener.open.reset_mock()
             self.opener.open.side_effect = error
             with self.subTest(error=type(error).__name__), self.assertRaises(JobsDBError) as raised:
                 self.read()
             self.assertNotIn('private', str(raised.exception))
-            self.opener.open.assert_called_once()
+            self.assertEqual(raised.exception.code, code)
+            self.assertEqual(self.opener.open.call_count, 3)
+
+    def test_network_retry_reuses_opener_session_payload_and_fixed_headers(self):
+        self.opener.open.side_effect = [URLError('private reset'), Response()]
+        self.assertEqual(self.read(), {'data': {'ok': True}})
+        self.assertEqual(self.opener.open.call_count, 2)
+        self.factory.assert_called_once()
+        first, second = [call.args[0] for call in self.opener.open.call_args_list]
+        self.assertEqual(first.data, second.data)
+        self.assertEqual(first.header_items(), second.header_items())
+        self.assertEqual(self.event.waits, [2.0])
+
+    def test_response_read_timeout_retries_and_closes_failed_response(self):
+        first = Response()
+        first.read = Mock(side_effect=socket.timeout('private read details'))
+        self.opener.open.side_effect = [first, Response()]
+        self.assertEqual(self.read(), {'data': {'ok': True}})
+        self.assertTrue(first.closed)
+        self.assertEqual(self.opener.open.call_count, 2)
+
+    def test_tls_verification_hostname_and_ssl_errors_never_retry(self):
+        failures = (ssl.SSLCertVerificationError('private certificate failure'),
+                    ssl.CertificateError('private hostname mismatch'),
+                    ssl.SSLError('private TLS failure'))
+        for error in failures:
+            for wrapped in (error, URLError(error)):
+                self.opener.open.reset_mock()
+                self.opener.open.side_effect = wrapped
+                with self.subTest(error=type(wrapped).__name__), self.assertRaises(JobsDBError) as raised:
+                    self.read()
+                self.assertEqual(raised.exception.code, 'tls_error')
+                self.assertNotIn('private', str(raised.exception))
+                self.opener.open.assert_called_once()
+
+    def test_non_network_oserror_still_does_not_retry(self):
+        self.opener.open.side_effect = OSError('private path')
+        with self.assertRaises(JobsDBError) as raised:
+            self.read()
+        self.assertEqual(raised.exception.code, 'network')
+        self.assertNotIn('private', str(raised.exception))
+        self.opener.open.assert_called_once()
+
+    def test_network_and_http_retries_share_one_three_attempt_limit(self):
+        self.opener.open.side_effect = [URLError('private route'), failure(429, {'Retry-After': '1'}),
+                                        URLError('private reset'), Response()]
+        with self.assertRaises(JobsDBError) as raised:
+            self.read()
+        self.assertEqual(raised.exception.code, 'network')
+        self.assertEqual(self.opener.open.call_count, 3)
+
+    def test_network_retries_use_remaining_shared_wait_budget(self):
+        self.opener.open.side_effect = [failure(429, {'Retry-After': '60'}), Response(),
+                                        failure(429, {'Retry-After': '30'}), Response(),
+                                        URLError('private route'), Response()]
+        self.read()
+        self.read()
+        with self.assertRaises(JobsDBError) as raised:
+            self.read()
+        self.assertEqual(raised.exception.code, 'network')
+        self.assertEqual(self.opener.open.call_count, 5)
+
+    def test_cancel_during_network_backoff_stops_before_second_attempt(self):
+        self.event.cancel_on_wait = True
+        self.opener.open.side_effect = URLError('private route')
+        with self.assertRaises(JobsDBCancelled):
+            self.read()
+        self.opener.open.assert_called_once()
+
+    def test_timeout_reading_rate_response_never_ignores_retry_after(self):
+        body = Mock()
+        body.read.side_effect = socket.timeout('private body')
+        error = HTTPError(URL, 429, 'fixture', {'Retry-After': '600'}, body)
+        self.opener.open.side_effect = error
+        with self.assertRaises(JobsDBError) as raised:
+            self.read()
+        self.assertEqual(raised.exception.retry_after, 600.0)
+        self.opener.open.assert_called_once()
+        self.assertEqual(self.event.waits, [])
+        body.close.assert_called_once()
 
     def test_cancel_before_request_and_during_rate_wait(self):
         self.event.stopped = True

@@ -16,7 +16,7 @@
 
 截图：`screenshots/dashboard.jpg`、`screenshots/matching.jpg`、`screenshots/sources.jpg`、`screenshots/tracker.jpg`。截图与 AI 测试使用虚构候选人。
 
-未完成的外部活动：未向任何企业投递，未发布公网服务，未运行云端 GitHub Actions，未录制成员参与的课程视频，未完成真实个人简历匹配（用户尚未提供简历）。
+未完成的外部活动：未向任何企业投递，未发布公网服务，未运行云端 GitHub Actions，未完成真实个人简历匹配（用户尚未提供简历）。
 
 ## 2026-09-30 更新
 

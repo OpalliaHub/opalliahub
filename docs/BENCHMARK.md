@@ -2,7 +2,7 @@
 
 ## Provenance and scope
 
-Group 11 supplied a JobsDB research archive from its OneDrive collection. The integrated version uses **20260928112455_6939.zip**, a snapshot dated **2026-09-28**. It is a frozen historical dataset, not a live JobsDB connection. Other weekly archives and unrelated course folders are not bundled. The original dataset's rights remain with its respective owners; this project does not assign it a new license or claim that research access establishes a general redistribution license.
+The project maintainer supplied a JobsDB research archive. The integrated version uses **20260928112455_6939.zip**, a snapshot dated **2026-09-28**. It is a frozen historical dataset, not a live JobsDB connection. Other weekly archives and unrelated personal files are not bundled. The original dataset's rights remain with its respective owners; this project does not assign it a new license or claim that research access establishes a general redistribution license.
 
 The normalized snapshot is `data/benchmark/jobsdb_20260928.json.gz`. Its manifest records the input archive checksum, normalized-content checksum, source date, transformations and rejected record count. Paths to personal OneDrive accounts and cloud access links are not included.
 
@@ -33,7 +33,7 @@ python main.py --import-benchmark
 python main.py
 ```
 
-Alternatively, use **数据工作台 → JobsDB 研究快照 → 导入本地研究快照** in the GUI. Import is explicit and runs as a background task. Fresh installations start with the small fictional demo dataset until the user imports the research snapshot.
+A new local application database imports the bundled historical snapshot by default. Starting with `--demo` instead initializes a new database with fictional jobs. Existing databases are not reset. To request another import, use **数据管理 → JobsDB 研究快照 → 导入研究快照**; this explicit action runs as a background task. In public mode, visitors read the shared catalogue, while their own import actions remain in their private workspace.
 
 To convert another compatible ZIP, provide the correct snapshot date and a separate output filename:
 
@@ -46,8 +46,8 @@ The converter supports the observed JobsDB JSON schema in ZIP files. It does not
 
 ## Evaluation design and results
 
-The benchmark ranks all 6,910 accepted jobs for the bundled **fictional** resume with an explicit zero-year experience preference. It reports field completeness, deduplication and three complete ranking timings. The recorded Python 3.8.10 macOS run took **4.0517 seconds median** (4.0517, 4.0059 and 4.0634 seconds). The raw report is `docs/benchmark_jobsdb.json`; results depend on hardware and runtime. Import, HTTP transfer and browser rendering time are not included in those timings. The current application reranks on state refresh, so a full research snapshot may make interactions slower than the demo dataset.
+The benchmark ranks all 6,910 accepted jobs for the bundled **fictional** resume with an explicit zero-year experience preference. It reports field completeness, deduplication and three complete ranking timings. The recorded Python 3.8.10 macOS run took **4.0517 seconds median** (4.0517, 4.0059 and 4.0634 seconds). The raw report is [benchmark_jobsdb.json](benchmark_jobsdb.json); results depend on hardware and runtime. Import, HTTP transfer and browser rendering time are not included in those timings. These are uncached ranker measurements from the recorded benchmark. The current application uses a per-application [one-entry ranking cache](RANKING_CACHE.md) when a resume is present, so unchanged state requests can reuse the ranked result. Database reads, input hashing and result copying still cost time; the historical benchmark does not measure the current end-to-end UI.
 
 No human resume–job relevance labels were provided. Therefore this dataset does **not** establish Precision@K, Recall@K, NDCG, hiring probability, real-world suitability or fairness. Top-ranked titles are diagnostic examples, not validated recommendations. The separate `scripts/evaluate.py` still uses explicitly synthetic relevance labels and must not be described as evaluation on this real dataset.
 
-For future relevance research, define a rubric, have group members independently judge a held-out set of resume–job pairs, measure agreement, separate tuning and evaluation samples, and compare the hybrid ranker against a text-only baseline. No such judgments or outcomes are fabricated here.
+For future relevance research, define a rubric, have independent reviewers judge a held-out set of resume–job pairs, measure agreement, separate tuning and evaluation samples, and compare the hybrid ranker against a text-only baseline. No such judgments or outcomes are fabricated here.

@@ -117,7 +117,7 @@ Catalog counts/facets describe the selected full dataset under the ID-based inpu
 
 `Research._current(include_mask=False)` is used only for current-dataset catalog metadata, which never needs probe counts. Its normal default remains `include_mask=True`, so every analytical query still computes correct vocabulary masks and a full snapshot fingerprint. This removes the unnecessary 36-probe scan from catalog startup without caching an old dataset.
 
-A local measurement on 251,042 research advertisements and 7,277 current records reduced the research-selected catalog from **10.6712 seconds to 1.0379 seconds**, with identical research totals and facet sizes. The selected-current catalog then took **0.5087 seconds**. Measurements used fresh OLAP instances without an application result cache; operating-system file caches were not flushed, and these are single-machine observations rather than deployment guarantees. The aggregate timing records are retained in `output/course-audit/catalog-before.json` and `output/course-audit/catalog-after.json`.
+A local measurement on 251,042 research advertisements and 7,277 current records reduced the research-selected catalog from **10.6712 seconds to 1.0379 seconds**, with identical research totals and facet sizes. The selected-current catalog then took **0.5087 seconds**. Measurements used fresh OLAP instances without an application result cache; operating-system file caches were not flushed, and these are single-machine observations rather than deployment guarantees. The aggregate timing records are retained in [catalog-before.json](evidence/v2/catalog-before.json) and [catalog-after.json](evidence/v2/catalog-after.json).
 
 ## Natural command to executed charts
 
@@ -152,7 +152,7 @@ To preserve a previous private cohort without transmitting its text filters, the
 
 The prompt explicitly treats user/context content as untrusted task data and cannot expand the schema or tool authority. The resulting statistics remain sample descriptions. They do not establish representative market demand, causality, statistical significance, verified employer identity, required skills or human-reviewed ground truth.
 
-## Verification and course evidence
+## Verification and retained evidence
 
 Run:
 
@@ -160,6 +160,6 @@ Run:
 .venv/bin/python -m unittest tests.test_olap tests.test_analytics_ai -v
 ```
 
-The 37 focused tests comprise 22 real SQLite OLAP tests and 15 compiler tests with a mocked model. They cover weighted rates, distinct employer totals, missing/impossible dates, quarter/year boundaries, independent group limits, measure sorting, exact drilldown, pivot gaps versus observed zero, empty results, existing deduplication semantics, literal injection-like filter values, read-only source preservation, current-data demo exclusion, snapshot fingerprints, bounded catalog facets, skipping unselected datasets/probe scans during catalog construction, strict schemas, automatic execution, multi-series line normalization with preserved scope, chart constraints, private follow-up inheritance/clearing and unsupported-intent refusal. No live model response quality is claimed by these deterministic tests.
+The original 37 focused tests comprise 22 real SQLite OLAP tests and 15 compiler tests with a mocked model. They cover weighted rates, distinct employer totals, missing/impossible dates, quarter/year boundaries, independent group limits, measure sorting, exact drilldown, pivot gaps versus observed zero, empty results, existing deduplication semantics, literal injection-like filter values, read-only source preservation, current-data demo exclusion, snapshot fingerprints, bounded catalog facets, skipping unselected datasets/probe scans during catalog construction, strict schemas, automatic execution, multi-series line normalization with preserved scope, chart constraints, private follow-up inheritance/clearing and unsupported-intent refusal. No live model response quality is claimed by these deterministic tests.
 
-Actual test-first failures are retained in `output/course-audit/olap-red.txt` and `output/course-audit/analytics-ai-red.txt`; the passing run is in `output/course-audit/olap-ai-green.txt`. The evidence includes a real invalid-calendar-date grouping failure before the date expression was corrected, not just missing-module failures. This work demonstrates relational aggregation, non-additive measures, a typed query language, read-only database boundaries, controlled model integration, automatic tool execution and reproducible regression testing.
+Actual test-first failures are retained in [olap-red.txt](evidence/v2/olap-red.txt) and [analytics-ai-red.txt](evidence/v2/analytics-ai-red.txt). All 37 focused checks also appear as passing tests in the retained [306-test Python 3.12 run](evidence/v2/tests-v2-python312.txt); that is a historical run, not the current whole-project test count. The evidence includes a real invalid-calendar-date grouping failure before the date expression was corrected, not just missing-module failures. This work demonstrates relational aggregation, non-additive measures, a typed query language, read-only database boundaries, controlled model integration, automatic tool execution and reproducible regression testing.

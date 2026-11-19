@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from .resume import skills_in
 
-AGENT = 'JobCompass-CourseProject/1.0'
+AGENT = 'JobCompass/2.1'
 ENDPOINTS = {'Remotive': 'https://remotive.com/api/remote-jobs',
              'Arbeitnow': 'https://www.arbeitnow.com/api/job-board-api'}
 TRUSTED_SERVICES = {'api.deepseek.com', 'remotive.com', 'www.arbeitnow.com', 'hk.jobsdb.com'}

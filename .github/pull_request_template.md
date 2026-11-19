@@ -9,8 +9,8 @@ What user action or research requirement motivated this change? Give one before/
 - [ ] `python scripts/quality_gate.py --mutations` passes; attach its actual report.
 - [ ] Changed AI behavior is tested with mocked responses and invalid plans.
 - [ ] Data source, denominator, time window and deduplication rules remain explicit.
-- [ ] Package contains source and approved benchmark fixture; no `.env`, personal resume, local database or raw private collection.
-- [ ] Document and presentation claims match the current code and recorded measurements.
+- [ ] Package contains source and approved benchmark fixtures; excludes report/presentation deliverables; no `.env`, personal resume, local database or raw private collection.
+- [ ] Documentation and release claims match the current code and recorded measurements.
 
 ## Review
 
@@ -22,4 +22,4 @@ Reviewer: <!-- actual person; leave blank until review happens -->
 
 ## Limitations and follow-up
 
-State meaningful limitations, debt item IDs, and manual checks still pending. AI-generated implementation or review must be disclosed; it is not a substitute for a named student's independent review.
+State meaningful limitations, debt item IDs, and manual checks still pending. AI-generated implementation or review must be disclosed; it is not a substitute for independent human review.

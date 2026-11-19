@@ -1,0 +1,168 @@
+{
+  "version": "2.1.1",
+  "started_at": "2026-11-19T06:38:14.699595+00:00",
+  "scope": "Two fresh anonymous visitors; one bounded real JobsDB update; read-only shared research",
+  "real_jobsdb_task_submissions": 1,
+  "ai_requests": 0,
+  "checks": [
+    {
+      "name": "GET /api/health status",
+      "passed": true
+    },
+    {
+      "name": "deployed version",
+      "passed": true
+    },
+    {
+      "name": "health does not allocate session",
+      "passed": true
+    },
+    {
+      "name": "GET / status",
+      "passed": true
+    },
+    {
+      "name": "A index matches tested source",
+      "passed": true
+    },
+    {
+      "name": "A private cookie flags",
+      "passed": true
+    },
+    {
+      "name": "GET / status",
+      "passed": true
+    },
+    {
+      "name": "B index matches tested source",
+      "passed": true
+    },
+    {
+      "name": "B private cookie flags",
+      "passed": true
+    },
+    {
+      "name": "different visitor capabilities",
+      "passed": true
+    },
+    {
+      "name": "GET /api/status status",
+      "passed": true
+    },
+    {
+      "name": "public deployment version",
+      "passed": true
+    },
+    {
+      "name": "GET /api/state status",
+      "passed": true
+    },
+    {
+      "name": "no inherited private state",
+      "passed": true
+    },
+    {
+      "name": "invalid origin blocks update",
+      "passed": true
+    },
+    {
+      "name": "POST /api/jobsdb/update status",
+      "passed": true
+    },
+    {
+      "name": "private task ID format",
+      "passed": true
+    },
+    {
+      "name": "other visitor cannot read task",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "known live task state",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "known live task state",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "known live task state",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "known live task state",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "known live task state",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "known live task state",
+      "passed": true
+    },
+    {
+      "name": "task owner poll readable",
+      "passed": true
+    },
+    {
+      "name": "real task completed",
+      "passed": true
+    },
+    {
+      "name": "three valid V7 jobs",
+      "passed": false
+    }
+  ],
+  "measurements": {
+    "baseline_shared_jobs": 6908,
+    "collection": {
+      "status": "partial",
+      "count": 2,
+      "found": 3,
+      "checked": 2,
+      "rejected": 0,
+      "unavailable": 0,
+      "expired": 0,
+      "pages": 1,
+      "search_total": 6984,
+      "search_api": "JobSearchV7",
+      "stop_code": "network",
+      "keyword_scope": "batch_text",
+      "task_status": "done",
+      "seconds": 21.839,
+      "polls": 7
+    }
+  },
+  "limitations": [
+    "One successful bounded run does not establish future source availability or load capacity.",
+    "Provider retries, when applicable, remain governed by the deployed transport."
+  ],
+  "status": "failed",
+  "failure": "three valid V7 jobs",
+  "completed_at": "2026-11-19T06:38:57.200558+00:00"
+}

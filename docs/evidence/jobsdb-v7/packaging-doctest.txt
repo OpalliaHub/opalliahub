@@ -1,0 +1,60 @@
+Trying:
+    archive_relative('jobcompass/main.py')
+Expecting:
+    'main.py'
+ok
+Trying:
+    archive_relative('jobcompass/.github/workflows/tests.yml')
+Expecting:
+    '.github/workflows/tests.yml'
+ok
+Trying:
+    archive_relative('jobcompass/../escape.py')
+Expecting:
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid_member_path
+ok
+Trying:
+    archive_relative('/jobcompass/main.py')
+Expecting:
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid_member_path
+ok
+Trying:
+    private_reason('.env')
+Expecting:
+    'local environment file'
+ok
+Trying:
+    private_reason('.env.example') is None
+Expecting:
+    True
+ok
+Trying:
+    private_reason('data/private/resume.txt')
+Expecting:
+    'private or generated directory'
+ok
+Trying:
+    private_reason('.github/workflows/tests.yml') is None
+Expecting:
+    True
+ok
+9 items had no tests:
+    quality_gate
+    quality_gate.main
+    quality_gate.package_report
+    quality_gate.release_exclusion
+    quality_gate.run_command
+    quality_gate.scan_source
+    quality_gate.source_files
+    quality_gate.syntax_report
+    quality_gate.text_findings
+2 items passed all tests:
+   4 tests in quality_gate.archive_relative
+   4 tests in quality_gate.private_reason
+8 tests in 11 items.
+8 passed and 0 failed.
+Test passed.

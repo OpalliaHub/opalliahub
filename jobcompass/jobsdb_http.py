@@ -2,12 +2,15 @@
 
 This is ordinary HTTPS, not a browser-verification bypass. Access refusals and
 verification pages stop immediately. Explicit rate limits and transient 502/503/
-504 responses receive at most three attempts, respecting Retry-After. Retry
-waiting is capped at 60 seconds each and 90 seconds over the entire client batch.
+504 responses, connection failures and timeouts share at most three attempts,
+respecting Retry-After. TLS verification errors are never retried. Retry waiting
+is capped at 60 seconds each and 90 seconds over the entire client batch.
 """
+import errno
 import http.cookiejar
 import json
 import math
+import socket
 import ssl
 import threading
 import time
@@ -45,6 +48,7 @@ ERROR_MESSAGES = {
     'graphql_error': 'JobsDB 查询接口返回错误，已停止本次更新。',
     'network': '连接 JobsDB 失败，请稍后检查网络或原站访问状态。',
     'timeout': '连接 JobsDB 超时，已停止本次更新。',
+    'tls_error': 'JobsDB 安全连接或证书检查失败，已停止本次更新；请检查网络与证书配置。',
 }
 
 
@@ -62,6 +66,35 @@ class JobsDBError(ValueError):
 class JobsDBCancelled(ValueError):
     def __init__(self):
         super().__init__('已取消 JobsDB 更新，停止后续请求。')
+
+
+class _RetryableNetwork(JobsDBError):
+    """Internal marker; retry scheduling still belongs to the one request loop."""
+
+    def __init__(self, code, headers=None):
+        super().__init__(code)
+        self.retry_headers = {'retry-after': headers['retry-after']} if headers and 'retry-after' in headers else {}
+
+
+def _network_failure(error, headers=None):
+    wrapped = isinstance(error, urllib.error.URLError)
+    reason = error
+    for _ in range(8):
+        if not isinstance(reason, urllib.error.URLError):
+            break
+        reason = reason.reason
+    if isinstance(reason, (ssl.SSLError, ssl.CertificateError)):
+        return JobsDBError('tls_error')
+    if isinstance(reason, (TimeoutError, socket.timeout)) or getattr(reason, 'errno', None) == errno.ETIMEDOUT:
+        return _RetryableNetwork('timeout', headers)
+    if isinstance(reason, urllib.error.URLError):
+        # Malformed recursive wrappers are not ordinary urllib network failures.
+        return JobsDBError('network')
+    if (wrapped or isinstance(reason, ConnectionError)
+            or getattr(reason, 'errno', None) in (errno.ECONNRESET, errno.ECONNREFUSED,
+                                                 errno.EHOSTUNREACH, errno.ENETUNREACH, errno.EPIPE)):
+        return _RetryableNetwork('network', headers)
+    return JobsDBError('network')
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -161,17 +194,15 @@ class JobsDBClient:
                         and 'text/html' not in headers.get('content-type', '').lower()):
                     try:
                         body = error.read(MAX_RESPONSE_BYTES + 1)
-                    except (OSError, TimeoutError):
-                        raise JobsDBError('network') from None
+                    except (urllib.error.URLError, OSError) as failure:
+                        raise _network_failure(failure, headers) from None
                     if len(body) > MAX_RESPONSE_BYTES:
                         raise JobsDBError('response_too_large')
                 return error.code, headers, body
             finally:
                 error.close()
-        except TimeoutError:
-            raise JobsDBError('timeout') from None
-        except (urllib.error.URLError, OSError):
-            raise JobsDBError('network') from None
+        except (urllib.error.URLError, OSError) as failure:
+            raise _network_failure(failure) from None
 
     def _retry(self, code, headers, attempt):
         supplied = _retry_after(headers.get('retry-after'))
@@ -203,7 +234,11 @@ class JobsDBClient:
         for attempt in range(MAX_ATTEMPTS):
             # A fresh Request lets the same cookie processor update cookies on
             # retries while retaining the original payload and session identity.
-            status, response_headers, body = self._send(urllib.request.Request(url, data=data, headers=headers))
+            try:
+                status, response_headers, body = self._send(urllib.request.Request(url, data=data, headers=headers))
+            except _RetryableNetwork as error:
+                self._retry(error.code, error.retry_headers, attempt)
+                continue
             self._check()
             if response_headers.get('cf-mitigated', '').lower() == 'challenge':
                 raise JobsDBError('challenge')

@@ -1,6 +1,6 @@
 # Bounded AI transport recovery
 
-The resume and research DeepSeek adapters now share `jobcompass/retry.py`. It implements the bounded feedback/retry idea from Lecture 05 for a specific operational failure: an explicit transient HTTP response before a usable model result arrives.
+The resume and research DeepSeek adapters share `jobcompass/retry.py`. It provides bounded recovery from an explicit transient HTTP response before a usable model result arrives. This policy applies to model calls; JobsDB has a separate transport and network-recovery policy described in [JobsDB update verification](JOBSDB_V7_VERIFICATION.md).
 
 | Condition | Behavior |
 |---|---|
@@ -20,14 +20,14 @@ This window is not a hard wall-clock cancellation mechanism. The existing `urlli
 
 `sources.fetch` translates `HTTPError` into a safe `ValueError`. Python retains the original exception as context; the retry helper checks that object's type and numeric status. It never parses a human error message, reads an error response body, prints credentials, changes the payload or alters the configured endpoint. Responses with an open error stream are closed before a retry. Existing tests patching `jobcompass.ai.fetch` and `jobcompass.research_ai.fetch` remain compatible.
 
-The helper wraps only network transport. JSON parsing and schema validation remain outside the retry loop. Research plans still pass `validate_plan`, and neither a retry nor a model response can execute Python or SQL or modify the original research database. No live API request or paid model call was made to implement or verify this change.
+The helper wraps only network transport. JSON parsing and schema validation remain outside the retry loop. Research plans still pass `validate_plan`, and neither a retry nor a model response can execute Python or SQL or modify the original research database. The original retry implementation was verified without live API requests or paid model calls. Later live platform checks are separate evidence and do not change the policy described here.
 
 ## Actual test-first evidence
 
 Twelve tests were written before the retry implementation, while the helper made exactly one transport call and the two adapters still called their existing transport directly. The initial run recorded `Ran 12 tests` and `FAILED (failures=1, errors=8)`; after implementation the same test suite passed. One mocked scheduler timestamp was refined from 94 to 93 seconds so the test actually exercises the post-sleep deadline check rather than the earlier budget guard.
 
-- Red output: `output/course_engineering/retry_tdd_red.txt`
-- Green output: `output/course_engineering/retry_tdd_green.txt`
+- Red output: [retry_tdd_red.txt](evidence/retry_tdd_red.txt)
+- Green output: [retry_tdd_green.txt](evidence/retry_tdd_green.txt)
 - Reproduce final tests: `python -m unittest tests.test_retry -v`
 
-All sleeps and transport calls are mocked. Tests exercise every permitted status, permanent HTTP errors, ambiguous failures, the attempt cap, precise 1/2-second delays, shrinking timeouts, scheduler overruns, unchanged payloads, both adapters, and rejection of malformed model output without a second call. The final local test run passed all 12 methods; this verifies the deterministic policy, not live provider availability.
+All sleeps and transport calls are mocked. Tests exercise every permitted status, permanent HTTP errors, ambiguous failures, the attempt cap, precise 1/2-second delays, shrinking timeouts, scheduler overruns, unchanged payloads, both adapters, and rejection of malformed model output without a second call. The retained original local test run passed all 12 methods; this verifies the deterministic policy, not live provider availability.

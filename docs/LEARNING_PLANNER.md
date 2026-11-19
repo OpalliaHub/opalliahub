@@ -1,6 +1,6 @@
 # Skill-gap learning planner
 
-The “技能成长” feature turns the current vacancy sample and the saved resume profile into an explainable study plan. It answers two distinct questions: which skills occur frequently in the selected sample, and which study foundations could help the student learn a missing skill. The frequency is computed from jobs; the study dependencies are authored teaching suggestions.
+The “技能成长” feature turns the current vacancy sample and the saved resume profile into an explainable study plan. It answers two distinct questions: which skills occur frequently in the selected sample, and which study foundations could help a person learn a missing skill. The frequency is computed from jobs; the study dependencies are authored learning suggestions.
 
 ## Use and API
 
@@ -50,9 +50,9 @@ The most useful metrics for the UI are `input_jobs`, `analyzed_jobs`, `excluded_
 
 This sample can be biased by source coverage, collection date, search choices, parsing failures and duplicates that have different IDs. It does not estimate overall labor-market demand. Prerequisite edges such as `Python → Pandas` or `Machine Learning → PyTorch` are editable learning suggestions, not employer requirements. A skill absent from a resume may still be known, and a skill present in a resume is not proof of proficiency.
 
-## Programming concepts demonstrated
+## Implementation design
 
-| Course concept | Meaningful implementation |
+| Design element | Implementation |
 | --- | --- |
 | Functions and default arguments | `build_learning_plan(jobs, profile, target='', limit=10)` is the stable public API |
 | Classes and encapsulation | `LearningPlanner` separates orchestration from `PrerequisiteGraph`; frozen dataclasses represent evidence and skill rows |
@@ -69,7 +69,7 @@ This sample can be biased by source coverage, collection date, search choices, p
 
 A dependency walk costs `O(V + E)` for reachable nodes and edges, with `O(V)` traversal storage. A cache hit avoids repeating that walk. Corpus processing additionally reads the supplied job text when skill extraction is necessary; it is linear in that text size plus skill occurrences. Sorting costs `O(S log S)` for `S` distinct skills. This is an in-memory current-corpus feature; the research pipeline remains the appropriate place to preprocess large historical datasets.
 
-## Testing and demonstration
+## Tests and usage example
 
 Run from the project directory:
 
@@ -77,8 +77,8 @@ Run from the project directory:
 .venv/bin/python -m unittest tests.test_learning -v
 ```
 
-The 20 tests cover alias normalization, distinct-job denominators, sample exclusions, expired-record precedence, demo labeling, literal title filtering, extraction fallback, recursive ordering, known skills, limits and ties, example bounds, unknown skills, JSON serialization, input immutability, validation, immutable cache results, shared prerequisites, custom graphs and cycle detection.
+The original 20-test suite covers alias normalization, distinct-job denominators, sample exclusions, expired-record precedence, demo labeling, literal title filtering, extraction fallback, recursive ordering, known skills, limits and ties, example bounds, unknown skills, JSON serialization, input immutability, validation, immutable cache results, shared prerequisites, custom graphs and cycle detection.
 
-`output/course-audit/learning-red.txt` records two actual pre-fix runs: the first run failed because the module had not yet been implemented; the second exposed missing expiry behavior and the stricter input boundaries before those changes were made. These logs demonstrate the automated sequence performed during development. They do not claim that a student manually authored or reviewed the tests.
+[learning-red.txt](evidence/learning-red.txt) records two actual pre-fix runs: the first run failed because the module had not yet been implemented; the second exposed missing expiry behavior and the stricter input boundaries before those changes were made. These logs demonstrate the automated sequence performed during development. They do not establish an independent human review.
 
-For a short classroom demonstration, save a resume with Python and SQL, select a title present in the current data, inspect one skill's job examples, then compare its authored foundations with the employer evidence. A PyTorch example demonstrates multiple recursive levels; shared Python prerequisites appear only once. A custom `PrerequisiteGraph({'A': ['B'], 'B': ['A']})` raises a cycle error instead of recursing forever. The graph tests demonstrate cache reuse without relying on unreliable wall-clock timing.
+To inspect the feature, save a resume with Python and SQL, select a title present in the current data, inspect one skill's job examples, then compare its authored foundations with the employer evidence. A PyTorch example demonstrates multiple recursive levels; shared Python prerequisites appear only once. A custom `PrerequisiteGraph({'A': ['B'], 'B': ['A']})` raises a cycle error instead of recursing forever. The graph tests demonstrate cache reuse without relying on unreliable wall-clock timing.

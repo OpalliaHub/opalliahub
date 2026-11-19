@@ -1,6 +1,6 @@
 # JobCompass contributor instructions
 
-Read `docs/SPECIFICATION.md` before changing behavior. The current release is v2: a workforce-research platform with anonymous public mode and retained personal job tools. Keep changes useful to visitors and researchers. Preserve the v1.3 evidence and dated classroom artifacts as historical records.
+Read `docs/SPECIFICATION.md` before changing behavior. The current release is v2: a workforce-research platform with anonymous public mode and retained personal job tools. Keep changes useful to visitors and researchers. Preserve historical verification evidence without relabeling its version or scope.
 
 ## Environment and validation
 
@@ -9,7 +9,7 @@ Read `docs/SPECIFICATION.md` before changing behavior. The current release is v2
 - `python -m unittest discover -v` runs offline business, HTTP, public-session and WSGI tests.
 - `python scripts/quality_gate.py --help`, `mutation_check.py --help`, and `coverage_report.py --help` describe the existing quality tools.
 - `python main.py --demo --db /tmp/jobcompass-demo.db --port 8766 --no-browser` starts an isolated matching demo. Research aggregates intentionally exclude synthetic ads.
-- `python scripts/package_project.py --group 11` creates the allowlisted source archive. A configured package, CI workflow or container is not proof it was successfully built or deployed.
+- `python scripts/package_project.py` creates the allowlisted source archive. A configured package, CI workflow or container is not proof it was successfully built or deployed.
 
 ## Workflow
 
@@ -17,7 +17,7 @@ Read `docs/SPECIFICATION.md` before changing behavior. The current release is v2
 2. For consequential behavior, write failing tests first and retain actual evidence. Never reconstruct, backdate or relabel a historical red/green run.
 3. Validate input, parameterize SQL, and escape source/model-derived display text, including chart tooltips. Keep visitor-facing UI labels in Chinese.
 4. Run targeted tests, then relevant integration gates; review the diff and report the exact scope and remaining unverified work. Do not copy an earlier test count into a newer release record.
-5. Update current specifications and verification notes. Preserve dated Word/PDF/PPT and v1.3 reports unless the user asks to revise those artifacts.
+5. Update current specifications and verification notes. Keep private archives outside the tracked tree and release packages.
 
 ## Public request and data boundaries
 
@@ -42,4 +42,4 @@ Read `docs/SPECIFICATION.md` before changing behavior. The current release is v2
 
 ## Evidence and release claims
 
-Use `docs/V2_VERIFICATION.md` for current verification and `docs/COURSE_VERIFICATION.md` for the historical v1.3 record. Document real commands, artifacts and limitations. Do not fabricate peer review, student learning, Moodle submissions, human relevance labels or classroom IDE use. Do not claim GitHub publication, remote CI, Docker builds, TLS readiness or cloud deployment without observing that outcome. User authorization persists across turns; preserve user data and uncommitted changes and do not force-push or delete history to simplify delivery.
+Use `docs/V2_VERIFICATION.md` and its linked release-specific records for verification. Document real commands, artifacts and limitations. Do not fabricate peer review, user evaluation, human relevance labels or deployment results. Do not claim GitHub publication, remote CI, Docker builds, TLS readiness or cloud deployment without observing that outcome. User authorization persists across turns; preserve user data and uncommitted changes and do not force-push or delete history to simplify delivery.

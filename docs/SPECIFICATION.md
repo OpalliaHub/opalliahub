@@ -1,6 +1,6 @@
 # JobCompass 软件需求与设计规格
 
-版本：**2.1.1**；修订：2026-11-19。本文描述当前代码与验收条件，不等同于已完成全部运行环境验收。此次 JobsDB V7 更新适配的实际测试、联网结果及发布状态单独记录于 [JOBSDB_V7_VERIFICATION.md](JOBSDB_V7_VERIFICATION.md)。简历推荐证据见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)，此前 v2.1.0 云服务与 GitHub 的实际结果见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)，既有研究功能证据见 [V2_VERIFICATION.md](V2_VERIFICATION.md)。v1.3 的课程映射、验证报告及 2026-09-30 Word/PDF/PPT 保留为历史材料；此前缺失的原始大作业 DOCX 尚未重新核对，不能据此宣称全部课堂提交已完成。
+版本：**2.1.1**；修订：2026-11-19。本文描述当前代码与验收条件，不等同于已完成全部运行环境验收。此次 JobsDB V7 更新适配的实际测试、联网结果及发布状态单独记录于 [JOBSDB_V7_VERIFICATION.md](JOBSDB_V7_VERIFICATION.md)。简历推荐证据见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)，此前 v2.1.0 云服务与 GitHub 的实际结果见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)，既有研究功能证据见 [V2_VERIFICATION.md](V2_VERIFICATION.md)。
 
 ## 目标、运行模式与非目标
 
@@ -69,9 +69,9 @@ FR16 的预览/确认仅属于保留的单计划深度研究入口。**它不是
 | FR34 | 采用用户提供爬虫的 V7 搜索与 GraphQL 详情流程；每批会话保持一致，有界分页、请求间隔及重试；供应方要求的冷却跨公开访客保留，拒绝访问或验证页面明确停止 | `jobsdb.py`、`jobsdb_http.py`、`Store` / `SessionStore` 冷却方法；`test_jobsdb_v7.py`、`test_jobsdb_http.py`、`test_jobsdb_public.py` |
 | FR35 | 可选关键词仅在本批取得的岗位标题、公司和正文中做不区分大小写的子串筛选；界面及结果明确说明范围、未命中数量和可能少于读取上限的结果 | `jobsdb.options`、`jobsdb.collect`、`static/index.html`；JobsDB 专用测试及 [更新验证](JOBSDB_V7_VERIFICATION.md) |
 
-保留 `POST /api/jobsdb/update` 与原有任务、取消入口，不新增公开管理路由。搜索使用固定的香港 JobsDB GraphQL 地址、资讯科技/工程/会计三个类别和发布时间排序；单批复用一个 Cookie 会话与会话标识，并沿用供应方返回的 `searchToken` / `filterNewSince`。分页结构、页码、岗位编号与上下文必须通过验证；重复页、无效结构或超限均明确停止，不把错误响应记成“没有岗位”。每批最多读取 **20 页搜索、200 个岗位详情**，未达到上限不代表全站数据已完整获取。
+保留 `POST /api/jobsdb/update` 与原有任务、取消入口，不新增公开管理路由。搜索使用固定的香港 JobsDB GraphQL 地址、资讯科技/工程/教育与培训三个类别和发布时间排序；单批复用一个 Cookie 会话与会话标识，并沿用供应方返回的 `searchToken` / `filterNewSince`。分页结构、页码、岗位编号与上下文必须通过验证；重复页、无效结构或超限均明确停止，不把错误响应记成“没有岗位”。每批最多读取 **20 页搜索、200 个岗位详情**，未达到上限不代表全站数据已完整获取。
 
-传输使用标准库 HTTPS，会话仅请求固定的 `https://hk.jobsdb.com/graphql`，不跟随重定向。连续请求开始时间至少间隔 **1.5 秒**；仅 HTTP **429/502/503/504** 或全部属于已识别限流类型的 GraphQL 错误允许重试，每个逻辑请求最多 **3 次 HTTP 尝试**。遵循可解析的 `Retry-After`，一次重试等待最多 **60 秒**、整批重试等待累计最多 **90 秒**；超过预算即停止，不能缩短供应方要求的等待后继续请求。HTTP 401/403、HTML/浏览器验证页面及其他查询错误不自动重试，不旋转身份、执行验证码或绕过登录/浏览器验证。
+传输使用标准库 HTTPS，会话仅请求固定的 `https://hk.jobsdb.com/graphql`，不跟随重定向。连续请求开始时间至少间隔 **1.5 秒**；HTTP **429/502/503/504**、已识别的瞬态网络中断/超时，或全部属于已识别限流类型的 GraphQL 错误允许重试，每个逻辑请求最多 **3 次 HTTP 尝试**。遵循可解析的 `Retry-After`，一次重试等待最多 **60 秒**、整批重试等待累计最多 **90 秒**；超过预算即停止，不能缩短供应方要求的等待后继续请求。网络重试使用 2/4 秒退避，与 HTTP/GraphQL 重试共享同一尝试及等待预算。证书/TLS 错误、HTTP 401/403、HTML/浏览器验证页面及其他查询错误不自动重试，不旋转身份、执行验证码或绕过登录/浏览器验证。
 
 单进程全局锁避免重叠采集；持久化的 **60 秒尝试间隔**及最终停止时供应方提供的可解析延期均由共享 Store 协调，公开访客切换临时会话不能跳过冷却。等待可取消，取消后不发起后续请求；已取得的有效岗位可以保留为部分结果。受限搜索中未出现的旧岗位不能据此被标成过期，原投递备注及历史保留。
 

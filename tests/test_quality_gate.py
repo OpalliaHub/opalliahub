@@ -8,7 +8,8 @@ import zipfile
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts.quality_gate import private_reason, package_report, scan_source, syntax_report
+from scripts.quality_gate import private_reason, package_report, scan_source, syntax_report, text_findings
+from scripts import package_project
 
 
 class QualityGateTests(unittest.TestCase):
@@ -26,12 +27,12 @@ class QualityGateTests(unittest.TestCase):
         return path
 
     def archive(self, extras=None):
-        path = self.root / 'submission.zip'
-        members = {'group11_project/main.py': 'print("demo")',
-                   'group11_project/README.md': 'Demo',
-                   'group11_project/requirements.txt': '',
-                   'group11_project/jobcompass/__init__.py': '',
-                   'group11_project/.env.example': 'DEEPSEEK_API_KEY='}
+        path = self.root / 'jobcompass.zip'
+        members = {'jobcompass/main.py': 'print("demo")',
+                   'jobcompass/README.md': 'Demo',
+                   'jobcompass/requirements.txt': '',
+                   'jobcompass/jobcompass/__init__.py': '',
+                   'jobcompass/.env.example': 'DEEPSEEK_API_KEY='}
         members.update(extras or {})
         with zipfile.ZipFile(path, 'w') as archive:
             for name, value in members.items():
@@ -94,33 +95,33 @@ class QualityGateTests(unittest.TestCase):
         self.assertEqual(len(report['sha256']), 64)
 
     def test_archive_traversal_and_absolute_paths_rejected(self):
-        for name in ('../escape.py', '/tmp/escape.py', 'group11_project/../escape.py',
-                     'group11_project/dir\\escape.py', 'group11_project/./main.py',
-                     'group11_project//main.py'):
+        for name in ('../escape.py', '/tmp/escape.py', 'jobcompass/../escape.py',
+                     'jobcompass/dir\\escape.py', 'jobcompass/./main.py',
+                     'jobcompass//main.py'):
             with self.subTest(name=name):
                 self.assertTrue(package_report(self.archive({name: ''}))['errors'])
 
     def test_archive_private_files_rejected(self):
         for name in ('.env', 'data/private/a.json', 'data/app.sqlite', '.git/config'):
             with self.subTest(name=name):
-                report = package_report(self.archive({'group11_project/' + name: 'private'}))
+                report = package_report(self.archive({'jobcompass/' + name: 'private'}))
                 self.assertTrue(report['errors'])
 
     def test_archive_missing_entrypoint_rejected(self):
         path = self.root / 'empty.zip'
         with zipfile.ZipFile(path, 'w') as archive:
-            archive.writestr('group11_project/readme.txt', 'missing source')
+            archive.writestr('jobcompass/readme.txt', 'missing source')
         self.assertTrue(package_report(path)['errors'])
 
     def test_archive_secret_redacted(self):
         secret = 'sk-' + 'C' * 32
-        report = package_report(self.archive({'group11_project/leak.txt': secret}))
+        report = package_report(self.archive({'jobcompass/leak.txt': secret}))
         self.assertTrue(report['errors'])
         self.assertNotIn(secret, json.dumps(report))
 
     def test_archive_symlink_rejected(self):
         path = self.archive()
-        link = zipfile.ZipInfo('group11_project/link')
+        link = zipfile.ZipInfo('jobcompass/link')
         link.create_system = 3
         link.external_attr = (stat.S_IFLNK | 0o777) << 16
         with zipfile.ZipFile(path, 'a') as archive:
@@ -132,7 +133,7 @@ class QualityGateTests(unittest.TestCase):
         with warnings.catch_warnings():
             warnings.simplefilter('ignore', UserWarning)
             with zipfile.ZipFile(path, 'a') as archive:
-                archive.writestr('group11_project/main.py', 'replaced')
+                archive.writestr('jobcompass/main.py', 'replaced')
         self.assertIn('duplicate_member', [e['rule'] for e in package_report(path)['errors']])
 
     def test_archive_total_size_limit_checked_before_content(self):
@@ -145,9 +146,49 @@ class QualityGateTests(unittest.TestCase):
         document = io.BytesIO()
         with zipfile.ZipFile(document, 'w') as archive:
             archive.writestr('word/document.xml', '<document>' + 'sk-' + 'D' * 32 + '</document>')
-        path = self.archive({'group11_project/docs/report.docx': document.getvalue()})
-        report = package_report(path)
-        self.assertIn('provider_api_key', [e['rule'] for e in report['errors']])
+        findings = text_findings('report.docx', document.getvalue())
+        self.assertIn('provider_api_key', [e['rule'] for e in findings])
+
+    def test_source_archive_rejects_classroom_materials_and_document_binaries(self):
+        for name in ('docs/submission/readme.md', 'docs/COURSE_CHECKLIST.md',
+                     'docs/course_topics.json', 'docs/PROJECT_REPORT.md',
+                     'docs/PROJECT_PROPOSAL.md', 'docs/INDIVIDUAL_REPORT_DRAFT.md',
+                     'docs/DEMO_SCRIPT.md', 'docs/DEBUGGING_LAB.md',
+                     'docs/archive/Group11_notes.md', 'docs/report.docx',
+                     'docs/presentation.pptx', 'docs/report.PDF', 'docs/bundle.zip'):
+            with self.subTest(name=name):
+                report = package_report(self.archive({'jobcompass/' + name: 'excluded'}))
+                self.assertTrue(any(error['rule'] == 'excluded_release_material'
+                                    for error in report['errors']))
+
+    def test_builder_excludes_restored_classroom_materials_and_symlinks(self):
+        for name in ('main.py', 'README.md', 'requirements.txt', '.env.example',
+                     'jobcompass/__init__.py', 'docs/SPECIFICATION.md'):
+            self.write(name, '')
+        excluded = ('docs/submission/notes.md', 'docs/COURSE_CHECKLIST.md',
+                    'docs/archive/Group11_report.md', 'docs/PROJECT_REPORT.md',
+                    'docs/presentation.pptx', 'docs/report.pdf', 'docs/backup.zip',
+                    'docs/.env', 'docs/private/resume.txt')
+        for name in excluded:
+            self.write(name, 'must not be packaged')
+        self.write('outside/unrelated.txt', 'must not be packaged')
+        (self.root / 'docs/linked').symlink_to(self.root / 'outside', target_is_directory=True)
+        (self.root / 'docs/linked.txt').symlink_to(self.root / 'outside/unrelated.txt')
+        result = package_project.build_package(self.root)
+        self.assertEqual(result, self.root / 'dist/jobcompass.zip')
+        with zipfile.ZipFile(result) as archive:
+            names = set(archive.namelist())
+        self.assertEqual(names, {'jobcompass/' + name for name in
+                                ('main.py', 'README.md', 'requirements.txt', '.env.example',
+                                 'jobcompass/__init__.py', 'docs/SPECIFICATION.md')})
+        self.assertEqual(package_report(result)['errors'], [])
+
+    def test_builder_never_reads_fixture_through_linked_data_directory(self):
+        self.write('outside/demo_resume.txt', 'private content')
+        (self.root / 'data').symlink_to(self.root / 'outside', target_is_directory=True)
+        result = package_project.build_package(self.root)
+        with zipfile.ZipFile(result) as archive:
+            self.assertEqual(archive.namelist(), [])
 
     def test_corrupt_archive_returns_structured_failure(self):
         path = self.root / 'bad.zip'

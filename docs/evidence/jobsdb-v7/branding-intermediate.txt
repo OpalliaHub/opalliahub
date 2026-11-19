@@ -1,0 +1,77 @@
+test_access_refusal_and_cloudflare_503_never_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cancel_before_request_and_during_rate_wait (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cancel_during_interval_prevents_next_request (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cancel_during_network_backoff_stops_before_second_attempt (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_closed_client_cannot_be_reused (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cookie_processor_is_reused_and_cookie_cleared_on_close (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_exact_destination_rejects_other_hosts_paths_queries_and_credentials (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_fixed_origin_headers_and_same_identity_for_entire_batch (tests.test_jobsdb_http.JobsDBHTTPTests) ... FAIL
+test_graphql_known_rate_errors_retry_but_other_errors_do_not (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_graphql_rate_message_and_mixed_errors (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_html_challenge_and_content_header_stop_without_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_invalid_json_utf8_and_top_level_do_not_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_long_retry_after_stops_without_retrying_early (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_network_and_http_retries_share_one_three_attempt_limit (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_network_failures_and_timeouts_retry_three_times_with_safe_messages (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_network_retries_use_remaining_shared_wait_budget (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_network_retry_reuses_opener_session_payload_and_fixed_headers (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_non_network_oserror_still_does_not_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_only_explicit_transient_http_statuses_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_progress_cancellation_stops_before_retry_wait (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_progress_reports_safe_wait (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_redirect_handler_rejects_even_same_origin_redirect (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_response_read_is_bounded_and_closed (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_response_read_timeout_retries_and_closes_failed_response (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_retry_after_seconds_and_http_date (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_retry_attempts_capped_and_default_rate_wait_respected (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_retry_wait_budget_is_shared_across_batch (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_slow_request_is_not_followed_by_an_unnecessary_interval (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_timeout_reading_rate_response_never_ignores_retry_after (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_tls_verification_hostname_and_ssl_errors_never_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_transient_error_with_unlabelled_html_body_stops (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_bad_pagination_or_ids_stop_without_detail_calls (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_changed_page_size_or_repeated_page_does_not_silently_succeed (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_explicit_missing_detail_is_unavailable_but_broken_schema_stops (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_in_process_collection_lock_releases_after_error (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_keyword_filters_only_bounded_batch_and_reports_exclusions (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_missing_or_unsafe_context_stops_before_next_page (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_nullable_search_context_is_allowed (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_provider_retry_after_persists_between_connections (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_search_uses_v7_fixed_categories_and_same_session_as_details (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_server_page_size_and_context_drive_more_than_two_pages (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_zero_results_preserve_existing_jobs (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_cooldown_is_shared_across_visitors_and_not_bypassed_by_new_cookie (tests.test_jobsdb_public.JobsDBPublicTests) ... ok
+test_in_progress_collection_lock_is_shared_and_other_visitor_cannot_cancel (tests.test_jobsdb_public.JobsDBPublicTests) ... ok
+test_invalid_origin_host_marker_or_cross_site_never_enqueue_or_fetch (tests.test_jobsdb_public.JobsDBPublicTests) ... ok
+test_partial_provider_failure_keeps_completed_private_result_only (tests.test_jobsdb_public.JobsDBPublicTests) ... ok
+test_provider_retry_after_survives_new_cookie_beyond_normal_cooldown (tests.test_jobsdb_public.JobsDBPublicTests) ... ok
+test_success_updates_only_requesting_visitor_and_preserves_notes (tests.test_jobsdb_public.JobsDBPublicTests) ... ok
+test_access_refusal_does_not_retry_or_destroy_jobs (tests.test_jobsdb.JobsDBTests) ... ok
+test_attempt_cooldown_persists_across_connections (tests.test_jobsdb.JobsDBTests) ... ok
+test_broken_graphql_is_not_success (tests.test_jobsdb.JobsDBTests) ... ok
+test_cancel_keeps_completed_records (tests.test_jobsdb.JobsDBTests) ... ok
+test_default_initialization_uses_jobsdb (tests.test_jobsdb.JobsDBTests) ... ok
+test_empty_search_does_not_remove_existing_records (tests.test_jobsdb.JobsDBTests) ... ok
+test_expired_record_saved_for_tracker (tests.test_jobsdb.JobsDBTests) ... ok
+test_expiry_date_recomputed (tests.test_jobsdb.JobsDBTests) ... ok
+test_id_mismatch_not_written (tests.test_jobsdb.JobsDBTests) ... ok
+test_legacy_database_migration (tests.test_jobsdb.JobsDBTests) ... ok
+test_list_dedup_and_detail_id (tests.test_jobsdb.JobsDBTests) ... ok
+test_live_update_reuses_snapshot_id_and_preserves_application (tests.test_jobsdb.JobsDBTests) ... ok
+test_missing_details_skipped (tests.test_jobsdb.JobsDBTests) ... ok
+test_options_are_bounded (tests.test_jobsdb.JobsDBTests) ... ok
+test_partial_failure_preserves_completed_jobs_and_stops (tests.test_jobsdb.JobsDBTests) ... ok
+test_task_progress_cancel_and_resume_state (tests.test_jobsdb.JobsDBTests) ... ok
+
+======================================================================
+FAIL: test_fixed_origin_headers_and_same_identity_for_entire_batch (tests.test_jobsdb_http.JobsDBHTTPTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_http.py", line 103, in test_fixed_origin_headers_and_same_identity_for_entire_batch
+    self.assertTrue(headers['user-agent'].startswith('JobCompass-'))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 64 tests in 0.854s
+
+FAILED (failures=1)
