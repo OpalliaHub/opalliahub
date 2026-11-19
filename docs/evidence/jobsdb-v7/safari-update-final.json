@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-11-19T06:55:35.356951+00:00",
+  "browser": "Safari",
+  "deployment_version": "2.1.1",
+  "runtime_commit": "072ef2bfb6645c2a87fd8277716e12866693eaa2",
+  "actions": [
+    "Opened the public HTTPS platform without a certificate warning",
+    "Loaded research dashboard and existing charts",
+    "Opened data management",
+    "Selected 20 listings and left the batch keyword empty",
+    "Clicked the JobsDB update button once",
+    "Observed completion with the button re-enabled"
+  ],
+  "ui_result": {
+    "saved": 20,
+    "expired": 0,
+    "invalid": 0,
+    "unavailable": 0,
+    "progress": "20 / 20",
+    "message": "已更新 20 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。"
+  },
+  "keyword_scope_label_observed": true,
+  "persistent_research_chat_visible": true,
+  "ai_requests": 0,
+  "scope": "Observed UI completion; no artificial response substitution. This does not establish future availability, full-source coverage, load capacity, or per-row recommendation quality."
+}

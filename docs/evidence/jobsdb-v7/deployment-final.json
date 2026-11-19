@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-11-19T06:52:51.884596+00:00",
+  "method": "Observed existing provider terminal; exact GitHub archive checked before offline tests and application-file replacement",
+  "commit": "072ef2bfb6645c2a87fd8277716e12866693eaa2",
+  "archive_sha256": "867d95d54e6faca2a5f18fad71a75536b140da171ed08fec577fa8a1534c3311",
+  "staged_offline_tests": {
+    "count": 393,
+    "seconds": 17.383,
+    "result": "OK"
+  },
+  "application_update": {
+    "status": "UPDATED",
+    "changed_files": 69,
+    "backup_created": true,
+    "written_files_verified": true,
+    "health": {
+      "status": "ok",
+      "version": "2.1.1"
+    }
+  },
+  "scope": "Existing application, tests, public technical documentation and fictional fixture only; no changes to runtime credentials, private research data, proxy/firewall configuration, or other services",
+  "research_database_sha256_unchanged": true,
+  "research_sha256": "e2a6e532173643894b5cf12a6fb2b5f17c5358fb703a4209e51e55cf8fc8e61e"
+}

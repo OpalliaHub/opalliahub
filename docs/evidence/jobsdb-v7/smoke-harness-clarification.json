@@ -1,0 +1,27 @@
+{
+  "classification": "verification harness assertion error",
+  "original_evidence": "cloud-collection-final.json",
+  "original_status_preserved": "failed",
+  "failed_assertion": "job identifiers and URLs agree",
+  "incorrect_harness_assumption": "stored IDs are jobsdb-<numeric provider ID>",
+  "actual_storage_contract": {
+    "source_file": "jobcompass/storage.py",
+    "source_sha256": "9c0efe701c791fc609fae9d0b74d56e7ca80c328ddcdc94a964460cca2980589",
+    "new_job_identity": "source + '|' + url when URL exists; otherwise source + '|' + title + '|' + company + '|' + location",
+    "new_job_id": "SHA-256(identity UTF-8) lowercase hexadecimal prefix of20characters",
+    "existing_jobsdb_url": "Reuses existing stored ID for matching JobsDB URL to preserve notes and references"
+  },
+  "already_observed": {
+    "real_collection_status": "success",
+    "saved_rows": 3,
+    "rows_read_back_in_requesting_workspace": 3,
+    "source": "JobSearchV7"
+  },
+  "not_observed_in_that_run": [
+    "Corrected identifier/URL assertion",
+    "Other visitor state after collection",
+    "Research and existing sites after collection"
+  ],
+  "extra_collection_submissions": 0,
+  "clarification": "The failed assertion is retained and is not relabeled as a passing end-to-end run. A separate fresh-visitor read-only continuation verifies shared/research availability."
+}
