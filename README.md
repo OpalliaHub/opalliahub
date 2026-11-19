@@ -2,7 +2,9 @@
 
 JobCompass 以 JobsDB 招聘广告样本为基础，提供多维统计、职业与技能趋势、自然语言数据查询，以及简历匹配、投递管理和学习路线。**默认首页是「研究总览」**：左侧使用平台与图表，右侧常驻 DeepSeek 对话；输入问题后，模型生成受限统计指令，服务器验证并自动执行，再更新真实图表，无需复制或手动批准 JSON。
 
-当前代码版本为 **2.1.0**。原生云服务已通过受信 HTTPS、完整研究库迁移与索引、公网访客隔离/推荐/OLAP/真实 DeepSeek 命令检查、Safari 对话与图表操作，以及云端 342 项离线测试；GitHub 五个环境的 CI 与源码打包通过。临时部署密钥和传输副本已清理，清理后的外部健康检查正常，实际范围见 [云部署与 GitHub 验证](docs/CLOUD_VERIFICATION.md)。仓库页面用于托管源码，不能代替运行中的平台。新增推荐的本地浏览器、隔离和性能记录见 [v2.1 验证](docs/RESUME_VERIFICATION.md)；此前 OLAP、导出与本机 Gunicorn smoke 保留在 [v2.0 验证记录](docs/V2_VERIFICATION.md)。
+当前代码版本为 **2.1.1**。JobsDB 更新已迁移至 `JobSearchV7`，加入同批会话、实际分页、有限退避和跨访客冷却；本批关键词筛选的范围在界面明确显示。本轮测试、联网及发布状态见 [JobsDB 更新验证](docs/JOBSDB_V7_VERIFICATION.md)。
+
+此前 **2.1.0** 原生云服务已通过受信 HTTPS、完整研究库迁移与索引、公网访客隔离/推荐/OLAP/真实 DeepSeek 命令检查、Safari 对话与图表操作，以及云端 342 项离线测试；该版本 GitHub 五个环境的 CI 与源码打包通过。临时部署密钥和传输副本已清理，实际范围见 [历史云部署验证](docs/CLOUD_VERIFICATION.md)。仓库页面用于托管源码，不能代替运行中的平台。推荐的本地浏览器、隔离和性能记录见 [v2.1 验证](docs/RESUME_VERIFICATION.md)；此前 OLAP、导出与本机 Gunicorn smoke 保留在 [v2.0 验证记录](docs/V2_VERIFICATION.md)。
 
 **Group 11** · OU JUNHANG · ZHANG XIQIAN · JIANG YIFAN · CAI SHANGHENG · GUO ZHENGKUN
 INT6181 Applied Programming with Python 课程项目。
@@ -84,7 +86,9 @@ Windows 可使用 `py -m venv .venv`，随后运行 `.venv\Scripts\python -m pip
 
 ## 数据与保留功能
 
-JobsDB 是主要来源，平台内可直接更新岗位列表和详情；默认 50 条、最多 200 条，包含间隔、取消、过期标记和保留个人状态的更新逻辑。Remotive、Arbeitnow、CSV/JSON/HTML 导入与手动录入作为补充。没有实现登录态抓包、验证码绕过或 BOSS/猎聘等受限接口。数据有效性、签证、地域和薪资仍需在原站核实。
+JobsDB 是主要来源，平台通过 `JobSearchV7` 读取最新岗位列表及详情，默认 50 条、最多 200 条。按服务端实际页大小翻页，同批复用会话、串行限速；保留取消、过期标记、已完成结果和个人投递状态。关键词只筛选本批岗位的标题、公司及正文，不代表全站关键词检索。公开访客的更新仅写入自己的临时岗位库，不改写共享历史研究库。遇限流会有界等待，拒绝访问或验证页会停止；接口迁移不保证网站未来持续允许云端访问。
+
+Remotive、Arbeitnow、CSV/JSON/HTML 导入与手动录入作为补充。没有实现登录态抓包、验证码绕过或 BOSS/猎聘等受限接口。数据有效性、签证、地域和薪资仍需在原站核实。运维可显式运行 `python scripts/check_jobsdb.py --limit 1` 做联网检查，使用临时库且仅输出统计元信息；CI 不执行此命令。
 
 源码随附 2026-09-28 的历史 JobsDB 快照：6,939 条输入中 6,910 条通过校验，应用默认排除当时已过期的两条后导入 6,908 条。它是研究快照，不是当前在线招聘承诺。大型纵向原始研究库、个人数据库、OneDrive 压缩包均不公开打包。新电脑可直接分析随附快照，也可以由管理员配置自己的纵向研究库。
 

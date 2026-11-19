@@ -1,0 +1,22 @@
+{
+  "version": "2.1.1",
+  "checked_at": "2026-11-19T06:27:15+00:00",
+  "requested": 3,
+  "database": "disposable",
+  "keyword": "",
+  "online": true,
+  "status": "success",
+  "message": "已更新 3 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。",
+  "count": 3,
+  "found": 3,
+  "checked": 3,
+  "rejected": 0,
+  "unavailable": 0,
+  "expired": 0,
+  "pages": 1,
+  "search_total": 6981,
+  "search_api": "JobSearchV7",
+  "stop_code": null,
+  "stored_rows": 3,
+  "elapsed_seconds": 5.782
+}

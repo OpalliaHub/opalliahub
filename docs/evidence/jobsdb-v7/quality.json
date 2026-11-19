@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-11-19T06:25:59.226930+00:00",
+  "python": "3.8.10",
+  "mode": "full",
+  "cloud_ci_verified": false,
+  "commands": [
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "-m",
+        "doctest",
+        "-v",
+        "scripts/quality_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.117,
+      "log": "doctest.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "scripts/static_checks.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.083,
+      "log": "static_checks.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 3.046,
+      "log": "unittest.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "scripts/mutation_check.py",
+        "--output",
+        "<verification-output>/quality/mutations"
+      ],
+      "exit_code": 0,
+      "seconds": 1.803,
+      "log": "mutation.log"
+    },
+    {
+      "command": [
+        "<project>/.venv/bin/python",
+        "scripts/package_project.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.243,
+      "log": "package.log"
+    }
+  ],
+  "source": {
+    "scanned_files": 206,
+    "findings": [],
+    "scope": "Allowlisted source and Office XML; .env, private data, databases and symlinks are not read."
+  },
+  "syntax": {
+    "files": 62,
+    "errors": []
+  },
+  "package": {
+    "members": 230,
+    "sha256": "629eb3205627be0211d133112061a90ffa0e1aa5b49155a57481e2f25a5a8351",
+    "errors": []
+  },
+  "status": "passed"
+}

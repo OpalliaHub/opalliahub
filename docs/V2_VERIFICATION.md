@@ -1,6 +1,8 @@
 # v2 实现与验收记录
 
-当前源码已更新至 **2.1.0**；简历优势与岗位推荐的实际验证见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)。2026-11-19 的原生云服务、公网 HTTPS、完整研究迁移、公开 API/真实 AI、Safari 图表操作及 GitHub 五环境 CI 已实际验证，临时部署访问清理与清理后健康复核也已完成，见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)。后续文档提交以仓库历史为准。本版实际测试数量为 342；本轮未重新进行云端窄屏/导出测试。下面保留 2026-11-18 v2.0 的原始验收及其当时未部署状态，不将历史 306 项数量或旧状态冒充本轮结果。
+当前源码为 **2.1.1**。此次 JobsDB V7 适配包括会话复用、有界分页与重试、跨访客共享冷却、明确停止原因，以及本批关键词筛选范围说明；实际测试、真实联网及 GitHub/云端更新结果以 [JOBSDB_V7_VERIFICATION.md](JOBSDB_V7_VERIFICATION.md) 为准，不能沿用旧版测试数量或云端成功记录。
+
+此前 v2.1.0 的简历优势与岗位推荐验证见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)；2026-11-19 已观察的原生云服务、公网 HTTPS、完整研究迁移、公开 API/真实 AI、Safari 图表操作、GitHub 五环境 CI 及临时部署访问清理见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)。该记录中的 **342 项**属于当时 v2.1.0 的实际测试，不是 v2.1.1 的新计数；当时未重新进行云端窄屏/导出测试。以下保留 2026-11-18 v2.0 的原始验收及其当时未部署状态，不将历史 **306 项**或旧状态冒充当前结果。
 
 版本：2.0.0；记录日期：2026-11-18。本文记录已观察证据与剩余验收。**双 Python 版本各 306 项测试、质量门禁、真实本机 Gunicorn smoke，以及桌面/窄屏对话和三种导出均已验证**。历史 v1.3 证据保留在 [COURSE_VERIFICATION.md](COURSE_VERIFICATION.md)，原 Word/PDF/PPT 未在本轮重生成。
 

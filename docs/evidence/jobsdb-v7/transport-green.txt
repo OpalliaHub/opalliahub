@@ -1,0 +1,28 @@
+test_access_refusal_and_cloudflare_503_never_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cancel_before_request_and_during_rate_wait (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cancel_during_interval_prevents_next_request (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_closed_client_cannot_be_reused (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_cookie_processor_is_reused_and_cookie_cleared_on_close (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_exact_destination_rejects_other_hosts_paths_queries_and_credentials (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_fixed_origin_headers_and_same_identity_for_entire_batch (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_graphql_known_rate_errors_retry_but_other_errors_do_not (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_graphql_rate_message_and_mixed_errors (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_html_challenge_and_content_header_stop_without_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_invalid_json_utf8_and_top_level_do_not_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_long_retry_after_stops_without_retrying_early (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_network_failures_and_timeouts_have_safe_messages_and_no_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_only_explicit_transient_http_statuses_retry (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_progress_cancellation_stops_before_retry_wait (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_progress_reports_safe_wait (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_redirect_handler_rejects_even_same_origin_redirect (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_response_read_is_bounded_and_closed (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_retry_after_seconds_and_http_date (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_retry_attempts_capped_and_default_rate_wait_respected (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_retry_wait_budget_is_shared_across_batch (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_slow_request_is_not_followed_by_an_unnecessary_interval (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+test_transient_error_with_unlabelled_html_body_stops (tests.test_jobsdb_http.JobsDBHTTPTests) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.102s
+
+OK

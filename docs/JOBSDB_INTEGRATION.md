@@ -1,5 +1,7 @@
 # JobsDB 平台内直接更新（1.1）
 
+> 历史记录：以下为 2026-10-08 v1.1 的实现与当时验证。当前 v2.1.1 已迁移到 V7 接口、增加有界限流等待，并明确本批关键词筛选语义；使用现版本请阅读 [JobsDB V7 验证](JOBSDB_V7_VERIFICATION.md)，不要按下文旧接口和请求次数判断现状。
+
 日期：2026-10-08。本次按用户最新要求实现平台内直接采集，不读取或同步现有爬虫输出。原项目 `jobsdb-pipeline/crawler/jobsdb_crawler.py` 与 `jobsdb_job_details.py` 保持不变。
 
 ## 使用

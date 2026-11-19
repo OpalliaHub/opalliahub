@@ -1,6 +1,6 @@
 # JobCompass 软件需求与设计规格
 
-版本：**2.1.0**；修订：2026-11-19。本文描述当前代码与验收条件，不等同于已完成全部运行环境验收。新增推荐证据见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)，本轮云服务与 GitHub 的实际结果见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)，既有研究功能证据见 [V2_VERIFICATION.md](V2_VERIFICATION.md)。v1.3 的课程映射、验证报告及 2026-09-30 Word/PDF/PPT 保留为历史材料；此前缺失的原始大作业 DOCX 尚未重新核对，不能据此宣称全部课堂提交已完成。
+版本：**2.1.1**；修订：2026-11-19。本文描述当前代码与验收条件，不等同于已完成全部运行环境验收。此次 JobsDB V7 更新适配的实际测试、联网结果及发布状态单独记录于 [JOBSDB_V7_VERIFICATION.md](JOBSDB_V7_VERIFICATION.md)。简历推荐证据见 [RESUME_VERIFICATION.md](RESUME_VERIFICATION.md)，此前 v2.1.0 云服务与 GitHub 的实际结果见 [CLOUD_VERIFICATION.md](CLOUD_VERIFICATION.md)，既有研究功能证据见 [V2_VERIFICATION.md](V2_VERIFICATION.md)。v1.3 的课程映射、验证报告及 2026-09-30 Word/PDF/PPT 保留为历史材料；此前缺失的原始大作业 DOCX 尚未重新核对，不能据此宣称全部课堂提交已完成。
 
 ## 目标、运行模式与非目标
 
@@ -8,7 +8,7 @@
 
 本地模式仍通过 `main.py` 在回环地址运行，保存个人持久数据。公开模式使用同一业务应用与受控 HTTP 边界，访客无需注册或登录，通过随机 cookie 获得私有临时工作空间。共享岗位目录与只读研究索引可供访客分析；简历、备注、导入、AI 输出、结果文件和任务状态不得跨会话泄漏。
 
-范围包含本地与匿名公开部署，不包含用户账户/跨设备同步、自动投递、登录站点反爬绕过、OCR、招聘决策、真实技能认证、薪资标准化、因果推断或本地 LLM 训练。本轮原生 Python/systemd/Nginx 云服务已通过受信 IP 地址 HTTPS 健康检查；使用域名或受信 IP 证书都必须保留精确 HTTPS origin/Host 约束。Docker 镜像未构建，研究库迁移与云端业务验收的状态单独记录。单进程匿名状态设计不支持直接多 worker 或横向扩容。
+范围包含本地与匿名公开部署，不包含用户账户/跨设备同步、自动投递、登录站点反爬绕过、OCR、招聘决策、真实技能认证、薪资标准化、因果推断或本地 LLM 训练。此前 v2.1.0 原生 Python/systemd/Nginx 云服务已通过受信 IP 地址 HTTPS 健康检查；使用域名或受信 IP 证书都必须保留精确 HTTPS origin/Host 约束。Docker 镜像未构建，研究库迁移与云端业务验收的状态单独记录。单进程匿名状态设计不支持直接多 worker 或横向扩容。
 
 ## 保留需求 FR01–FR20
 
@@ -62,6 +62,21 @@ FR16 的预览/确认仅属于保留的单计划深度研究入口。**它不是
 
 `POST /api/recommendations` 仅使用当前访客已保存简历与偏好，接收结构化筛选选项并返回任务 ID。计算不调用 DeepSeek，也不自动向第三方传输简历；原有 DeepSeek 优势解读和润色入口保持独立的发送授权。公共模式另设推荐并发额度（默认 3 个，环境变量 JOBCOMPASS_RECOMMEND_ACTIVE），在复制岗位集前准入，每 IP 每小时 30 次、全局 300 次，不占 AI 调用额度。推荐结果只保存在当前访客后台任务和页面内存，不写共享数据库。新个性化分数和保留的岗位检索基础分数明确区分，均不是录用概率。
 
+### v2.1.1 JobsDB V7 平台更新
+
+| ID | 功能与验收条件 | 实现与验证入口 |
+| --- | --- | --- |
+| FR34 | 采用用户提供爬虫的 V7 搜索与 GraphQL 详情流程；每批会话保持一致，有界分页、请求间隔及重试；供应方要求的冷却跨公开访客保留，拒绝访问或验证页面明确停止 | `jobsdb.py`、`jobsdb_http.py`、`Store` / `SessionStore` 冷却方法；`test_jobsdb_v7.py`、`test_jobsdb_http.py`、`test_jobsdb_public.py` |
+| FR35 | 可选关键词仅在本批取得的岗位标题、公司和正文中做不区分大小写的子串筛选；界面及结果明确说明范围、未命中数量和可能少于读取上限的结果 | `jobsdb.options`、`jobsdb.collect`、`static/index.html`；JobsDB 专用测试及 [更新验证](JOBSDB_V7_VERIFICATION.md) |
+
+保留 `POST /api/jobsdb/update` 与原有任务、取消入口，不新增公开管理路由。搜索使用固定的香港 JobsDB GraphQL 地址、资讯科技/工程/会计三个类别和发布时间排序；单批复用一个 Cookie 会话与会话标识，并沿用供应方返回的 `searchToken` / `filterNewSince`。分页结构、页码、岗位编号与上下文必须通过验证；重复页、无效结构或超限均明确停止，不把错误响应记成“没有岗位”。每批最多读取 **20 页搜索、200 个岗位详情**，未达到上限不代表全站数据已完整获取。
+
+传输使用标准库 HTTPS，会话仅请求固定的 `https://hk.jobsdb.com/graphql`，不跟随重定向。连续请求开始时间至少间隔 **1.5 秒**；仅 HTTP **429/502/503/504** 或全部属于已识别限流类型的 GraphQL 错误允许重试，每个逻辑请求最多 **3 次 HTTP 尝试**。遵循可解析的 `Retry-After`，一次重试等待最多 **60 秒**、整批重试等待累计最多 **90 秒**；超过预算即停止，不能缩短供应方要求的等待后继续请求。HTTP 401/403、HTML/浏览器验证页面及其他查询错误不自动重试，不旋转身份、执行验证码或绕过登录/浏览器验证。
+
+单进程全局锁避免重叠采集；持久化的 **60 秒尝试间隔**及最终停止时供应方提供的可解析延期均由共享 Store 协调，公开访客切换临时会话不能跳过冷却。等待可取消，取消后不发起后续请求；已取得的有效岗位可以保留为部分结果。受限搜索中未出现的旧岗位不能据此被标成过期，原投递备注及历史保留。
+
+用户爬虫没有提供已验证的 V7 全站关键词参数，因此 `keyword` 不发送为猜测的搜索字段。平台按 `casefold()` 后的字面子串匹配本批岗位的标题、公司及正文；例如读取 50 个最新详情后仅保留其中命中的岗位，不继续扩展搜索直到凑满 50 个匹配结果。结果报告读取数、未命中数、保存数及停止原因，空结果不能解释成全站不存在对应职位。公开模式下结果仍写入当前访客岗位库，不改变共享目录或只读历史研究源，也不把实时小批采集追加为纵向 benchmark 快照。
+
 ### OLAP 指令
 
 `validate_query` 只接受 `dataset`、`dimensions`、`measure`、`concept`、`filters`、`exact_filters`、`dedup`、`limit`、`sort`。数据集为 `research` 或 `current`；维度从 `month/quarter/year/sector/location` 选一或二个且不能重复；指标为 `ads/employers/mentions/share_pct`；探针从现有词典选择；去重为 `id/family`；分组显示上限 1–100；排序为 `label/value_desc`。
@@ -92,7 +107,7 @@ FR16 的预览/确认仅属于保留的单计划深度研究入口。**它不是
 | NFR06 | 重要新行为有真实测试先行、属性/变异和集成证据 | `tests/`、`scripts/`、版本验证记录 |
 | NFR07 | 样本来源、分母、断档与人工建议清晰区分 | metadata、结果说明和 UI |
 | NFR08 | 排名只缓存最后完整输入，失效与深复制正确 | `ranking_cache.py`、缓存测试 |
-| NFR09 | 仅 HTTP 429/502/503/504 有界重试，最多三次；不自动修复无效模型输出 | `retry.py`、重试测试 |
+| NFR09 | 通用 HTTP/AI 请求仅对 429/502/503/504 有界重试，最多三次；不自动修复无效模型输出；JobsDB 专用重试另见 FR34 | `retry.py`、重试测试 |
 | NFR10 | 公共会话私有隔离、忙任务保留、闲置清理、重启旧凭据失效 | `SessionManager`、跨会话与生命周期测试 |
 | NFR11 | 公开配置强制 HTTPS origin、明确 Host 和受信代理；cookie 为 Secure/HttpOnly/SameSite=Strict | `PublicConfig`、代理配置、公共 HTTP 测试；真实 TLS 与续期演练见 `CLOUD_VERIFICATION.md`，最终业务检查单列 |
 | NFR12 | 请求/会话创建/AI 任务有容量及速率边界；任务完成/失败释放并发位 | 限额器、任务队列、公共集成测试 |

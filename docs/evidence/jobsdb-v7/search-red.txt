@@ -1,0 +1,101 @@
+test_bad_pagination_or_ids_stop_without_detail_calls (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_changed_page_size_or_repeated_page_does_not_silently_succeed (tests.test_jobsdb_v7.JobsDBV7Tests) ... FAIL
+test_explicit_missing_detail_is_unavailable_but_broken_schema_stops (tests.test_jobsdb_v7.JobsDBV7Tests) ... ERROR
+test_in_process_collection_lock_releases_after_error (tests.test_jobsdb_v7.JobsDBV7Tests) ... FAIL
+test_missing_or_unsafe_context_stops_before_next_page (tests.test_jobsdb_v7.JobsDBV7Tests) ... ok
+test_search_uses_v7_fixed_categories_and_same_session_as_details (tests.test_jobsdb_v7.JobsDBV7Tests) ... ERROR
+test_server_page_size_and_context_drive_more_than_two_pages (tests.test_jobsdb_v7.JobsDBV7Tests) ... ERROR
+test_zero_results_preserve_existing_jobs (tests.test_jobsdb_v7.JobsDBV7Tests) ... ERROR
+
+======================================================================
+ERROR: test_explicit_missing_detail_is_unavailable_but_broken_schema_stops (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 106, in test_explicit_missing_detail_is_unavailable_but_broken_schema_stops
+    result, _ = self.run_collect([search(['12345678']), {'data': {'jobDetails': None}}], limit=1)
+  File "<project>/tests/test_jobsdb_v7.py", line 32, in run_collect
+    result = collect(self.store, cancel=kwargs.pop('cancel', ImmediateEvent()), **kwargs)
+  File "<project>/jobcompass/jobsdb.py", line 158, in collect
+    raise ValueError(message)
+ValueError: 已更新 0 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。 本次已停止：JobsDB 列表格式已变化，未写入无效数据。
+
+======================================================================
+ERROR: test_search_uses_v7_fixed_categories_and_same_session_as_details (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 36, in test_search_uses_v7_fixed_categories_and_same_session_as_details
+    result, request = self.run_collect([search(['12345678']), fixture()], limit=1)
+  File "<project>/tests/test_jobsdb_v7.py", line 32, in run_collect
+    result = collect(self.store, cancel=kwargs.pop('cancel', ImmediateEvent()), **kwargs)
+  File "<project>/jobcompass/jobsdb.py", line 158, in collect
+    raise ValueError(message)
+ValueError: 已更新 0 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。 本次已停止：JobsDB 列表格式已变化，未写入无效数据。
+
+======================================================================
+ERROR: test_server_page_size_and_context_drive_more_than_two_pages (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 51, in test_server_page_size_and_context_drive_more_than_two_pages
+    result, request = self.run_collect(responses + [fixture(jid) for jid in ids], limit=7)
+  File "<project>/tests/test_jobsdb_v7.py", line 32, in run_collect
+    result = collect(self.store, cancel=kwargs.pop('cancel', ImmediateEvent()), **kwargs)
+  File "<project>/jobcompass/jobsdb.py", line 158, in collect
+    raise ValueError(message)
+ValueError: 已更新 0 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。 本次已停止：JobsDB 列表格式已变化，未写入无效数据。
+
+======================================================================
+ERROR: test_zero_results_preserve_existing_jobs (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 62, in test_zero_results_preserve_existing_jobs
+    result, request = self.run_collect([search()])
+  File "<project>/tests/test_jobsdb_v7.py", line 32, in run_collect
+    result = collect(self.store, cancel=kwargs.pop('cancel', ImmediateEvent()), **kwargs)
+  File "<project>/jobcompass/jobsdb.py", line 158, in collect
+    raise ValueError(message)
+ValueError: 已更新 0 条 JobsDB 岗位（其中 0 条已过期），跳过 0 条无效及 0 条不可用详情。 本次已停止：JobsDB 列表格式已变化，未写入无效数据。
+
+======================================================================
+FAIL: test_changed_page_size_or_repeated_page_does_not_silently_succeed (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 96, in test_changed_page_size_or_repeated_page_does_not_silently_succeed
+    self.assertEqual(request.call_count, 2)
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_in_process_collection_lock_releases_after_error (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+ValueError: JobsDB 更新请求至少间隔 60 秒，请稍后再试。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 120, in test_in_process_collection_lock_releases_after_error
+    collect(self.store, limit=1, cancel=ImmediateEvent())
+  File "<project>/jobcompass/jobsdb.py", line 91, in collect
+    payload = read_json(SEARCH_URL + '?' + urlencode(params))
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1146, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "<project>/tests/test_jobsdb_v7.py", line 117, in during
+    collect(other, limit=1, cancel=ImmediateEvent())
+  File "<project>/jobcompass/jobsdb.py", line 91, in collect
+    payload = read_json(SEARCH_URL + '?' + urlencode(params))
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1146, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "<project>/tests/test_jobsdb_v7.py", line 117, in during
+    collect(other, limit=1, cancel=ImmediateEvent())
+AssertionError: "正在.*更新|更新.*进行" does not match "JobsDB 更新请求至少间隔 60 秒，请稍后再试。"
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.123s
+
+FAILED (failures=2, errors=4)

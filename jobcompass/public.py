@@ -23,7 +23,7 @@ from urllib.robotparser import RobotFileParser
 from .storage import Store
 from .sources import AGENT, parse_jsonld, validate_url
 
-SHARED_SETTINGS = frozenset({'research_source', 'research_index', 'jobsdb_last_attempt'})
+SHARED_SETTINGS = frozenset({'research_source', 'research_index', 'jobsdb_last_attempt', 'jobsdb_retry_not_before'})
 JOB_COLUMNS = ('id','source','title','company','location','salary','url','description','skills',
                'published_at','collected_at','is_demo','remote','expires_at','availability','last_live_checked')
 COOKIE_NAME = 'jobcompass_session'
@@ -95,6 +95,9 @@ class SessionStore:
 
     def reserve_jobsdb_attempt(self, stamp):
         return self.base.reserve_jobsdb_attempt(stamp)
+
+    def defer_jobsdb_attempt(self, seconds):
+        return self.base.defer_jobsdb_attempt(seconds)
 
     def application_history(self, action):
         return self.private.application_history(action)

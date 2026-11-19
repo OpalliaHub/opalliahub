@@ -1,9 +1,10 @@
 """SQLite repository with parameterized queries and transactional upserts."""
 import hashlib
 import json
+import math
 import sqlite3
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 
 def now():
@@ -93,10 +94,28 @@ class Store:
     def reserve_jobsdb_attempt(self, stamp):
         with self.connection() as con:
             con.execute('BEGIN IMMEDIATE')
+            until = con.execute("SELECT value FROM settings WHERE key='jobsdb_retry_not_before'").fetchone()
+            if until and datetime.fromisoformat(stamp) < datetime.fromisoformat(json.loads(until[0])):
+                raise ValueError('JobsDB 要求的冷却时间尚未结束，请稍后再试。')
             row = con.execute("SELECT value FROM settings WHERE key='jobsdb_last_attempt'").fetchone()
             if row and (datetime.fromisoformat(stamp) - datetime.fromisoformat(json.loads(row[0]))).total_seconds() < 60:
                 raise ValueError('JobsDB 更新请求至少间隔 60 秒，请稍后再试。')
             con.execute("INSERT INTO settings VALUES ('jobsdb_last_attempt',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value", (json.dumps(stamp),))
+
+    def defer_jobsdb_attempt(self, seconds):
+        """Persist a provider wait across visitors/restarts; never shorten it."""
+        if isinstance(seconds, bool) or not isinstance(seconds, (int, float)) or not math.isfinite(seconds) or seconds < 0:
+            raise ValueError('JobsDB 冷却时间无效。')
+        try:
+            until = datetime.now(timezone.utc) + timedelta(seconds=seconds)
+        except OverflowError:
+            until = datetime.max.replace(tzinfo=timezone.utc)
+        with self.connection() as con:
+            con.execute('BEGIN IMMEDIATE')
+            row = con.execute("SELECT value FROM settings WHERE key='jobsdb_retry_not_before'").fetchone()
+            if row:
+                until = max(until, datetime.fromisoformat(json.loads(row[0])))
+            con.execute("INSERT INTO settings VALUES ('jobsdb_retry_not_before',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value", (json.dumps(until.isoformat()),))
 
     def jobs(self):
         with self.connection() as con:

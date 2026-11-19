@@ -1,0 +1,31 @@
+test_provider_retry_after_persists_between_connections (tests.test_jobsdb_v7.JobsDBV7Tests) ... ERROR
+
+======================================================================
+ERROR: test_provider_retry_after_persists_between_connections (tests.test_jobsdb_v7.JobsDBV7Tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<project>/jobcompass/jobsdb.py", line 155, in _collect
+    payload = read_json(SEARCH_URL, _search_body(session, page, size, token, since), client=client)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "<python38>/lib/python3.8/unittest/mock.py", line 1140, in _execute_mock_call
+    raise effect
+jobcompass.jobsdb_http.JobsDBError: JobsDB 暂时限制请求频率，本次等待或重试额度已用尽，请稍后更新。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<project>/tests/test_jobsdb_v7.py", line 139, in test_provider_retry_after_persists_between_connections
+    with self.assertRaises(ValueError): collect(self.store, cancel=ImmediateEvent())
+  File "<project>/jobcompass/jobsdb.py", line 126, in collect
+    return _collect(store, settings, progress, cancel)
+  File "<project>/jobcompass/jobsdb.py", line 217, in _collect
+    store.defer_jobsdb_attempt(exc.retry_after)
+AttributeError: 'Store' object has no attribute 'defer_jobsdb_attempt'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.025s
+
+FAILED (errors=1)

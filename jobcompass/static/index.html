@@ -219,13 +219,14 @@
 </div>
 <article class="panel jobsdb-primary">
 <div class="section-title"><div><span class="pill">主要岗位来源</span><h2>JobsDB 香港</h2></div><a href="https://hk.jobsdb.com" target="_blank" rel="noopener noreferrer">访问原站 ↗</a></div>
-<p class="muted">在平台内直接更新，无需运行外部脚本或同步文件。沿用你的爬虫中三个岗位类别的范围，按最新发布时间采集。</p>
+<p class="muted">在平台内读取 JobsDB 最新岗位，覆盖资讯科技、工程和教育三个类别，按发布时间排序。采集结果保存在当前访客的岗位库，历史研究库保持原始口径。</p>
 <div class="form-grid">
-<label class="field">关键词（可选）<input id="jobsdb-keyword" maxlength="100" placeholder="例如 Python、data analyst；留空更新全部选定类别"></label>
-<label class="field">本次最多更新<select id="jobsdb-limit"><option value="20">20 条 · 快速查看</option><option value="50" selected>50 条 · 推荐</option><option value="100">100 条</option><option value="200">200 条</option></select></label>
+<label class="field">本批关键词筛选（可选）<input id="jobsdb-keyword" maxlength="100" aria-describedby="jobsdb-filter-help" placeholder="例如 Python；留空保留本批全部岗位"></label>
+<label class="field">本次最多读取<select id="jobsdb-limit"><option value="20">20 条 · 快速查看</option><option value="50" selected>50 条 · 推荐</option><option value="100">100 条</option><option value="200">200 条</option></select></label>
 </div>
+<p id="jobsdb-filter-help" class="small muted">关键词在本批最新岗位的标题、公司及正文中筛选，不是全站关键词搜索；匹配结果可能少于读取数量。</p>
 <div class="action-row"><button id="update-jobsdb" class="button primary">更新 JobsDB 岗位</button><button id="cancel-jobsdb" class="button secondary" hidden>停止更新</button></div>
-<p class="small muted">逐条读取详情，通常需要几分钟。重复岗位更新内容并保留投递备注；本次未出现的岗位不会被自动删除。</p>
+<p class="small muted">逐条读取详情，通常需要几分钟。限流时会显示等待进度；网站要求验证或拒绝访问时停止，并保留已完成的数据和投递备注。本次未出现的岗位不会自动删除。</p>
 <div id="jobsdb-run-status" role="status" aria-live="polite" class="jobsdb-run-status">尚未在线更新。历史数据仍可离线使用。</div>
 </article>
 <h2>补充岗位来源</h2>

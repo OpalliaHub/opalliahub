@@ -12,13 +12,7 @@ from jobcompass.jobsdb import collect, options, expiry_status, read_json
 from jobcompass.server import Application, Tasks
 from jobcompass.storage import Store
 from tests.test_benchmark import fixture
-
-
-class ImmediateEvent:
-    def __init__(self): self.stopped = False
-    def wait(self, seconds): return self.stopped
-    def is_set(self): return self.stopped
-    def set(self): self.stopped = True
+from tests.jobsdb_fixtures import search, ImmediateEvent
 
 
 class JobsDBTests(unittest.TestCase):
@@ -36,20 +30,21 @@ class JobsDBTests(unittest.TestCase):
             with self.subTest(n=n), self.assertRaises(ValueError): options({'limit':n})
         with self.assertRaises(ValueError): options({'keyword': 'x'*101})
 
-    def test_list_dedup_and_detail_id_fallback(self):
+    def test_list_dedup_and_detail_id(self):
         result, request = self.run_collect([
-            {'data':[{'id':'12345678'},{'id':'12345678'},{'solMetadata':{'jobId':'87654321'}}]},
+            search(['12345678', '12345678', '87654321']),
             fixture(), fixture('87654321')], limit=2, keyword='Python')
         self.assertEqual(result['count'], 2)
         self.assertEqual(request.call_count, 3)
-        self.assertIn('keywords=Python', request.call_args_list[0].args[0])
+        self.assertEqual(result['keyword'], 'Python')
+        self.assertEqual(result['filtered_out'], 0)
         self.assertNotIn('cookie', str(request.call_args_list).lower())
 
     def test_live_update_reuses_snapshot_id_and_preserves_application(self):
         self.store.upsert_jobs([convert_record(fixture())])
         old = self.store.jobs()[0]
         self.store.application(old['id'], '面试中', 'original note')
-        self.run_collect([{'data':[{'id':'12345678'}]}, fixture()], limit=1)
+        self.run_collect([search(['12345678']), fixture()], limit=1)
         new = self.store.jobs()[0]
         self.assertEqual(new['id'], old['id'])
         self.assertEqual(new['note'], 'original note')
@@ -60,7 +55,7 @@ class JobsDBTests(unittest.TestCase):
         self.assertEqual(self.store.jobs()[0]['source'], 'JobsDB')
 
     def test_partial_failure_preserves_completed_jobs_and_stops(self):
-        result, request = self.run_collect([{'data':[{'id':'12345678'},{'id':'87654321'}]},
+        result, request = self.run_collect([search(['12345678', '87654321']),
             fixture(), ValueError('HTTP 429')], limit=2)
         self.assertEqual(result['status'], 'partial')
         self.assertEqual(result['count'], 1)
@@ -76,16 +71,16 @@ class JobsDBTests(unittest.TestCase):
         self.assertEqual(self.store.get('jobsdb_last_run')['status'], 'error')
 
     def test_id_mismatch_not_written(self):
-        result, _ = self.run_collect([{'data':[{'id':'12345678'}]}, fixture('87654321')], limit=1)
+        result, _ = self.run_collect([search(['12345678']), fixture('87654321')], limit=1)
         self.assertEqual(result['rejected'], 1)
         self.assertEqual(self.store.jobs(), [])
 
     def test_missing_details_skipped(self):
-        result, _ = self.run_collect([{'data':[{'id':'12345678'}]}, {'data':{'jobDetails':None}}], limit=1)
+        result, _ = self.run_collect([search(['12345678']), {'data':{'jobDetails':None}}], limit=1)
         self.assertEqual(result['unavailable'], 1)
 
     def test_expired_record_saved_for_tracker(self):
-        result, _ = self.run_collect([{'data':[{'id':'12345678'}]}, fixture(expired=True)], limit=1)
+        result, _ = self.run_collect([search(['12345678']), fixture(expired=True)], limit=1)
         self.assertEqual(result['expired'], 1)
         self.assertEqual(self.store.jobs()[0]['availability'], 'expired')
 
@@ -98,7 +93,7 @@ class JobsDBTests(unittest.TestCase):
         event = ImmediateEvent()
         def progress(**data):
             if data.get('saved') == 1: event.set()
-        result, request = self.run_collect([{'data':[{'id':'12345678'},{'id':'87654321'}]}, fixture()],
+        result, request = self.run_collect([search(['12345678', '87654321']), fixture()],
                                           limit=2, cancel=event, progress=progress)
         self.assertEqual(result['status'], 'cancelled')
         self.assertEqual(result['count'], 1)
@@ -106,21 +101,23 @@ class JobsDBTests(unittest.TestCase):
 
     def test_empty_search_does_not_remove_existing_records(self):
         self.store.upsert_jobs([convert_record(fixture())])
-        result, _ = self.run_collect([{'data':[]}])
+        result, _ = self.run_collect([search()])
         self.assertEqual(result['found'], 0)
         self.assertEqual(len(self.store.jobs()), 1)
 
     def test_attempt_cooldown_persists_across_connections(self):
-        self.run_collect([{'data':[]}])
+        self.run_collect([search()])
         other = Store(Path(self.tmp.name)/'jobs.db')
         with patch('jobcompass.jobsdb.read_json') as request:
             with self.assertRaisesRegex(ValueError, '60'): collect(other)
         request.assert_not_called()
 
     def test_broken_graphql_is_not_success(self):
-        for payload in ['bad json', '[]', '{"errors":[{"message":"no access"}]}']:
-            with self.subTest(payload=payload), patch('jobcompass.jobsdb.fetch', return_value=payload):
-                with self.assertRaises(ValueError): read_json('https://hk.jobsdb.com/graphql')
+        with patch('jobcompass.jobsdb.JobsDBClient') as client:
+            connection = client.return_value.__enter__.return_value
+            connection.read_json.side_effect = ValueError('JobsDB 查询接口返回错误')
+            with self.assertRaises(ValueError): read_json('https://hk.jobsdb.com/graphql')
+            client.return_value.__exit__.assert_called_once()
 
     def test_default_initialization_uses_jobsdb(self):
         with patch('jobcompass.server.import_snapshot') as seed:
